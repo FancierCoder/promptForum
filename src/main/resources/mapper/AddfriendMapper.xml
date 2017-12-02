@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swordForum.mapper.AddfriendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.swordForum.model.Addfriend">
+        <id column="aid" property="aid"/>
+        <result column="fromuid" property="fromuid"/>
+        <result column="touid" property="touid"/>
+        <result column="addtime" property="addtime"/>
+        <result column="staus" property="staus"/>
+        <result column="flag" property="flag"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        aid, fromuid, touid, addtime, staus, flag
+    </sql>
+
+    <update id="finishAddFriend">
+        UPDATE addfriend
+        SET flag = 2
+        WHERE fromuid = #{fromuid} AND touid = #{touid}
+    </update>
+    <update id="acceptAddFriend">
+        UPDATE addfriend
+        SET staus = '接受', flag = 1
+        WHERE fromuid = #{fromuid} AND touid = #{touid}
+    </update>
+    <update id="rejectAddFriend">
+        UPDATE addfriend
+        SET staus = '拒绝', flag = 1
+        WHERE fromuid = #{fromuid} AND touid = #{touid};
+    </update>
+
+</mapper>

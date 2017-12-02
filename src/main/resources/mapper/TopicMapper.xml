@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swordForum.mapper.TopicMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.swordForum.model.Topic">
+        <id column="tid" property="tid"/>
+        <result column="tsid" property="tsid"/>
+        <result column="tuid" property="tuid"/>
+        <result column="ttopic" property="ttopic"/>
+        <result column="tcontent" property="tcontent"/>
+        <result column="ttime" property="ttime"/>
+        <result column="treplaycount" property="treplaycount"/>
+        <result column="tclickcount" property="tclickcount"/>
+        <result column="tlastclicktime" property="tlastclicktime"/>
+        <result column="tstaus" property="tstaus"/>
+        <result column="tzan" property="tzan"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tid, tsid, tuid, ttopic, tcontent, ttime, treplaycount, tclickcount, tlastclicktime, tstaus, tzan
+    </sql>
+
+</mapper>

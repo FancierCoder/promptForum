@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mapper.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry
+            location="e:\repository\mysql\mysql-connector-java\6.0.6\mysql-connector-java-6.0.6.jar"/>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- 注释生成规则 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/sword?serverTimezone=UTC" userId="root"
+                        password="root">
+            <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.swordForum.model" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.swordForum.mapper" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table tableName="addfriend" domainObjectName="AddFriend"/>
+        <table tableName="comment" domainObjectName="Comment"/>
+        <table tableName="concern" domainObjectName="Concern"/>
+        <table tableName="dz" domainObjectName="Dz"/>
+        <table tableName="friend" domainObjectName="Friend"/>
+        <table tableName="logtable" domainObjectName="LogTable"/>
+        <table tableName="manage" domainObjectName="Manage"/>
+        <table tableName="section" domainObjectName="Section"/>
+        <table tableName="sixin" domainObjectName="SinXin"/>
+        <table tableName="topic" domainObjectName="Topic"/>
+        <table tableName="user" domainObjectName="User"/>
+        <table tableName="yqlj" domainObjectName="Yqlj"/>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <!-- <table tableName="course_info" domainObjectName="CourseInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="course_user_info" domainObjectName="CourseUserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+    </context>
+</generatorConfiguration>

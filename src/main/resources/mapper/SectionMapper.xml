@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swordForum.mapper.SectionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.swordForum.model.Section">
+        <id column="sid" property="sid"/>
+        <result column="sname" property="sname"/>
+        <result column="smasterid" property="smasterid"/>
+        <result column="sstatement" property="sstatement"/>
+        <result column="sshortsm" property="sshortsm"/>
+        <result column="sclickcount" property="sclickcount"/>
+        <result column="stopiccount" property="stopiccount"/>
+        <result column="sparentname" property="sparentname"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sid, sname, smasterid, sstatement, sshortsm, sclickcount, stopiccount, sparentname
+    </sql>
+
+    <select id="getParentName" resultType="java.lang.String">
+        SELECT DISTINCT sparentname FROM section;
+    </select>
+    <select id="selectAllTopicSum" resultType="java.lang.Long">
+        SELECT SUM(stopiccount) FROM section;
+    </select>
+    <select id="selectMaxClickSid" resultType="java.lang.Long">
+        SELECT sid FROM section WHERE sclickcount=(SELECT MAX(sclickcount)FROM section) ;
+    </select>
+
+</mapper>
