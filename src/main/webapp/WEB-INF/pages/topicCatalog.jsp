@@ -36,7 +36,8 @@
                         <div class="row">
                             <c:if test="${tcvos==null || fn:length(tcvos) ==0}">
                                 <div class=" col-lg-6 col-lg-offset-3 ">
-                                    <h3>这里还没来人创建帖子，赶紧来<a href="/form_editors.html?sid=${sid}">创建</a>一个吧</h3>
+                                    <h3>这里还没来人创建帖子，赶紧来<a href="${staticPath}/form_editors.html?sid=${sid}">创建</a>一个吧
+                                    </h3>
                                 </div>
                             </c:if>
                             <c:if test="${tcvos!=null && fn:length(tcvos) !=0}">
@@ -54,10 +55,10 @@
                                                     </h2>
                                                 </a>
                                                 <div class="small m-b-xs">
-                                                    <a href="/showUser/${item.tuid}" class="pull-left">
+                                                    <a href="${staticPath}/showUser/${item.tuid}" class="pull-left">
                                                         <img alt="image" class="img-circle"
                                                              style="width: 38px;height: 38px;"
-                                                             src="/img/${item.headimg}">
+                                                             src="${staticPath}/img/${item.headimg}">
                                                     </a>
 
                                                     <strong style="margin-left: 5px;margin-bottom: 0px">${item.uNickName}</strong> </span>
@@ -111,7 +112,7 @@
         }(),
         jump: function (e, first) { //触发分页后的回调
             if (!first) { //一定要加此判断，否则初始时会无限刷新
-                location.href = '/show/topicCatalog?sid=${sid}&&page=' + e.curr;
+                location.href = '${staticPath}/show/topicCatalog?sid=${sid}&&page=' + e.curr;
             }
         }
     });
