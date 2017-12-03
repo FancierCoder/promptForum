@@ -67,21 +67,21 @@ public class CommentController {
             CommentVo rootcomment = comment2Vo(c, userMapper);
             //根据根评论的cid来查出里面的子评论
             Long cid = c.getCid();
-            Map<String, Object> rootdirectmap = new HashMap<String, Object>();
+            Map<String, Object> rootdirectmap = new HashMap<>();
             rootdirectmap.put("rootcid", cid);
             rootdirectmap.put("parentuid", 0L);
             List<Comment> rootdirects = commentMapper.selectByMap(rootdirectmap);//根评论下的直接评论
-            List<CommentVo> root_directcomment = new ArrayList<CommentVo>();
+            List<CommentVo> root_directcomment = new ArrayList<>();
             for (Comment c2 : rootdirects) {
                 CommentVo onedirect = comment2Vo(c2, userMapper);
                 root_directcomment.add(onedirect);
             }
             //非直接评论
-            Map<String, Object> root_Ndirectmap = new HashMap<String, Object>();
+            Map<String, Object> root_Ndirectmap = new HashMap<>();
             root_Ndirectmap.put("ctid", tid);
             root_Ndirectmap.put("rootcid", cid);
             List<Comment> root_Ndirect = commentMapper.selectNdirect(root_Ndirectmap);
-            List<CommentVo> root_Ndirectcomment = new ArrayList<CommentVo>();
+            List<CommentVo> root_Ndirectcomment = new ArrayList<>();
             for (Comment c3 : root_Ndirect) {
                 CommentVo oneNdirect = comment2Vo(c3, userMapper);
                 System.err.println(oneNdirect.getCid() + " " + oneNdirect.getContent() + " " + oneNdirect.getParentcid());

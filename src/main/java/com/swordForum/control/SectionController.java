@@ -29,7 +29,7 @@ public class SectionController {
     @Resource
     private SectionMapper sectionMapper;
 
-    @RequestMapping("/toIndex")
+    @RequestMapping("/Index")
     public String getAllSection(Map map) {
         List<String> parentName = sectionMapper.getParentName();
         List<SectionVo> sectionVoList = new ArrayList<>(parentName.size());

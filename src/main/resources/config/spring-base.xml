@@ -12,7 +12,7 @@
     <!--引入JDBC配置文件-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!--数据源-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <property name="url" value="${jdbc.url}"/>
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="username" value="${jdbc.username}"/>

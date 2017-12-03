@@ -4,11 +4,29 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.swordForum">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation"
-                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-    </context:component-scan>
+    <context:component-scan base-package="com.swordForum.control"/>
+
+    <context:annotation-config/>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- 配置Fastjson支持 -->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <value>WriteMapNullValue</value>
+                        <value>QuoteFieldNames</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
@@ -27,6 +45,5 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <mvc:annotation-driven/>
-    <mvc:default-servlet-handler/>
+    <!--<mvc:default-servlet-handler/>-->
 </beans>

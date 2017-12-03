@@ -38,7 +38,7 @@
             <div class="ibox ">
                 <div class="ibox-content text-left">
                     <div class="m-b-xxs">
-                        <a href="${staticPath}/WEB-INF/pages/forum_main.jsp" class="loadnav">home</a>&nbsp;/
+                        <a href="${staticPath}/section/Index" class="loadnav">主页</a>&nbsp;/
                         <a href="${staticPath}/show/topicCatalog?sid=${sectionid} &&page=1"
                            class="loadnav"> ${sectionname}</a>&nbsp;/
                         <span class="topichead">${topic.tTopic}</span>
@@ -50,7 +50,7 @@
             <div class="social-feed-separated">
                 <div class="social-avatar">
                     <a href="${staticPath}/showUser/${topic.tuid}">
-                        <img alt="image" src="/img/${topic.headimg}">
+                        <img alt="image" src="${staticPath}/img/${topic.headimg}">
                     </a>
                 </div>
                 <div class="social-feed-box">
@@ -89,14 +89,14 @@
                                 <div class="social-comment">
 
                                     <div class="media-body">
-                                        请先<a href="/login.html">登录</a>再评论
+                                        请先<a href="${staticPath}/login.html">登录</a>再评论
                                     </div>
                                 </div>
                             </c:if>
                             <c:if test="${sessionScope.user!=null}">
                                 <div class="social-comment">
                                     <a class="pull-left">
-                                        <img alt="image" src="/img/${sessionScope.user.headimg}"/>
+                                        <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/>
                                     </a>
                                     <div class="media-body">
                                         <textarea class="form-control rootcontent" placeholder="填写评论..."></textarea>
@@ -114,11 +114,11 @@
                         <c:forEach items="${comment}" var="single">
                             <!--根评论开始-->
                             <div class="social-comment" rootcid="${single.rootcomment.cid}">
-                                <a href="/showUser/${single.rootcomment.uid}" class="pull-left">
-                                    <img alt="image" src="/img/${single.rootcomment.headimg}">
+                                <a href="${staticPath}/showUser/${single.rootcomment.uid}" class="pull-left">
+                                    <img alt="image" src="${staticPath}/img/${single.rootcomment.headimg}">
                                 </a>
                                 <div class="media-body" id="${single.rootcomment.cid}">
-                                    <a href="/showUser/${single.rootcomment.uid}">
+                                    <a href="${staticPath}/showUser/${single.rootcomment.uid}">
                                             ${single.rootcomment.nickname}
                                     </a>
                                         ${single.rootcomment.content}
@@ -134,11 +134,11 @@
                                 <c:if test="${single.root_directcomment !=null && fn:length(single.root_directcomment)!=0}">
                                     <c:forEach items="${single.root_directcomment}" var="dire">
                                         <div class="social-comment">
-                                            <a href="/showUser/${dire.uid}" class="pull-left">
-                                                <img alt="image" src="/img/${dire.headimg}">
+                                            <a href="${staticPath}/showUser/${dire.uid}" class="pull-left">
+                                                <img alt="image" src="${staticPath}/img/${dire.headimg}">
                                             </a>
                                             <div cid="" class="media-body" directuid="${dire.uid}" id="${dire.cid}">
-                                                <a href="/showUser/${dire.uid}">
+                                                <a href="${staticPath}/showUser/${dire.uid}">
                                                         ${dire.nickname}
                                                 </a>
                                                     ${dire.content}
@@ -154,16 +154,16 @@
                                             <c:forEach items="${single.root_Ndirectcomment}" var="ndire">
                                                 <c:if test="${ ndire.parentcid eq dire.cid }">
                                                     <div class="social-comment">
-                                                        <a href="/showUser/${ndire.uid}" class="pull-left">
-                                                            <img alt="image" src="/img/${ndire.headimg}">
+                                                        <a href="${staticPath}/showUser/${ndire.uid}" class="pull-left">
+                                                            <img alt="image" src="${staticPath}/img/${ndire.headimg}">
                                                         </a>
                                                         <div class="media-body" directuid="${ndire.uid}"
                                                              id="${ndire.cid}">
-                                                            <a href="/showUser/${ndire.uid}">
+                                                            <a href="${staticPath}/showUser/${ndire.uid}">
                                                                     ${ndire.nickname}
                                                             </a>
                                                             &nbsp;<font color="#8b5de4">回复</font>
-                                                            <a href="/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
+                                                            <a href="${staticPath}/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
 
                                                                 ${ndire.content}
                                                             <br/>
@@ -186,7 +186,7 @@
                             <div class="social-comment">
 
                                 <div class="media-body">
-                                    请先<a href="/login.html">登录</a>再评论
+                                    请先<a href="${staticPath}/login.html">登录</a>再评论
                                 </div>
 
                             </div>
@@ -194,7 +194,7 @@
                         <c:if test="${sessionScope.user!=null}">
                             <div class="social-comment">
                                 <a class="pull-left">
-                                    <img alt="image" src="/img/${sessionScope.user.headimg}"/>
+                                    <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/>
                                 </a>
                                 <div class="media-body">
                                     <textarea class="form-control rootcontent" placeholder="填写评论..."></textarea>

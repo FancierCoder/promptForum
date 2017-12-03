@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <!DOCTYPE html>
 <script type="text/javascript">
-    window.location.href = 'section/toIndex';
+    window.location.href = 'section/Index';
 </script>
 <html>
 </html>
