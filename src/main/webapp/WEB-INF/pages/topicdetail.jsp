@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2016/11/22
-  Time: 17:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ include file="../../common/base.jsp" %>
 <html>
 
 <head>
@@ -19,12 +10,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
     <style type="text/css">
         .loadnav {
             color: #5fd3d4;
@@ -52,8 +38,9 @@
             <div class="ibox ">
                 <div class="ibox-content text-left">
                     <div class="m-b-xxs">
-                        <a href="/WEB-INF/pages/forum_main.jsp" class="loadnav">home</a>&nbsp;/
-                        <a href="/show/topicCatalog?sid=${sectionid} &&page=1" class="loadnav"> ${sectionname}</a>&nbsp;/
+                        <a href="${staticPath}/WEB-INF/pages/forum_main.jsp" class="loadnav">home</a>&nbsp;/
+                        <a href="${staticPath}/show/topicCatalog?sid=${sectionid} &&page=1"
+                           class="loadnav"> ${sectionname}</a>&nbsp;/
                         <span class="topichead">${topic.tTopic}</span>
                     </div>
                 </div>
@@ -62,14 +49,14 @@
             <%--帖子内容开始--%>
             <div class="social-feed-separated">
                 <div class="social-avatar">
-                    <a href="/showUser/${topic.tuid}">
+                    <a href="${staticPath}/showUser/${topic.tuid}">
                         <img alt="image" src="/img/${topic.headimg}">
                     </a>
                 </div>
                 <div class="social-feed-box">
 
                     <div class="social-avatar">
-                        <a href="/showUser/${topic.tuid}">
+                        <a href="${staticPath}/showUser/${topic.tuid}">
                             ${topic.uNickName}
                         </a>
                         <small class="text-muted">${topic.times}</small>
@@ -233,13 +220,6 @@
 </div>
 
 
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="/js/plugins/layer/layer.min.js"></script>
-<script type="text/javascript" src="/js/plugins/qqface/jquery.qqFace.js"></script>
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",

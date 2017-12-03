@@ -10,7 +10,7 @@
 <script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
-
+<script type="text/javascript" src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
 <!-- 自定义js -->
 <script src="${staticPath}/js/hAdmin.js?v=4.1.0"></script>
 <script src="${staticPath}/js/index.js"></script>

@@ -46,7 +46,8 @@
                                         <!-------------------------------------------------------------------------------------------->
                                         <div class="ibox">
                                             <div class="ibox-content">
-                                                <a href="/showTopicDetail/${item.tid}" class="btn-link">
+                                                <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                                   class="btn-link">
                                                     <h2>
                                                             ${item.tTopic}
 
