@@ -3,6 +3,8 @@
 <link href="${staticPath}/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 <link href="${staticPath}/css/animate.css" rel="stylesheet">
 <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
+<link href="${staticPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="${staticPath}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
 <!-- 全局js -->
 <script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
@@ -11,6 +13,9 @@
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 <script type="text/javascript" src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
+<!-- SUMMERNOTE -->
+<script src="${staticPath}/js/plugins/summernote/summernote.min.js"></script>
+<script src="${staticPath}/js/plugins/summernote/summernote-zh-CN.js"></script>
 <!-- 自定义js -->
 <script src="${staticPath}/js/hAdmin.js?v=4.1.0"></script>
 <script src="${staticPath}/js/index.js"></script>

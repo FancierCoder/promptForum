@@ -16,4 +16,15 @@
         lid, uid, ip, time, type
     </sql>
 
+    <select id="todayLoginCount" resultType="int">
+        SELECT count(*)
+        FROM logtable
+        WHERE DATEDIFF(#{date}, time) = 0 AND uid = #{uid} AND type = 1
+    </select>
+    <select id="todayTopicCount" resultType="int">
+        SELECT count(*)
+        FROM logtable
+        WHERE DATEDIFF(#{date}, time) = 0 AND uid = #{uid} AND type = 5
+    </select>
+
 </mapper>

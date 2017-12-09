@@ -36,7 +36,7 @@
                         <div class="row">
                             <c:if test="${tcvos==null || fn:length(tcvos) ==0}">
                                 <div class=" col-lg-6 col-lg-offset-3 ">
-                                    <h3>这里还没来人创建帖子，赶紧来<a href="${staticPath}/form_editors.html?sid=${sid}">创建</a>一个吧
+                                    <h3>这里还没来人创建帖子，赶紧来<a href="${staticPath}/form_editors.jsp?sid=${sid}">创建</a>一个吧
                                     </h3>
                                 </div>
                             </c:if>

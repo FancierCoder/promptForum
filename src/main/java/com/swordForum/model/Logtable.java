@@ -1,15 +1,11 @@
 package com.swordForum.model;
 
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.activerecord.Model;
-
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -45,6 +41,22 @@ public class Logtable extends Model<Logtable> {
      */
     private Integer type;
 
+    public Logtable() {
+
+    }
+
+    public Logtable(Long uid, String ip, Date time, Integer type) {
+        this.uid = uid;
+        this.ip = ip;
+        this.time = time;
+        this.type = type;
+    }
+
+    public Logtable(Long uid, String ip, Integer type) {
+        this.uid = uid;
+        this.ip = ip;
+        this.type = type;
+    }
 
     public Long getLid() {
         return lid;

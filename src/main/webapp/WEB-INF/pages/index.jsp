@@ -138,7 +138,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <!--头像-->
-                    <c:if test="${sessionScope.user!=null}">
+                    <c:if test="${not empty sessionScope.user}">
                         <li>
                             <a href="/leave"><i class="glyphicon glyphicon-log-out"></i>注销</a>
                         </li>
@@ -146,7 +146,7 @@
                             <a class="dropdown-toggle J_menuItem count-info" data-toggle="dropdown"
                                href="${staticPath}/showmyplace">
                                 <img alt="image" class="img-circle" style="width: 32px;height: 32px;"
-                                     src="/img/${sessionScope.user.headimg}"/>
+                                     src="${staticPath}/img/${sessionScope.user.headimg}"/>
                             </a>
                         </li>
                         <li class="dropdown">
@@ -190,11 +190,11 @@
                                 </li>
                             </ul>
                         </li>
-
                     </c:if>
+                    ${sessionScope.user.unickname}
                     <c:if test="${sessionScope.user==null}">
                         <li>
-                            <a class="   btn-sm" style="color: #010101" href="${staticPath}/login.html" target="_top">
+                            <a class="btn-sm" style="color: #010101" href="${staticPath}/login.html" target="_top">
                                 <i class="fa fa-user "></i> 登录
                             </a>
                         </li>
@@ -213,11 +213,11 @@
 <script>
     var websocket;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8080/msgCountSocket");
+        websocket = new WebSocket("ws://localhost:8088/msgCountSocket");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8080/msgCountSocket");
+        websocket = new MozWebSocket("ws://localhost:8088/msgCountSocket");
     } else {
-        websocket = new SockJS("http://localhost:8080/sockjs/msgCountSocket");
+        websocket = new SockJS("http://localhost:8088/sockjs/msgCountSocket");
     }
     websocket.onopen = function (evnt) {
 
@@ -285,7 +285,7 @@
         if (loginFirstFlag == 'yes') {
             layer.msg("今日首次登录积分+10 ^_^");
             $.ajax({
-                url: '/firstLoginSession',
+                url: '/user/firstLoginSession',
                 type: 'get',
             })
         }

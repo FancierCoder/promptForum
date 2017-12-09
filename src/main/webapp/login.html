@@ -61,7 +61,7 @@
     function submitf() {
         $.ajax({
             type: 'post',
-            url: "/checkLogin",
+            url: "/user/checkLogin",
             cache: false,
             dataType: "text",
             data: {username: $('#username').val(), password: $('#password').val()},
@@ -74,7 +74,7 @@
                     });
                     $('#submit').isDisabled;
                     setTimeout(function () {
-                        top.location.href = '/login';
+                        top.location.href = '/user/login';
                     }, 2000);
 
                 } else if (data == '-1') {

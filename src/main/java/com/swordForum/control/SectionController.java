@@ -7,6 +7,7 @@ import com.swordForum.model.Section;
 import com.swordForum.model.VO.SectionVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -57,6 +58,13 @@ public class SectionController {
         map.put("sumoftopic", sumOfTopic);
         map.put("onlineCount", Online.getCount());
         return "forum_main";
+    }
+
+    @RequestMapping("/getSection")
+    @ResponseBody
+    public List<Section> getSection() {
+        List<Section> sectionList = sectionMapper.selectList(null);
+        return sectionList;
     }
 
 }
