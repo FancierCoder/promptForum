@@ -14,4 +14,74 @@
         conid, confromuid, contouid
     </sql>
 
+    <select id="iConcernSearch" resultMap="convo">
+        SELECT
+        conid,
+        uid,
+        headimg,
+        uemail,
+        unickname,
+        usex,
+        ustatement,
+        ulevel
+        FROM
+        user LEFT JOIN concern ON uid=contouid
+        WHERE confromuid = #{meuid}
+        <if test="search!=null and search!=''">
+            AND (
+            uid LIKE #{search}
+            OR uemail LIKE #{search}
+            OR unickname LIKE #{search}
+            )
+        </if>
+    </select>
+
+    <select id="concernTopic" parameterType="long" resultType="com.swordForum.model.Topic">
+        SELECT *
+        FROM
+            topic
+        WHERE tuid IN
+              (SELECT contouid
+               FROM
+                   concern
+               WHERE confromuid = #{fromuid})
+              AND DATEDIFF(NOW(), ttime) &lt;= 4 AND DATEDIFF(NOW(), ttime) &gt;= 0
+        ORDER BY ttime DESC
+    </select>
+
+    <select id="concernISearch" resultMap="convo">
+        SELECT
+        conid,
+        uid,
+        headimg,
+        uemail,
+        unickname,
+        usex,
+        ustatement,
+        ulevel
+        FROM
+        user LEFT JOIN concern ON uid=confromuid
+        WHERE contouid = #{meuid}
+        <if test="search!=null and search!=''">
+            AND (
+            uid LIKE #{search}
+            OR uemail LIKE #{search}
+            OR unickname LIKE #{search}
+            )
+        </if>
+
+
+    </select>
+
+    <resultMap id="convo" type="com.swordForum.model.VO.ConVo">
+        <id property="conid" column="conid"/>
+        <result property="uid" column="uid"/>
+        <result property="headimg" column="headimg"/>
+        <result property="uemail" column="uemail"/>
+        <result property="unickname" column="unickname"/>
+        <result property="usex" column="usex"/>
+        <result property="ustatement" column="ustatement"/>
+        <result property="ulevel" column="ulevel"/>
+    </resultMap>
+
 </mapper>

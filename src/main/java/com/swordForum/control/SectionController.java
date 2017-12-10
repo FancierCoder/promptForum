@@ -24,7 +24,6 @@ import java.util.Map;
  * @since 2017-11-29
  */
 @Controller
-@RequestMapping("/section")
 public class SectionController {
 
     @Resource
@@ -49,7 +48,7 @@ public class SectionController {
         return "index";
     }
 
-    @RequestMapping("/toCatalog")
+    @RequestMapping("/section/toCatalog")
     public String toCatalog(Map map) {
         System.out.println("进入论坛");
         List<Section> sectionList = sectionMapper.selectList(null);
@@ -60,7 +59,7 @@ public class SectionController {
         return "forum_main";
     }
 
-    @RequestMapping("/getSection")
+    @RequestMapping("/section/getSection")
     @ResponseBody
     public List<Section> getSection() {
         List<Section> sectionList = sectionMapper.selectList(null);

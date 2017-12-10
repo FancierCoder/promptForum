@@ -107,7 +107,7 @@
                     <li>
                         <a><i class="fa fa-edit"></i> <span class="nav-label">个人资料</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="${staticPath}/showmyplace">我的空间</a></li>
+                            <li><a class="J_menuItem" href="${staticPath}/user/showmyplace">我的空间</a></li>
                             <li><a class="J_menuItem" href="${staticPath}/intoalterinfo">修改资料</a></li>
                             <li><a class="J_menuItem" href="${staticPath}/intoalterpassword">密码修改</a></li>
 
@@ -140,11 +140,11 @@
                     <!--头像-->
                     <c:if test="${not empty sessionScope.user}">
                         <li>
-                            <a href="/leave"><i class="glyphicon glyphicon-log-out"></i>注销</a>
+                            <a href="${staticPath}/user/leave"><i class="glyphicon glyphicon-log-out"></i>注销</a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle J_menuItem count-info" data-toggle="dropdown"
-                               href="${staticPath}/showmyplace">
+                               href="${staticPath}/user/showmyplace">
                                 <img alt="image" class="img-circle" style="width: 32px;height: 32px;"
                                      src="${staticPath}/img/${sessionScope.user.headimg}"/>
                             </a>
@@ -191,7 +191,6 @@
                             </ul>
                         </li>
                     </c:if>
-                    ${sessionScope.user.unickname}
                     <c:if test="${sessionScope.user==null}">
                         <li>
                             <a class="btn-sm" style="color: #010101" href="${staticPath}/login.html" target="_top">
@@ -203,7 +202,8 @@
             </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="100%" src="toCatalog" frameborder="0" seamless></iframe>
+            <iframe id="J_iframe" width="100%" height="100%" src="${staticPath}/section/toCatalog" frameborder="0"
+                    seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->
@@ -286,7 +286,7 @@
             layer.msg("今日首次登录积分+10 ^_^");
             $.ajax({
                 url: '/user/firstLoginSession',
-                type: 'get',
+                type: 'get'
             })
         }
     }

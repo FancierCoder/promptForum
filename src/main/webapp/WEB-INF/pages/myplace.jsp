@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2016/11/26
-  Time: 13:07
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 
 <head>
@@ -19,11 +10,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -38,7 +25,7 @@
                 <div>
                     <div class="ibox-content no-padding border-left-right">
                         <img alt="image" style="height: 300px;width: 300px" class="img-responsive circle-border"
-                             src="/img/${sessionScope.user.headimg}">
+                             src="${staticPath}/img/${sessionScope.user.headimg}">
                     </div>
                     <div class="ibox-content profile-content">
                         <h4>账号：${sessionScope.user.uemail}</h4>
@@ -71,19 +58,19 @@
                             ${sessionScope.user.ustatement}
                         </p>
                         <div class="row m-t-lg">
-                            <a href="/mytopic?page=1&&condition=">
+                            <a href="${staticPath}/mytopic?page=1&&condition=">
                                 <div class="col-sm-4">
                                     <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
                                     <h5><strong>${mytopicnum}</strong> 帖子</h5>
                                 </div>
                             </a>
-                            <a href="/toiconcern">
+                            <a href="${staticPath}/toiconcern">
                                 <div class="col-sm-4">
                                     <span class="line">5,3,9,6,5,9,7,3,5,2</span>
                                     <h5><strong>${myconcernnum}</strong> 关注</h5>
                                 </div>
                             </a>
-                            <a href="/toconcerni">
+                            <a href="${staticPath}/toconcerni">
                                 <div class="col-sm-4">
                                     <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
                                     <h5><strong>${beconcernnum}</strong> 粉丝</h5>
@@ -109,13 +96,14 @@
                             <c:if test="${tcvos!=null && fn:length(tcvos) !=0}">
                                 <c:forEach items="${tcvos}" var="item" varStatus="status">
                                     <div class="feed-element">
-                                        <a href="/showUser/${item.tuid}" class="pull-left">
-                                            <img alt="${item.uNickName}" class="img-circle" src="/img/${item.headimg}">
+                                        <a href="${staticPath}/showUser/${item.tuid}" class="pull-left">
+                                            <img alt="${item.uNickName}" class="img-circle"
+                                                 src="${staticPath}/img/${item.headimg}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">${item.times}前</small>
                                             <strong>${item.uNickName}</strong> 发布
-                                            <a href="/showTopicDetail/${item.tid}" class="btn-link">
+                                            <a href="${staticPath}/showTopicDetail/${item.tid}" class="btn-link">
                                                     ${item.tTopic}
                                             </a>
                                             <br>
@@ -144,22 +132,6 @@
         </div>
     </div>
 </div>
-
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-
-
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-
-
-<!-- Peity -->
-<script src="/js/plugins/peity/jquery.peity.min.js"></script>
-
-<!-- Peity -->
-<script src="/js/demo/peity-demo.js"></script>
-
 
 </body>
 

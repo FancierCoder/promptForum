@@ -1,15 +1,11 @@
 package com.swordForum.model;
 
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.activerecord.Model;
-
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -19,7 +15,7 @@ import java.io.Serializable;
  * @author 李铎
  * @since 2017-12-01
  */
-public class User extends Model<User> {
+public class User extends Model<User> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
