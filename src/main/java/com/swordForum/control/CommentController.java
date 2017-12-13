@@ -2,22 +2,26 @@ package com.swordForum.control;
 
 
 import com.swordForum.mapper.*;
-import com.swordForum.model.Comment;
-import com.swordForum.model.Section;
-import com.swordForum.model.Topic;
-import com.swordForum.model.User;
+import com.swordForum.model.*;
 import com.swordForum.model.VO.CommentVo;
 import com.swordForum.model.VO.CommentVoS;
 import com.swordForum.model.VO.TopicCatalogVo;
 import com.swordForum.util.DateUtil;
 import com.swordForum.util.HtmlUtil;
+import com.swordForum.util.IpUtil;
 import com.swordForum.util.toVoUtil;
+import com.swordForum.websocket.SystemWebSocketHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.socket.TextMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +48,8 @@ public class CommentController {
     private SectionMapper sectionMapper;
     @Resource
     private LogtableMapper logtableMapper;
+    @Resource
+    private SystemWebSocketHandler systemWebSocketHandler;
 
     @RequestMapping(value = "/showTopicDetail/{tid}")
     public String showComment(@PathVariable("tid") long tid, Map<String, Object> map, HttpServletRequest request) {
@@ -155,5 +161,51 @@ public class CommentController {
         Topic t = topicMapper.selectById(comment.getCtid());
         cvo.setTtopic(t.getTtopic());
         return cvo;
+    }
+
+
+    /*发表评论*/
+    @RequestMapping("/addComment")
+    public void addComment(@RequestParam("content") String content, @RequestParam("tid") long tid,
+                           @RequestParam(value = "rootcid", required = false, defaultValue = "0") long rootcid,
+                           @RequestParam(value = "parentuid", required = false, defaultValue = "0") long parentuid,
+                           @RequestParam(value = "parentcid", required = false, defaultValue = "0") long parentcid,
+                           HttpServletRequest request, HttpServletResponse response) throws Exception {
+        User user = (User) request.getSession().getAttribute("user");
+        Long uid = user.getUid();
+        Comment comment = new Comment();
+        comment.setContent(HtmlUtil.filter(content));
+        comment.setCtid(tid);
+        comment.setCuid(uid);
+        comment.setRootcid(rootcid);
+        comment.setParentuid(parentuid);
+        comment.setParentcid(parentcid);
+        int i = commentMapper.insert(comment);
+        //操作记录
+        Logtable logtable = new Logtable(user.getUid(), new IpUtil().getIp(request), 7);
+        logtableMapper.insert(logtable);
+        PrintWriter pw = null;
+        if (i == 1) {
+            System.out.println("增加评论成功");
+            Topic topic = topicMapper.selectById(tid);
+            int unreadCount = commentMapper.unreadCount(topic.getTuid());
+            systemWebSocketHandler.sendMessageToUser(topic.getTuid(), new TextMessage(unreadCount + ""));
+            try {
+                pw = response.getWriter();
+                pw.write("success");
+                pw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                pw = response.getWriter();
+                pw.write("err");
+                pw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

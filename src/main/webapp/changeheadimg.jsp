@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="common/base.jsp" %>
 <html>
 <head>
     <title>更换头像</title>
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
-    <link href="css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <%@ include file="common/commons.jsp" %>
+
 </head>
 <body bgcolor="#ebf6e9" style="height: 500px">
 <div class="ibox-content">
@@ -15,7 +12,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="image-crop" style="height: 400px">
-                    <img src="/img/${sessionScope.user.headimg}">
+                    <img src="${staticPath}/img/${sessionScope.user.headimg}">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -40,12 +37,6 @@
         </div>
     </div>
 </div>
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="/js/plugins/layer/layer.min.js"></script>
-<!-- Image cropper -->
-<script src="/js/plugins/cropper/cropper.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {

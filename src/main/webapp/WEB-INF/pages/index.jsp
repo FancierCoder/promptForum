@@ -96,11 +96,11 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="${staticPath}/mytopic?page=1&&condition=">我的帖子</a>
+                            <li><a class="J_menuItem" href="${staticPath}/user/mytopic?page=1&&condition=">我的帖子</a>
                             </li>
-                            <li><a class="J_menuItem" href="${staticPath}/tomycomment">我的评论</a></li>
+                            <li><a class="J_menuItem" href="${staticPath}/user/tomycomment">我的评论</a></li>
 
-                            <li><a class="J_menuItem" href="${staticPath}/form_editors.html">发&nbsp;&nbsp;帖</a>
+                            <li><a class="J_menuItem" href="${staticPath}/form_editors.jsp">发&nbsp;&nbsp;帖</a>
                             </li>
                         </ul>
                     </li>
@@ -108,8 +108,8 @@
                         <a><i class="fa fa-edit"></i> <span class="nav-label">个人资料</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="${staticPath}/user/showmyplace">我的空间</a></li>
-                            <li><a class="J_menuItem" href="${staticPath}/intoalterinfo">修改资料</a></li>
-                            <li><a class="J_menuItem" href="${staticPath}/intoalterpassword">密码修改</a></li>
+                            <li><a class="J_menuItem" href="${staticPath}/user/intoalterinfo">修改资料</a></li>
+                            <li><a class="J_menuItem" href="${staticPath}/user/intoalterpassword">密码修改</a></li>
 
                         </ul>
                     </li>
@@ -151,8 +151,8 @@
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" id="all">
-                                <i class="fa fa-bell" id="bell"></i> <span class="label label-primary"
-                                                                           id="allunread"></span>
+                                <i class="fa fa-bell" id="bell"></i>
+                                <span class="label label-primary" id="allunread"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li>
@@ -285,7 +285,7 @@
         if (loginFirstFlag == 'yes') {
             layer.msg("今日首次登录积分+10 ^_^");
             $.ajax({
-                url: '/user/firstLoginSession',
+                url: '${staticPath}/user/firstLoginSession',
                 type: 'get'
             })
         }

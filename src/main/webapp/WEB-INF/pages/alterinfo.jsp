@@ -1,15 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2016/11/27
-  Time: 16:11
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 
 <head>
@@ -22,11 +12,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -48,7 +34,7 @@
                                     <div class="image-crop" id="imgitem">
                                         <img id="myheadimg" style="cursor: hand;width: 200px;height: 200px"
                                              class="circle-border" onclick="imgitem();"
-                                             src="/img/${sessionScope.user.headimg}"/>
+                                             src="${staticPath}/img/${sessionScope.user.headimg}"/>
                                     </div>
                                 </div>
                             </div>
@@ -111,22 +97,7 @@
     </div>
 </div>
 
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
 
-
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-
-<!-- layerDate plugin javascript -->
-<script src="/js/plugins/layer/laydate/laydate.js"></script>
-<!-- Peity -->
-<script src="/js/plugins/peity/jquery.peity.min.js"></script>
-<!--layer插件-->
-<script src="/js/plugins/layer/layer.min.js"></script>
-<!-- Peity -->
-<script src="/js/demo/peity-demo.js"></script>
 <script type="text/javascript">
     //日期范围限制
     var start = {
@@ -149,7 +120,7 @@
             shadeClose: true,
             shade: 0.8,
             area: ['1000px', '500px'],
-            content: '/changeheadimg.jsp' //iframe的url
+            content: '${staticPath}/changeheadimg.jsp' //iframe的url
         });
     }
 
@@ -165,13 +136,13 @@
         } else {
             var flag = 0;
             var headimg = $('#myheadimg').attr('src');
-            if (headimg != "/img/${sessionScope.user.headimg}") {
+            if (headimg != "${staticPath}/img/${sessionScope.user.headimg}") {
                 flag = 1;
             } else {
                 flag = 0;
             }
             $.ajax({
-                url: '/alterinfo',
+                url: '${staticPath}/user/alterinfo',
                 type: 'POST',
                 data: {
                     nickname: nickname,

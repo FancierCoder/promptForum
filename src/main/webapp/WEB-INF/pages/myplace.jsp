@@ -58,19 +58,19 @@
                             ${sessionScope.user.ustatement}
                         </p>
                         <div class="row m-t-lg">
-                            <a href="${staticPath}/mytopic?page=1&&condition=">
+                            <a href="${staticPath}/user/mytopic?page=1&&condition=">
                                 <div class="col-sm-4">
                                     <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
                                     <h5><strong>${mytopicnum}</strong> 帖子</h5>
                                 </div>
                             </a>
-                            <a href="${staticPath}/toiconcern">
+                            <a href="${staticPath}/user/toiconcern">
                                 <div class="col-sm-4">
                                     <span class="line">5,3,9,6,5,9,7,3,5,2</span>
                                     <h5><strong>${myconcernnum}</strong> 关注</h5>
                                 </div>
                             </a>
-                            <a href="${staticPath}/toconcerni">
+                            <a href="${staticPath}/user/toconcerni">
                                 <div class="col-sm-4">
                                     <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
                                     <h5><strong>${beconcernnum}</strong> 粉丝</h5>
@@ -103,7 +103,8 @@
                                         <div class="media-body ">
                                             <small class="pull-right">${item.times}前</small>
                                             <strong>${item.uNickName}</strong> 发布
-                                            <a href="${staticPath}/showTopicDetail/${item.tid}" class="btn-link">
+                                            <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                               class="btn-link">
                                                     ${item.tTopic}
                                             </a>
                                             <br>

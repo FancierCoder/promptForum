@@ -1,23 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/3/11
-  Time: 17:07
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="../../common/base.jsp" %>
 
 <html>
 <head>
     <title>我的帖子</title>
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 </head>
 <body class="gray-bg">
 <div class="row">
@@ -57,7 +44,7 @@
                                 <!-------------------------------------------------------------------------------------------->
                                 <div class="ibox">
                                     <div class="ibox-content">
-                                        <a href="/showTopicDetail/${item.tid}" class="btn-link">
+                                        <a href="${staticPath}/comment/showTopicDetail/${item.tid}" class="btn-link">
                                             <h2>
                                                     ${item.tTopic}
 
@@ -67,7 +54,7 @@
                                         <div class="small m-b-xs">
                                             <a class="pull-left">
                                                 <img alt="image" class="img-circle" style="width: 38px;height: 38px;"
-                                                     src="/img/${item.headimg}">
+                                                     src="${staticPath}/img/${item.headimg}">
                                             </a>
 
                                             <strong style="margin-left: 5px;margin-bottom: 0px">${item.uNickName}</strong> </span>
@@ -108,9 +95,7 @@
     </div>
 </div>
 </body>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/plugins/layer/layer.min.js"></script>
-<script src="/js/plugins/layer/laypage/laypage.js"></script>
+
 <script type="text/javascript">
     /*翻页+查询*/
     laypage({
@@ -122,13 +107,13 @@
         }(),
         jump: function (e, first) { //触发分页后的回调
             if (!first) { //一定要加此判断，否则初始时会无限刷新
-                location.href = '/mytopic?page=' + e.curr + '&&condition=' + $('#condition').val().trim();
+                location.href = '${staticPath}/user/mytopic?page=' + e.curr + '&&condition=' + $('#condition').val().trim();
             }
         }
     });
 
     function search() {
-        location.href = '/mytopic?page=1&&condition=' + $('#condition').val().trim();
+        location.href = '${staticPath}/user/mytopic?page=1&&condition=' + $('#condition').val().trim();
     }
 
     /*删除*/
@@ -136,7 +121,7 @@
         layer.confirm('确认删除？', {btn: ['是', '否']}, function () {
             $.ajax({
                 type: 'post',
-                url: '/deleteMytopic',
+                url: '${staticPath}/user/deleteMytopic',
                 data: {tid: obj},
                 success: function (data) {
                     if (data == 'ok') {

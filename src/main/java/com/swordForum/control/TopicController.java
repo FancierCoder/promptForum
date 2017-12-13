@@ -40,6 +40,14 @@ public class TopicController {
     @Resource
     private UserMapper userMapper;
 
+    /*帖子点赞*/
+    @RequestMapping("/addtopicclick")
+    public synchronized void addclick(@RequestParam("tid") long tid) {
+        Topic topic = topicMapper.selectById(tid);
+        topic.setTzan(topic.getTzan() + 1);
+        topicMapper.updateById(topic);
+    }
+
     @RequestMapping("/addTopic")
     public void addTopic(@RequestParam("sid") int sid, @RequestParam("topic") String topic, @RequestParam("content") String content, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Topic newTopic = new Topic();

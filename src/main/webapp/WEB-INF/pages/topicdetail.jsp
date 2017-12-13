@@ -10,7 +10,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
     <style type="text/css">
         .loadnav {
             color: #5fd3d4;
@@ -49,14 +53,14 @@
             <%--帖子内容开始--%>
             <div class="social-feed-separated">
                 <div class="social-avatar">
-                    <a href="${staticPath}/showUser/${topic.tuid}">
+                    <a href="${staticPath}/user/showUser/${topic.tuid}">
                         <img alt="image" src="${staticPath}/img/${topic.headimg}">
                     </a>
                 </div>
                 <div class="social-feed-box">
 
                     <div class="social-avatar">
-                        <a href="${staticPath}/showUser/${topic.tuid}">
+                        <a href="${staticPath}/user/showUser/${topic.tuid}">
                             ${topic.uNickName}
                         </a>
                         <small class="text-muted">${topic.times}</small>
@@ -114,11 +118,11 @@
                         <c:forEach items="${comment}" var="single">
                             <!--根评论开始-->
                             <div class="social-comment" rootcid="${single.rootcomment.cid}">
-                                <a href="${staticPath}/showUser/${single.rootcomment.uid}" class="pull-left">
+                                <a href="${staticPath}/user/showUser/${single.rootcomment.uid}" class="pull-left">
                                     <img alt="image" src="${staticPath}/img/${single.rootcomment.headimg}">
                                 </a>
                                 <div class="media-body" id="${single.rootcomment.cid}">
-                                    <a href="${staticPath}/showUser/${single.rootcomment.uid}">
+                                    <a href="${staticPath}/user/showUser/${single.rootcomment.uid}">
                                             ${single.rootcomment.nickname}
                                     </a>
                                         ${single.rootcomment.content}
@@ -134,11 +138,11 @@
                                 <c:if test="${single.root_directcomment !=null && fn:length(single.root_directcomment)!=0}">
                                     <c:forEach items="${single.root_directcomment}" var="dire">
                                         <div class="social-comment">
-                                            <a href="${staticPath}/showUser/${dire.uid}" class="pull-left">
+                                            <a href="${staticPath}/user/showUser/${dire.uid}" class="pull-left">
                                                 <img alt="image" src="${staticPath}/img/${dire.headimg}">
                                             </a>
                                             <div cid="" class="media-body" directuid="${dire.uid}" id="${dire.cid}">
-                                                <a href="${staticPath}/showUser/${dire.uid}">
+                                                <a href="${staticPath}/user/showUser/${dire.uid}">
                                                         ${dire.nickname}
                                                 </a>
                                                     ${dire.content}
@@ -154,16 +158,17 @@
                                             <c:forEach items="${single.root_Ndirectcomment}" var="ndire">
                                                 <c:if test="${ ndire.parentcid eq dire.cid }">
                                                     <div class="social-comment">
-                                                        <a href="${staticPath}/showUser/${ndire.uid}" class="pull-left">
+                                                        <a href="${staticPath}/user/showUser/${ndire.uid}"
+                                                           class="pull-left">
                                                             <img alt="image" src="${staticPath}/img/${ndire.headimg}">
                                                         </a>
                                                         <div class="media-body" directuid="${ndire.uid}"
                                                              id="${ndire.cid}">
-                                                            <a href="${staticPath}/showUser/${ndire.uid}">
+                                                            <a href="${staticPath}/user/showUser/${ndire.uid}">
                                                                     ${ndire.nickname}
                                                             </a>
                                                             &nbsp;<font color="#8b5de4">回复</font>
-                                                            <a href="${staticPath}/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
+                                                            <a href="${staticPath}/user/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
 
                                                                 ${ndire.content}
                                                             <br/>
@@ -218,7 +223,13 @@
 
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
+<script type="text/javascript" src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js?v=1.0.0"></script>
 
 <script type="text/javascript">
     $.ajaxSetup({
@@ -228,7 +239,7 @@
             if (sessionstatus == "timeout") {
                 layer.msg("请先登录");
                 setTimeout(function () {
-                    location.replace("/login.html");
+                    location.replace("${staticPath}/login.html");
                 }, 500);
 
             }
@@ -244,7 +255,7 @@
         $(obj).removeAttr('onclick');
         $(obj).css({'background': '#eaeff0'});
         $.ajax({
-            url: "/addtopicclick",    //需要先登录
+            url: "${staticPath}/topic/addtopicclick",    //需要先登录
             data: {tid: '${topic.tid}'},
         });
 
@@ -258,7 +269,7 @@
             return false;
         } else {
             $.ajax({
-                url: '/addComment',
+                url: '${staticPath}/comment/addComment',
                 type: 'post',
                 data: {content: content, tid:${topic.tid}},
                 success: function (data) {
@@ -285,7 +296,7 @@
             $('#direct').remove();
         }
         var parentName = $(obj).parent().children().first('a').text().trim();
-        var html = '<div class="social-comment" id="ndirect"> <a  class="pull-left"> <img alt="image" src="/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control Ndirectcontent"  placeholder="@' + parentName + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitNdirect(this,' + direcid +
+        var html = '<div class="social-comment" id="ndirect"> <a  class="pull-left"> <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control Ndirectcontent"  placeholder="@' + parentName + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitNdirect(this,' + direcid +
             ')">发表评论</button> ' +
             '<button type="button" class="btn btn-primary " onclick="cancle(this)" style="float: right;margin-top: 1px;margin-right:2px">取消</button></div> </div>';
         $(obj).parent().after(html);
@@ -300,7 +311,7 @@
             return false;
         }
         $.ajax({
-            url: '/addComment',
+            url: '${staticPath}/comment/addComment',
             type: 'post',
             data: {content: content, tid:${topic.tid}, rootcid: rootcid, parentuid: parentuid, parentcid: direcid},
             success: function (data) {
@@ -326,7 +337,7 @@
         var rootid = $(obj).parent().parent().attr('rootcid');
         var rootname = $(obj).parent().children().first('a').text().trim();
 
-        var html = '<div class="social-comment" id="direct"> <a  class="pull-left"> <img alt="image" src="/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control directcontent"  placeholder="@' + rootname + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitdirect(this,' + rootid + ')">发表评论</button>' +
+        var html = '<div class="social-comment" id="direct"> <a  class="pull-left"> <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control directcontent"  placeholder="@' + rootname + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitdirect(this,' + rootid + ')">发表评论</button>' +
             '<button type="button" class="btn btn-primary " onclick="cancle(this)" style="float: right;margin-top: 1px;margin-right:2px">取消</button> </div> </div>';
         $(obj).parent().after(html);
     }
@@ -339,7 +350,7 @@
             return false;
         }
         $.ajax({
-            url: '/addComment',
+            url: '${staticPath}/comment/addComment',
             type: 'post',
             data: {content: content, tid:${topic.tid}, rootcid: rootcid},
             success: function (data) {
