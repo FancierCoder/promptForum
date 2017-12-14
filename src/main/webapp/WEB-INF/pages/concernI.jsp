@@ -1,29 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/3/15
-  Time: 18:58
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 <head>
     <title>我的粉丝</title>
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="/js/plugins/layer/layer.min.js"></script>
+    <%@ include file="../../common/commons.jsp" %>
 </head>
 <body>
 <div class="container">
@@ -51,7 +31,7 @@
            data-show-footer="false"
            data-side-pagination="server"
            data-query-params-type="undefined" , <%--注意如果用自定义的非limit格式去需要写上去--%>
-           data-url="/concernI"
+           data-url="${staticPath}/concern/concernI"
            data-response-handler="responseHandler">
     </table>
 </div>
@@ -172,7 +152,7 @@
     }
 
     function headimgFormatter(value, row, index) {
-        return '<img  class="img-circle" style="width: 32px;height: 32px;" src="/img/' + value + '"/>';
+        return '<img  class="img-circle" style="width: 32px;height: 32px;" src="${staticPath}/img/' + value + '"/>';
     }
 
     function sexFormatter(value) {
@@ -192,12 +172,12 @@
 
     window.operateEvents = {
         'click .look': function (e, value, row, index) {
-            location.href = "/showUser/" + row.uid;
+            location.href = "${staticPath}/user/showUser/" + row.uid;
         },
         'click .remove': function (e, value, row, index) {
             $.ajax({
                 type: 'post',
-                url: "/deleteIConcern",
+                url: "${staticPath}/concern/deleteIConcern",
                 data: {conid: row.conid},
                 success: function (data) {
                     if (data == 'ok') {

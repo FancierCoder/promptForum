@@ -20,7 +20,7 @@ public class MailUtil {
     private String host = null;
     private String protocol = null;
 
-    public void readPro() {
+    private void readPro() {
         ResourceBundle resource = ResourceBundle.getBundle("mail");
         username = resource.getString("from");
         password = resource.getString("password");
@@ -36,7 +36,7 @@ public class MailUtil {
         //需要身份验证
         props.setProperty("mail.smtp.auth", "true");
         //设置邮件服务器主机名
-        props.setProperty("mail.host", host);
+        props.setProperty("mail.smtp.host", host);
         //发送邮件协议名称
         props.setProperty("mail.transport.protocol", protocol);
         //设置环境
@@ -61,10 +61,12 @@ public class MailUtil {
      * @param session
      * @return
      */
-    public MimeMessage createSimpleMail(Session session, String email, String subject, String context) throws MessagingException {
+    private MimeMessage createSimpleMail(Session session, String email, String subject, String context) throws MessagingException {
         MimeMessage msg = new MimeMessage(session);
         //发件人
         msg.setFrom(new InternetAddress(username));
+        //先给自己抄送一份，解决554
+        msg.addRecipients(Message.RecipientType.CC, String.valueOf(new InternetAddress(username)));
         //收件人
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
         //标题

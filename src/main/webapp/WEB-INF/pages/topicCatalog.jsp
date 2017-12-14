@@ -55,7 +55,8 @@
                                                     </h2>
                                                 </a>
                                                 <div class="small m-b-xs">
-                                                    <a href="${staticPath}/showUser/${item.tuid}" class="pull-left">
+                                                    <a href="${staticPath}/user/showUser/${item.tuid}"
+                                                       class="pull-left">
                                                         <img alt="image" class="img-circle"
                                                              style="width: 38px;height: 38px;"
                                                              src="${staticPath}/img/${item.headimg}">

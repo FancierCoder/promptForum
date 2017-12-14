@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/3/18
-  Time: 13:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 
 <head>
@@ -21,11 +12,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -40,7 +27,7 @@
                 <div>
                     <div class="ibox-content no-padding border-left-right">
                         <img alt="image" style="height: 300px;width: 300px" class="img-responsive circle-border"
-                             src="/img/${his.headimg}">
+                             src="${staticPath}/img/${his.headimg}">
                     </div>
                     <div class="ibox-content profile-content">
                         <h4>账号：${his.uemail}</h4>
@@ -140,12 +127,14 @@
                                 <c:forEach items="${tcvos}" var="item" varStatus="status">
                                     <div class="feed-element">
                                         <a href="javascript:void(0) " class="pull-left">
-                                            <img alt="${item.uNickName}" class="img-circle" src="/img/${item.headimg}">
+                                            <img alt="${item.uNickName}" class="img-circle"
+                                                 src="${staticPath}/img/${item.headimg}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">${item.times}前</small>
                                             <strong>${item.uNickName}</strong> 发布
-                                            <a href="/showTopicDetail/${item.tid}" class="btn-link">
+                                            <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                               class="btn-link">
                                                     ${item.tTopic}
                                             </a>
                                             <br>
@@ -175,16 +164,6 @@
     </div>
 </div>
 
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-<!-- Peity -->
-<script src="/js/plugins/peity/jquery.peity.min.js"></script>
-<!-- Peity -->
-<script src="/js/demo/peity-demo.js"></script>
-<script src="/js/plugins/layer/layer.min.js"></script>
 <script type="text/javascript">
 
     /*这里做了两组id对应两组事件方法，但仅仅修改id是不行的因为修改后根据id选择器获取的元素并没有改变，所以它对应的事件方法并没有改变，因此需要在每个绑定事件种写判断，
@@ -193,7 +172,7 @@
         $.ajax({
             type: 'post',
             data: {hisuid: $('#hisuid').val()},
-            url: "/addConcern",
+            url: "${staticPath}/concern/addConcern",
             success: function (data) {
                 if (data == 'ok') {
                     $('#addConBtn').html('<i class="fa fa-coffee"></i> 取消关注');
@@ -208,7 +187,7 @@
         $.ajax({
             type: 'post',
             data: {hisuid: $('#hisuid').val()},
-            url: "/cancelConcern",
+            url: "${staticPath}/concern/cancelConcern",
             success: function (data) {
                 if (data == 'ok') {
                     $('#cancelConBtn').html('<i class="fa fa-coffee"></i> 关注');

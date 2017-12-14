@@ -22,6 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -52,6 +54,9 @@ public class UserController {
 
     @Resource
     private FriendMapper friendMapper;
+
+    @Resource
+    private SixinMapper sixinMapper;
 
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
     public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -290,7 +295,8 @@ public class UserController {
 
     @RequestMapping("/toconcerni")
     public String toConcernI() {
-        return "concernI";
+        return "conce" +
+                "rnI";
     }
 
     /*个人信息修改的功能*/
@@ -375,11 +381,12 @@ public class UserController {
     @RequestMapping("/sendyzm")
     public void sendyzm(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        String uemail = user.getUemail();
+        String uemail = user.getUemail().trim();
         MailUtil mailUtil = new MailUtil();
         String yzm = RandomUtil.getyzm(4);
-        String content = "您的验证码为：" + yzm + " --修改密码";
-        mailUtil.sendSimpleMail(uemail, "仗剑论坛-Sword", content);
+        String content = "您的验证码为：" + yzm + "--修改密码" +
+                "请勿告诉他人！";
+        mailUtil.sendSimpleMail(uemail, "仗剑论坛-SwordForum", content.trim());
         //存放到application,当验证完清除
         request.getSession().getServletContext().setAttribute(uemail, yzm);
     }
@@ -488,5 +495,55 @@ public class UserController {
             request.setAttribute("isfriend", "no");
         }
         return "hisplace";
+    }
+
+    private synchronized int insertUser(User user) {
+        return userMapper.insert(user);
+    }
+
+    @RequestMapping(value = "/checkRegister", method = RequestMethod.POST)
+    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, PrintWriter pw) {
+        /*******前后台双重验证，防止插入数据出错********/
+        Pattern pattern1 = Pattern.compile("^(\\w-*\\.*)+@(\\w-?)+(\\.\\w{2,})+$");
+        Matcher matcher1 = pattern1.matcher(uemail.trim());
+        Pattern pattern2 = Pattern.compile("^[\\w]{6,12}$");
+        Matcher matcher2 = pattern2.matcher(upassword.trim());
+        if (matcher1.matches() && matcher2.matches() && unickname.trim().length() > 0) {
+            Map<String, Object> mapwhere = new HashMap<>(1);
+            mapwhere.put("uemail", uemail);
+            List<User> user = userMapper.selectByMap(mapwhere);
+            if (user == null || user.size() == 0) {
+                User newUser = new User();
+                newUser.setUemail(uemail);
+                newUser.setUnickname(unickname);
+                newUser.setUpassword(upassword);
+                /*插入数据，同步防止数据库出现多条邮箱一样的*/
+                int i = insertUser(newUser);
+                if (i == 1) {
+                    Friend sys = new Friend();
+                    sys.setFromuid(-1L);
+                    sys.setTouid(newUser.getUid());
+                    sys.setTime(new Date());
+                    friendMapper.insert(sys);
+                    Sixin sixin = new Sixin();
+                    sixin.setSifromuid(-1L);
+                    sixin.setSitouid(newUser.getUid());
+                    sixin.setContent("<p style='color:grern'>欢迎使用仗剑论坛，有你的世界更精彩!" +
+                            "<br/>  <small> 站长：李铎</small>" +
+                            "</p>");
+                    sixin.setIsread(0);
+                    sixinMapper.insert(sixin);
+
+                    pw.write("success");
+
+                } else {
+                    pw.write("busy");   //并发现象 繁忙
+                }
+            } else {
+                pw.write("has");        //用户已被注册
+            }
+        } else {
+            pw.write("illegal");
+        }
     }
 }

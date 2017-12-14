@@ -1,15 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishengzhu
-  email:530735771@qq.com
-  Date: 2017/5/27
-  Time: 6:42
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.Calendar" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../../common/base.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -23,11 +13,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -69,7 +55,7 @@
                                                         </td>
                                                         <td class="project-people">
                                                             <a href=""><img alt="image" class="img-circle"
-                                                                            src="/img/${single.headimg}"></a>
+                                                                            src="${staticPath}/img/${single.headimg}"></a>
                                                         </td>
                                                         <td class="project-people">
                                                             <c:if test="${single.usex==0}">
@@ -83,7 +69,8 @@
                                                         </td>
                                                         <td class="project-actions">
                                                             <a class="btn btn-white btn-sm"
-                                                               href="/showUser/${single.uid}"><i class="fa fa-eye "></i>
+                                                               href="${staticPath}/user/showUser/${single.uid}"><i
+                                                                    class="fa fa-eye "></i>
                                                                 查看 </a>
                                                         </td>
                                                     </tr>
@@ -112,17 +99,19 @@
                                                 <!-------------------------------------------------------------------------------------------->
                                                 <div class="ibox">
                                                     <div class="ibox-content">
-                                                        <a href="/showTopicDetail/${item.tid}" class="btn-link">
+                                                        <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                                           class="btn-link">
                                                             <h3>
                                                                     ${item.tTopic}
 
                                                             </h3>
                                                         </a>
                                                         <div class="small m-b-xs">
-                                                            <a href="/showUser/${item.tuid}" class="pull-left">
+                                                            <a href="${staticPath}/user/showUser/${item.tuid}"
+                                                               class="pull-left">
                                                                 <img alt="image" class="img-circle"
                                                                      style="width: 38px;height: 38px;"
-                                                                     src="/img/${item.headimg}">
+                                                                     src="${staticPath}/img/${item.headimg}">
                                                             </a>
 
                                                             <strong style="margin-left: 5px;margin-bottom: 0px">${item.uNickName}</strong> </span>
@@ -169,15 +158,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- 全局js -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-
-<!-- 自定义js -->
-<script src="/js/content.js"></script>
 
 
 </body>
