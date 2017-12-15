@@ -115,7 +115,7 @@
             alert(email);
             $.ajax({
                 type: 'post',
-                url: "user/checkRegister",
+                url: "/user/checkRegister",
                 dataType: "text",
                 data: {uemail: email, unickname: nickname, upassword: password},
                 success: function (data) {

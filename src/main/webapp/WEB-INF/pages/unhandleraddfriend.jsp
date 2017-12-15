@@ -1,15 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishengzhu
-  email:530735771@qq.com
-  Date: 2017/5/14
-  Time: 16:36
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.Calendar" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../../common/base.jsp" %>
 
 <!DOCTYPE html>
 
@@ -26,11 +16,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -64,7 +50,7 @@
                                             </td>
                                             <td class="project-people">
                                                 <a href=""><img alt="image" class="img-circle"
-                                                                src="img/${single.user.headimg}"></a>
+                                                                src="${staticPath}/img/${single.user.headimg}"></a>
                                             </td>
                                             <td class="project-actions">
                                                 <a class="btn btn-white btn-sm"
@@ -87,9 +73,10 @@
                                                 创建于 <fmt:formatDate value="${single.addfriend.time}" type="both"/>
                                             </td>
                                             <td class="project-people">
-                                                <a href="/showUser/${single.user.uid}"><img alt="image"
-                                                                                            class="img-circle"
-                                                                                            src="img/${single.user.headimg}"></a>
+                                                <a href="${staticPath}/user/showUser/${single.user.uid}"><img
+                                                        alt="image"
+                                                        class="img-circle"
+                                                        src="${staticPath}/img/${single.user.headimg}"></a>
                                             </td>
                                             <td class="project-actions">
                                                 <a class="btn btn-white btn-sm"
@@ -113,19 +100,10 @@
     </div>
 </div>
 
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-
-
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-
-
 <script>
     function finish(touid, obj) {
         $.ajax({
-            url: "/finishaddfriend?touid=" + touid,
+            url: "${staticPath}/finishaddfriend?touid=" + touid,
             success: function (data) {
                 if (data == 'success') {
                     alert("完成了一个" + touid);
@@ -137,7 +115,7 @@
 
     function accept(hisuid, obj) {
         $.ajax({
-            url: '/acceptaddfriend?fromuid=' + hisuid,
+            url: '${staticPath}/acceptaddfriend?fromuid=' + hisuid,
             success: function (data) {
                 if (data == 'success') {
                     $(obj).removeClass("btn-white").addClass('btn-primary');
@@ -150,7 +128,7 @@
 
     function reject(hisuid, obj) {
         $.ajax({
-            url: '/rejectaddfriend?touid=' + hisuid,
+            url: '${staticPath}/rejectaddfriend?touid=' + hisuid,
             success: function (data) {
                 if (data == 'success') {
                     alert("拒绝了" + hisuid);

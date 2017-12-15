@@ -207,17 +207,21 @@
         </div>
     </div>
     <!--右侧部分结束-->
+    <%
+        int serverPort = request.getServerPort();
+        request.setAttribute("port", serverPort);
+    %>
 </div>
 
 
 <script>
     var websocket;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8088/msgCountSocket");
+        websocket = new WebSocket("ws://localhost:${requestScope.port}/msgCountSocket");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8088/msgCountSocket");
+        websocket = new MozWebSocket("ws://localhost:${requestScope.port}/msgCountSocket");
     } else {
-        websocket = new SockJS("http://localhost:8088/sockjs/msgCountSocket");
+        websocket = new SockJS("http://localhost:${requestScope.port}/sockjs/msgCountSocket");
     }
     websocket.onopen = function (evnt) {
 

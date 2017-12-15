@@ -295,8 +295,7 @@ public class UserController {
 
     @RequestMapping("/toconcerni")
     public String toConcernI() {
-        return "conce" +
-                "rnI";
+        return "concernI";
     }
 
     /*个人信息修改的功能*/
@@ -384,7 +383,7 @@ public class UserController {
         String uemail = user.getUemail().trim();
         MailUtil mailUtil = new MailUtil();
         String yzm = RandomUtil.getyzm(4);
-        String content = "您的验证码为：" + yzm + "--修改密码" +
+        String content = "您的验证码为：" + yzm + "(不区分大小写)--修改密码<br/>" +
                 "请勿告诉他人！";
         mailUtil.sendSimpleMail(uemail, "仗剑论坛-SwordForum", content.trim());
         //存放到application,当验证完清除
@@ -407,6 +406,7 @@ public class UserController {
             return;
         } else {
             String sendyzm = (String) request.getSession().getServletContext().getAttribute(user.getUemail());
+            sendyzm = sendyzm.toUpperCase();
             if (!sendyzm.equals(yzm)) {
                 pw = response.getWriter();
                 pw.write("erryzm");
@@ -458,7 +458,7 @@ public class UserController {
             return "redirect:/login.html";
         }
         if (uid == me.getUid()) {
-            return "redirect:/showmyplace";
+            return "redirect:/user/showmyplace";
         }
         long[] othernums = userOtherinfo(uid);
         request.setAttribute("his", user);

@@ -67,7 +67,7 @@
         $(obj).attr({'disabled': 'disabled'});
         $.ajax({
             type: 'get',
-            url: '${staticPath}/user/sendyzm',
+            url: '${staticPath}/user/sendyzm'
         });
     }
 

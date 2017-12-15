@@ -1,15 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishengzhu
-  email:530735771@qq.com
-  Date: 2017/5/13
-  Time: 19:03
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.Calendar" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../../common/base.jsp" %>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html>
@@ -25,12 +15,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/plugins/jsTree/style.min.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 
 </head>
 
@@ -66,12 +51,14 @@
                                             <div class="chat-user" id="${friend.uid}">
                                                 <span class="pull-right label label-primary"></span>
                                                 <c:if test="${friend.uid!=-1}">
-                                                    <a href="/showUser/${friend.uid}"><img class="chat-avatar"
-                                                                                           src="/img/${friend.headimg}"
-                                                                                           title="查看->${friend.uemail}"></a>
+                                                    <a href="${staticPath}/user/showUser/${friend.uid}"><img
+                                                            class="chat-avatar"
+                                                            src="${staticPath}/img/${friend.headimg}"
+                                                            title="查看->${friend.uemail}"></a>
                                                 </c:if>
                                                 <c:if test="${friend.uid==-1}">
-                                                    <a><img class="chat-avatar" src="/img/${friend.headimg}" title="系统"></a>
+                                                    <a><img class="chat-avatar"
+                                                            src="${staticPath}/img/${friend.headimg}" title="系统"></a>
                                                 </c:if>
                                                 <div class="chat-user-name">
                                                     <a onclick="chatToOne(${friend.uid},this)">${friend.unickname}</a>
@@ -113,17 +100,10 @@
 
 
 </div>
-
-
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-<!-- 第三方插件 -->
-<script src="js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<%
+    int serverPort = request.getServerPort();
+    request.setAttribute("port", serverPort);
+%>
 <script type="text/javascript">
     var websocket;
     var hisuid;
@@ -131,11 +111,11 @@
     $('#sendmessage').attr("readonly", true);
     $('#sendbtn').attr('disabled', true);
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8080/chatouser");
+        websocket = new WebSocket("ws://localhost:${requestScope.port}/chatouser");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8080/chatouser");
+        websocket = new MozWebSocket("ws://localhost:${requestScope.port}/chatouser");
     } else {
-        websocket = new SockJS("http://localhost:8080/sockjs/chattouser");
+        websocket = new SockJS("http://localhost:${requestScope.port}/sockjs/chattouser");
     }
     websocket.onopen = function (evnt) {
 
@@ -187,7 +167,7 @@
             $('#sendbtn').attr('disabled', false);
         }
         $.ajax({
-            url: '/openchatlastinfo',
+            url: '${staticPath}/openchatlastinfo',
             type: 'post',
             dataType: 'json',
             data: {hisuid: uid},
@@ -198,7 +178,7 @@
                         var discussiondiv = $('#discussion');
                         if (data[i].sifromuid ==${sessionScope.user.uid}) {
                             var isend = '<div class="chat-message"> ' +
-                                '<img class="mymessage-avatar " src="img/${sessionScope.user.headimg}" alt=""> ' +
+                                '<img class="mymessage-avatar " src="${staticPath}/img/${sessionScope.user.headimg}" alt=""> ' +
                                 '<div class="mymessage"> ' +
                                 '<a class="mymessage-author" > ${sessionScope.user.unickname}</a> ' +
                                 '<span class="mymessage-date">' + dateFormatter(data[i].time) +
@@ -268,7 +248,7 @@
             data["content"] = text;
             websocket.send(JSON.stringify(data));
             var isend = '<div class="chat-message"> ' +
-                '<img class="mymessage-avatar " src="img/${sessionScope.user.headimg}" alt=""> ' +
+                '<img class="mymessage-avatar " src="${staticPath}/img/${sessionScope.user.headimg}" alt=""> ' +
                 '<div class="mymessage"> ' +
                 '<a class="mymessage-author" > ${sessionScope.user.unickname}</a> ' +
                 '<span class="mymessage-date">' + dateFormatter(new Date()) +

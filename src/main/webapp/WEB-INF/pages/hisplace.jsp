@@ -243,7 +243,7 @@
     }
 
     function sendAt(hisuid) {
-        location.href = '/tosixin#' + hisuid;
+        location.href = '${staticPath}/tosixin#' + hisuid;
     }
 
     //    $('#send').on('click',function () {
@@ -262,7 +262,7 @@
     //        });
     $('#addfriend').on('click', function () {
         $.ajax({
-            url: '/askforaddfriend?hisuid=${his.uid}',
+            url: '${staticPath}/askforaddfriend?hisuid=${his.uid}',
             type: 'get',
             success: function (data) {
                 if (data == 'success') {

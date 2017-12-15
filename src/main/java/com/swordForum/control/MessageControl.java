@@ -57,7 +57,7 @@ public class MessageControl {
         List<User> users1 = null;
         List<User> users2 = null;
         if (friends1 != null && friends1.size() != 0) {
-            users1 = new ArrayList<User>(friends1.size());
+            users1 = new ArrayList<>(friends1.size());
             for (Friend f : friends1) {
                 User u = userMapper.selectById(f.getTouid());
                 users1.add(u);

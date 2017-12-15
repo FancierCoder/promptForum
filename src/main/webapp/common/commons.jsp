@@ -1,3 +1,4 @@
+<%@ page pageEncoding="utf-8" %>
 <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
 <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
 <link href="${staticPath}/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
@@ -36,4 +37,4 @@
 <script src="${staticPath}/js/plugins/cropper/cropper.min.js"></script>
 <!-- 第三方插件 -->
 <script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>

@@ -1,14 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/3/18
-  Time: 13:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 
 <head>
@@ -20,11 +11,7 @@
     <title> - 未读评论</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 </head>
 
 <body class="gray-bg">
@@ -45,12 +32,14 @@
                             <c:forEach items="${unreadcomms}" var="item" varStatus="status">
                                 <div class="feed-element">
                                     <a href="javascript:void(0) " class="pull-left">
-                                        <img alt="${item.unickname}" class="img-circle" src="/img/${item.headimg}">
+                                        <img alt="${item.unickname}" class="img-circle"
+                                             src="${staticPath}/img/${item.headimg}">
                                     </a>
                                     <div class="media-body ">
                                         <small class="pull-right">${item.ctime}</small>
                                         <strong>${item.unickname}</strong> 在您发布的&nbsp;
-                                        <a href="/showTopicDetail/${item.ctid}#${item.cid}" class="btn-link">
+                                        <a href="${staticPath}/comment/showTopicDetail/${item.ctid}#${item.cid}"
+                                           class="btn-link">
                                                 ${item.ttopic}
                                         </a>&nbsp;发表了评论 :
                                         <br>
@@ -68,13 +57,6 @@
         </div>
     </div>
 </div>
-<!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-<!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
-<script src="/js/plugins/layer/layer.min.js"></script>
-<script src="/js/plugins/layer/laypage/laypage.js"></script>
 <script type="text/javascript">
     laypage({
         cont: $('#page'),
@@ -85,7 +67,7 @@
         }(),
         jump: function (e, first) { //触发分页后的回调
             if (!first) { //一定要加此判断，否则初始时会无限刷新
-                location.href = '/unReadComment?page=' + e.curr;
+                location.href = '${staticPath}/unReadComment?page=' + e.curr;
             }
         }
     });
