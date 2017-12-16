@@ -10,6 +10,7 @@ import com.swordForum.model.Topic;
 import com.swordForum.model.User;
 import com.swordForum.model.VO.ChartVo;
 import com.swordForum.model.VO.ManTopic;
+import com.swordForum.util.MD5Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -57,10 +60,10 @@ public class ManageController {
      * 登录到后台
      **/
     @RequestMapping("/mloginback")
-    public String loginback(String username, String password, HttpServletRequest request) {
+    public String loginback(String username, String password, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Manage manage = new Manage();
         manage.setMname(username);
-        manage.setMpassword(password);
+        manage.setMpassword(MD5Util.EncoderByMd5(password));
         @Nullable
         Manage me = manageMapper.selectOne(manage);
         if (me == null) {
@@ -74,7 +77,12 @@ public class ManageController {
     @RequestMapping("/mleave")
     public String mleave(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        session.invalidate();
+        try {
+            session.invalidate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "login2.html";
+        }
         return "login2.html";
     }
 
@@ -187,7 +195,7 @@ public class ManageController {
         } else if ("month".equals(type)) {
             chartVos = manageMapper.getRegisterChartByMonth(year);
         }
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("registerchart", chartVos);
         return map;
     }
@@ -244,9 +252,9 @@ public class ManageController {
                     section.setSshortsm(sshortsm);
                     section.setSmasterid(smasterid);
                     section.setSparentname(sparentname);
-                    EntityWrapper<Section> sectionEntityWrapper = new EntityWrapper<>();
-                    sectionEntityWrapper.setEntity(section);
-                    sectionMapper.update(section, sectionEntityWrapper);
+                    //EntityWrapper<Section> sectionEntityWrapper = new EntityWrapper<>();
+                    //sectionEntityWrapper.setEntity(section);
+                    sectionMapper.updateById(section);
                     pw.write("success");
                 }
             }

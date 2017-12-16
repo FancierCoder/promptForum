@@ -17,10 +17,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,7 +60,7 @@ public class UserController {
     public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> mapwhere = new HashMap<>(2);
         mapwhere.put("uemail", username);
-        mapwhere.put("upassword", password);
+        mapwhere.put("upassword", MD5Util.EncoderByMd5(password));
         List<User> userList = userMapper.selectByMap(mapwhere);
         if (userList != null && userList.size() != 0) {
             User user = userList.get(0);
@@ -399,11 +397,10 @@ public class UserController {
         User user = (User) request.getSession().getAttribute("user");
         String password = user.getUpassword();
         PrintWriter pw = null;
-        if (!password.equals(beginp)) {
+        if (!MD5Util.checkPassword(beginp, password)) {
             pw = response.getWriter();
             pw.write("errpassword");
             pw.close();
-            return;
         } else {
             String sendyzm = (String) request.getSession().getServletContext().getAttribute(user.getUemail());
             sendyzm = sendyzm.toUpperCase();
@@ -414,7 +411,7 @@ public class UserController {
                 pw.close();
                 return;
             } else {
-                user.setUpassword(endp);
+                user.setUpassword(MD5Util.EncoderByMd5(endp));
                 userMapper.updateById(user);
                 //记录
                 String ip = new IpUtil().getIp(request);
@@ -469,7 +466,7 @@ public class UserController {
                 Map<String, Object> mapwhere = new HashMap<>(1);
                 mapwhere.put("uemail", email);
                 User user = userMapper.selectByMap(mapwhere).get(0);
-                user.setUpassword(newpassword);
+                user.setUpassword(MD5Util.EncoderByMd5(newpassword));
                 int i = userMapper.updateById(user);
                 if (i == 1) {
                     request.getSession().getServletContext().removeAttribute(email);
@@ -571,7 +568,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister", method = RequestMethod.POST)
-    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, @RequestParam("yzm") String yzm, PrintWriter pw, HttpServletRequest request) {
+    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, @RequestParam("yzm") String yzm, PrintWriter pw, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         /*******前后台双重验证，防止插入数据出错********/
         Pattern pattern1 = Pattern.compile("^(\\w-*\\.*)+@(\\w-?)+(\\.\\w{2,})+$");
         Matcher matcher1 = pattern1.matcher(uemail.trim());
@@ -591,7 +588,7 @@ public class UserController {
                         User newUser = new User();
                         newUser.setUemail(uemail);
                         newUser.setUnickname(unickname);
-                        newUser.setUpassword(upassword);
+                        newUser.setUpassword(MD5Util.EncoderByMd5(upassword));
                         /*插入数据，同步防止数据库出现多条邮箱一样的*/
                         int i = insertUser(newUser);
                         if (i == 1) {
@@ -642,7 +639,7 @@ public class UserController {
 
         if (userMapper.selectByMap(mapwhere).size() != 0) {
             pw = response.getWriter();
-            pw.write("has_email");
+            pw.write("has_email");//账号已注册过
             pw.close();
         } else {
             MailUtil mailUtil = new MailUtil();

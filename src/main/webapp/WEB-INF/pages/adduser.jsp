@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishengzhu
-  email:530735771@qq.com
-  Date: 2017/4/27
-  Time: 11:16
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
 <html>
 <head>
