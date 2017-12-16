@@ -26,7 +26,6 @@ import java.io.PrintWriter;
 import java.util.*;
 
 /**
- * Created by Administrator on 2016/11/29.
  * 消息方面的处理
  */
 @Controller
@@ -247,6 +246,12 @@ public class MessageControl {
         webSocketHandler.sendMessageToUser(me.getUid(), new TextMessage(JSON.toJSONString(map)));
 
         return sixinList;
+    }
+
+    @RequestMapping("/forgetPass")
+    public String forgetPass() {
+
+        return "forgetPass";
     }
 
 }

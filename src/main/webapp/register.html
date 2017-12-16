@@ -30,7 +30,7 @@
 
 <body class="gray-bg" style="background:url('/img/login2.jpg')  no-repeat center fixed">
 
-<div class="middle-box text-center loginscreen   animated fadeInDown">
+<div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
         <a href="index.jsp">
             <h2 class="logo-name">Z+</h2>
@@ -49,6 +49,14 @@
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" id="again" placeholder="请再次输入密码"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-push-2">
+                    <input id="yzm" type="text" readonly class="form-control" placeholder="验证码"/>
+                </div>
+                <div class="col-sm-pull-2">
+                    <button class="btn btn-danger" onclick="getyzm(this);">获取验证码</button>
+                </div>
             </div>
             <button type="button" onclick="submitf2();" class="btn btn-primary block full-width m-b">注 册</button>
 
@@ -73,11 +81,42 @@
     //
     //    });
 
+    function getyzm(obj) {
+        var email = $('#email').val().trim();
+        var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (email != null && email != '') {
+            if (!remail.test(email)) {
+                layer.tips("邮箱格式错误", $('#email'));
+            } else {
+                $('#yzm').removeAttr('readonly');
+                $(obj).attr({'disabled': 'disabled'});
+                $.ajax({
+                    type: 'get',
+                    url: '/user/sendyzm3',
+                    data: {email: email},
+                    success: function (data) {
+                        if (data == 'has_email')
+                            layer.msg("账号已注册！请确认！3秒后跳转到登录页面！");
+                        setTimeout(function () {
+                            location.href = '/login.html';
+                        }, 3000);
+                    }
+                });
+                setTimeout(function () {
+                    $(obj).removeAttr('disabled');
+                }, 45000);
+            }
+        } else {
+            layer.tips("请输入邮箱", $('#email'));
+        }
+    }
+
     function check() {
         var email = $('#email').val().trim();
         var nickname = $('#nickname').val().trim();
         var password = $('#password').val().trim();
         var again = $('#again').val().trim();
+        var yzm = $('#yzm').val().trim();
         var rpassword = /^[\w]{6,12}$/;
         var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (email == null || email == '') {
@@ -101,6 +140,9 @@
         } else if (password != again) {
             layer.tips("两次密码输入不同", $('#again'));
             return false;
+        } else if (yzm == null || yzm == '') {
+            layer.tips("请输入验证码", $('#yzm'));
+            return false;
         } else {
             return true;
         }
@@ -110,14 +152,15 @@
         var email = $('#email').val().trim();
         var nickname = $('#nickname').val().trim();
         var password = $('#password').val().trim();
-        alert(email + ":" + nickname + ":" + password);
+        var yzm = $('#yzm').val().trim();
+        //alert(email + ":" + nickname + ":" + password);
         if (check()) {
             alert(email);
             $.ajax({
                 type: 'post',
                 url: "/user/checkRegister",
                 dataType: "text",
-                data: {uemail: email, unickname: nickname, upassword: password},
+                data: {uemail: email, unickname: nickname, upassword: password, yzm: yzm},
                 success: function (data) {
                     if (data == "success") {
                         layer.msg("注册成功");
@@ -128,6 +171,10 @@
                         layer.msg("服务器繁忙");
                     } else if (data == "has") {
                         layer.tips("此邮箱已被注册！", $("#email"));
+                    } else if (data == 'error_yzm') {
+                        layer.tips("验证码错误！", $("#yzm"));
+                    } else if (data == 'unknowerr') {
+                        layer.msg("未知错误！");
                     } else {
                         layer.msg("请不要修改客户端！");
                     }

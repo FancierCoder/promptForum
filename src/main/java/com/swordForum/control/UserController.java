@@ -407,6 +407,7 @@ public class UserController {
         } else {
             String sendyzm = (String) request.getSession().getServletContext().getAttribute(user.getUemail());
             sendyzm = sendyzm.toUpperCase();
+            yzm = yzm.toUpperCase();
             if (!sendyzm.equals(yzm)) {
                 pw = response.getWriter();
                 pw.write("erryzm");
@@ -425,6 +426,74 @@ public class UserController {
                 pw.close();
                 request.getSession().getServletContext().removeAttribute(user.getUemail());
             }
+        }
+    }
+
+    /**
+     * 忘记密码
+     **/
+    @RequestMapping("/sendyzm2")
+    public void sendyzm2(@RequestParam("email") String email,
+                         HttpServletRequest request,
+                         HttpServletResponse response) throws IOException {
+        /*账号是否存在*/
+        Map<String, Object> mapwhere = new HashMap<>(1);
+        mapwhere.put("uemail", email);
+        PrintWriter pw = null;
+
+        if (userMapper.selectByMap(mapwhere).size() == 0) {
+            pw = response.getWriter();
+            pw.write("erremail");
+            pw.close();
+            return;
+        } else {
+            MailUtil mailUtil = new MailUtil();
+            String yzm = RandomUtil.getyzm(6);
+            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---重置您的密码<br/>" +
+                    "请勿告诉他人！");
+            request.getSession().getServletContext().setAttribute(email, yzm);
+        }
+    }
+
+    @RequestMapping(value = "/forgetpassword", method = RequestMethod.POST)
+    public void forgetpassword(@RequestParam("email") String email,
+                               @RequestParam("yzm") String yzm,
+                               @RequestParam("newpassword") String newpassword,
+                               HttpServletRequest request,
+                               HttpServletResponse response) throws Exception {
+        String sendyzm = (String) request.getSession().getServletContext().getAttribute(email);
+        if (sendyzm != null && sendyzm.length() > 0) {
+            sendyzm = sendyzm.toUpperCase();
+            yzm = yzm.toUpperCase();
+            if (sendyzm.equals(yzm)) {
+                Map<String, Object> mapwhere = new HashMap<>(1);
+                mapwhere.put("uemail", email);
+                User user = userMapper.selectByMap(mapwhere).get(0);
+                user.setUpassword(newpassword);
+                int i = userMapper.updateById(user);
+                if (i == 1) {
+                    request.getSession().getServletContext().removeAttribute(email);
+                    //记录
+                    String ip = new IpUtil().getIp(request);
+                    Logtable logtable = new Logtable(user.getUid(), ip, 4);
+                    logtableMapper.insert(logtable);
+                    PrintWriter pw = response.getWriter();
+                    pw.write("success");
+                    pw.close();
+                } else {
+                    PrintWriter pw = response.getWriter();
+                    pw.write("err");
+                    pw.close();
+                }
+            } else {
+                PrintWriter pw = response.getWriter();
+                pw.write("erryzm");
+                pw.close();
+            }
+        } else {
+            PrintWriter pw = response.getWriter();
+            pw.write("unknowerr");
+            pw.close();
         }
     }
 
@@ -502,48 +571,85 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister", method = RequestMethod.POST)
-    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, PrintWriter pw) {
+    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, @RequestParam("yzm") String yzm, PrintWriter pw, HttpServletRequest request) {
         /*******前后台双重验证，防止插入数据出错********/
         Pattern pattern1 = Pattern.compile("^(\\w-*\\.*)+@(\\w-?)+(\\.\\w{2,})+$");
         Matcher matcher1 = pattern1.matcher(uemail.trim());
         Pattern pattern2 = Pattern.compile("^[\\w]{6,12}$");
         Matcher matcher2 = pattern2.matcher(upassword.trim());
-        if (matcher1.matches() && matcher2.matches() && unickname.trim().length() > 0) {
-            Map<String, Object> mapwhere = new HashMap<>(1);
-            mapwhere.put("uemail", uemail);
-            List<User> user = userMapper.selectByMap(mapwhere);
-            if (user == null || user.size() == 0) {
-                User newUser = new User();
-                newUser.setUemail(uemail);
-                newUser.setUnickname(unickname);
-                newUser.setUpassword(upassword);
-                /*插入数据，同步防止数据库出现多条邮箱一样的*/
-                int i = insertUser(newUser);
-                if (i == 1) {
-                    Friend sys = new Friend();
-                    sys.setFromuid(-1L);
-                    sys.setTouid(newUser.getUid());
-                    sys.setTime(new Date());
-                    friendMapper.insert(sys);
-                    Sixin sixin = new Sixin();
-                    sixin.setSifromuid(-1L);
-                    sixin.setSitouid(newUser.getUid());
-                    sixin.setContent("<p style='color:grern'>欢迎使用仗剑论坛，有你的世界更精彩!" +
-                            "<br/>  <small> 站长：李铎</small>" +
-                            "</p>");
-                    sixin.setIsread(0);
-                    sixinMapper.insert(sixin);
+        String sendyzm = (String) request.getSession().getServletContext().getAttribute(uemail);
+        if (sendyzm != null && sendyzm.length() > 0) {
+            sendyzm = sendyzm.toUpperCase();
+            yzm = yzm.toUpperCase();
+            if (sendyzm.equals(yzm)) {
+                request.getSession().getServletContext().removeAttribute(uemail);
+                if (matcher1.matches() && matcher2.matches() && unickname.trim().length() > 0) {
+                    Map<String, Object> mapwhere = new HashMap<>(1);
+                    mapwhere.put("uemail", uemail);
+                    List<User> user = userMapper.selectByMap(mapwhere);
+                    if (user == null || user.size() == 0) {
+                        User newUser = new User();
+                        newUser.setUemail(uemail);
+                        newUser.setUnickname(unickname);
+                        newUser.setUpassword(upassword);
+                        /*插入数据，同步防止数据库出现多条邮箱一样的*/
+                        int i = insertUser(newUser);
+                        if (i == 1) {
+                            Friend sys = new Friend();
+                            sys.setFromuid(-1L);
+                            sys.setTouid(newUser.getUid());
+                            sys.setTime(new Date());
+                            friendMapper.insert(sys);
+                            Sixin sixin = new Sixin();
+                            sixin.setSifromuid(-1L);
+                            sixin.setSitouid(newUser.getUid());
+                            sixin.setContent("<p style='color:grern'>欢迎使用仗剑论坛，有你的世界更精彩!" +
+                                    "<br/>  <small> 站长：李铎</small>" +
+                                    "</p>");
+                            sixin.setIsread(0);
+                            sixinMapper.insert(sixin);
 
-                    pw.write("success");
+                            pw.write("success");
 
+                        } else {
+                            pw.write("busy");   //并发现象 繁忙
+                        }
+                    } else {
+                        pw.write("has");        //用户已被注册
+                    }
                 } else {
-                    pw.write("busy");   //并发现象 繁忙
+                    pw.write("illegal");
                 }
             } else {
-                pw.write("has");        //用户已被注册
+                pw.write("error_yzm");
             }
         } else {
-            pw.write("illegal");
+            pw.write("unknowerr");
+        }
+    }
+
+    /**
+     * 注册
+     **/
+    @RequestMapping("/sendyzm3")
+    public void sendyzm3(@RequestParam("email") String email,
+                         HttpServletRequest request,
+                         HttpServletResponse response) throws IOException {
+        /*账号是否存在*/
+        Map<String, Object> mapwhere = new HashMap<>(1);
+        mapwhere.put("uemail", email);
+        PrintWriter pw = null;
+
+        if (userMapper.selectByMap(mapwhere).size() != 0) {
+            pw = response.getWriter();
+            pw.write("has_email");
+            pw.close();
+        } else {
+            MailUtil mailUtil = new MailUtil();
+            String yzm = RandomUtil.getyzm(6);
+            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---注册账号<br/>" +
+                    "请勿告诉他人！");
+            request.getSession().getServletContext().setAttribute(email, yzm);
         }
     }
 }

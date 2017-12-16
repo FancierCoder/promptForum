@@ -138,7 +138,7 @@
         if (message != null) {
             var img = $('#title').children("img").attr("src");
             var nickname = $('#title').children("span").text();
-            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="' + img +
+            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="${staticPath}/' + img +
                 '" alt=""> ' +
                 '<div class="hismessage"> <a class="message-author" >' + nickname +
                 '</a> ' +
@@ -188,7 +188,7 @@
                             discussiondiv.append(isend);
                             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
                         } else {
-                            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="' + img +
+                            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="${staticPath}/' + img +
                                 '" alt=""> ' +
                                 '<div class="hismessage"> <a class="message-author" >' + nickname +
                                 '</a> ' +
