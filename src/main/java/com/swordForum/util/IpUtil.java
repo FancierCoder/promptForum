@@ -2,10 +2,7 @@ package com.swordForum.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils.*;
-
 /**
- * Created by asus on 2017/4/25.
  */
 public class IpUtil {
     public String getIp(HttpServletRequest request) throws Exception {

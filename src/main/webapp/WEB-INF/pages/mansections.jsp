@@ -1,32 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishengzhu
-  email:530735771@qq.com
-  Date: 2017/5/2
-  Time: 17:35
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 <head>
     <title>板块管理</title>
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/css/plugins/bootstrap-table/bootstrap-table.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
-    <script src="/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="/js/plugins/layer/layer.min.js"></script>
-    <!-- layer  -->
-    <script src="/js/plugins/layer/layer.min.js"></script>
+    <%@ include file="../../common/commons.jsp" %>
 </head>
 <style type="text/css">
     td {
@@ -42,9 +19,7 @@
         <button id="add" class="btn btn-primary">
             <i class="glyphicon glyphicon-plus"></i>增加板块
         </button>
-        <button id="mcrawlerQQXY" class="btn btn-primary">
-            <i class="glyphicon glyphicon-cloud-download">菁菁校园爬取</i>
-        </button>
+
     </div>
     <table id="table"
            data-search="true"
@@ -59,14 +34,13 @@
            data-show-footer="false"
            data-side-pagination="client"
            data-query-params-type="undefined" <%--注意如果用自定义的非limit格式去需要写上去--%>
-           data-url="/manlistsections"
+           data-url="${staticPath}/manage/manlistsections"
            data-response-handler="responseHandler">
     </table>
 </div>
 <script type="text/javascript">
     var $table = $('#table'),
         $add = $('#add'),
-        $mcrawlerQQXY = $('#mcrawlerQQXY'),
         selections = [];
 
     function initTable() {
@@ -77,7 +51,7 @@
                     title: 'sid',
                     field: 'sid',
                     align: 'center',
-                    valign: 'middle',
+                    valign: 'middle'
                 }, {
                     title: '板块名字',
                     field: 'sname',
@@ -104,7 +78,7 @@
                     align: 'center',
                     valign: 'middle'
                 }, {
-                    title: '操作',
+                    title: '操  作',
                     field: 'operate',
                     align: 'center',
                     events: operateEvents,
@@ -127,11 +101,11 @@
         return res;
     }
 
-    function operateFormatter(value, row, index) {
+    function operateFormatter() {
         return [
             '<a class="edit" href="javascript:void(0)" title="edit">',
-            '<i class="glyphicon glyphicon-edit">修改</i>',
-            '</a>  '
+            '<i class="glyphicon glyphicon-edit">修 改</i>',
+            '</a>'
         ].join('');
     }
 
@@ -172,13 +146,12 @@
                 title: '修改板块信息',
                 shade: 0.8,
                 area: size,
-                content: '/mtoeditsection?sid=' + row.sid,
+                content: '${staticPath}/manage/mtoeditsection?sid=' + row.sid,
                 success: function (layero, index) {
                     layer.iframeAuto(index);
                 }
             });
-            ;
-        },
+        }
     }
 
     function getHeight() {
@@ -193,22 +166,12 @@
             shade: 0.8,
             title: '增加板块',
             area: size,
-            content: '/mtoaddsection',
+            content: '${staticPath}/manage/mtoaddsection',
             success: function (layero, index) {
                 layer.iframeAuto(index);
             }
         })
     });
-    $mcrawlerQQXY.on('click', function () {
-        alert("进来");
-        $.ajax({
-            url: '/mcrawlerQQXY',
-            type: 'post',
-            success: function (data) {
-
-            }
-        })
-    })
 
 </script>
 

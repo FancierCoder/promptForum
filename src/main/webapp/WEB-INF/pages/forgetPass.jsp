@@ -89,27 +89,35 @@
         var newpassword = $('#newpassword').val().trim();
         var yzm = $('#yzm').val().trim();
         var rpassword = /^[\w]{6,12}$/;
-        if (!rpassword.test(newpassword)) {
+        var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (email == null || email == '') {
+            layer.tips("不能为空", $('#email'));
+            return false;
+        } else if (!rpassword.test(newpassword)) {
             layer.tips("格式错误", $('#newpassword'));
             return false;
-        }
-        $.ajax({
-            url: '${staticPath}/user/forgetpassword',
-            type: "post",
-            data: {email: email, newpassword: newpassword, yzm: yzm},
-            success: function (data) {
-                if (data == 'erryzm') {
-                    layer.tips("验证码错误", $('#yzm'));
-                } else if (data == 'unknowerr') {
-                    layer.msg("未知错误！");
-                } else if (data == 'success') {
-                    layer.msg("修改成功，请使用新密码登录");
-                    setTimeout(function () {
-                        location.href = '${staticPath}/login.html';
-                    }, 2000);
+        } else if (!remail.test(email)) {
+            layer.tips("邮箱格式错误", $('#email'));
+            return false;
+        } else {
+            $.ajax({
+                url: '${staticPath}/user/forgetpassword',
+                type: "post",
+                data: {email: email, newpassword: newpassword, yzm: yzm},
+                success: function (data) {
+                    if (data == 'erryzm') {
+                        layer.tips("验证码错误", $('#yzm'));
+                    } else if (data == 'unknowerr') {
+                        layer.msg("未知错误！");
+                    } else if (data == 'success') {
+                        layer.msg("修改成功，请使用新密码登录");
+                        setTimeout(function () {
+                            location.href = '${staticPath}/login.html';
+                        }, 2000);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 </script>

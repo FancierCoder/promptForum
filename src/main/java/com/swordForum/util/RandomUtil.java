@@ -3,7 +3,6 @@ package com.swordForum.util;
 import java.util.Random;
 
 /**
- * Created by Administrator on 2016/11/28.
  */
 public class RandomUtil {
     //产生随机4位验证码

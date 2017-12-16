@@ -1,7 +1,6 @@
 package com.swordForum.util;
 
 /**
- * Created by asus on 2017/4/25.
  */
 public class LevelUtil {
     /**

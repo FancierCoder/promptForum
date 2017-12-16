@@ -1,13 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2016/11/24
-  Time: 20:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="../../common/base.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -25,11 +17,7 @@
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
 
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <%@ include file="../../common/commons.jsp" %>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -55,7 +43,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="J_menuItem" href="/mtoChart" onclick="">
+                    <a class="J_menuItem" href="${staticPath}/manage/mtoChart" onclick="">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">图表统计</span>
                     </a>
@@ -67,27 +55,27 @@
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                 </li>
                 <li>
-                    <a class="J_menuItem" href="/mtomanusers">
+                    <a class="J_menuItem" href="${staticPath}/manage/mtomanusers">
                         <i class="fa fa-users"></i> <span class="nav-label">用户管理 </span>
                         <span class="label label-warning pull-right"></span>
                     </a>
                 </li>
 
                 <li>
-                    <a class="J_menuItem" href="/mtomansections">
+                    <a class="J_menuItem" href="${staticPath}/manage/mtomansections">
                         <i class="fa fa-newspaper-o"></i> <span class="nav-label">板块管理 </span>
                         <span class="label label-warning pull-right"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="/mtomantopics?sid=-1" class="J_menuItem">
-                        <i class="fa fa-list-alt"></i><span class="nav-label">帖子管理</span>
+                    <a href="${staticPath}/manage/mtomantopics?sid=-1" class="J_menuItem">
+                        <i class="fa fa-list-alt"></i><span class="nav-label">帖子管理 </span>
                         <span class="label label-warning pull-right"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="/mtomancomments" class="J_menuItem">
-                        <i class="fa fa-comment"></i><span class="nav-label">评论管理</span>
+                    <a href="${staticPath}/manage/mtomancomments" class="J_menuItem">
+                        <i class="fa fa-comment"></i><span class="nav-label">评论管理 </span>
                         <span class="label label-warning pull-right"></span>
                     </a>
                 </li>
@@ -112,7 +100,7 @@
                     <!--头像-->
                     <c:if test="${sessionScope.admin!=null}">
                         <li>
-                            <a href="/mleave"><i class="glyphicon glyphicon-log-out"></i>注销 </a>
+                            <a href="${staticPath}/manage/mleave"><i class="glyphicon glyphicon-log-out"></i>注销 </a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle J_menuItem count-info" data-toggle="dropdown">
@@ -145,11 +133,11 @@
                                 </li>
                             </ul>
                         </li>
-                        </li>
+
                     </c:if>
                     <c:if test="${sessionScope.admin==null}">
                         <li>
-                            <a class="   btn-sm" style="color: #010101" href="/login2.html" target="_top">
+                            <a class="   btn-sm" style="color: #010101" href="${staticPath}/login2.html" target="_top">
                                 <i class="fa fa-user "></i> 登录
                             </a>
                         </li>
@@ -160,13 +148,14 @@
             </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe id="J_iframe" width="100%" height="100%" src="/mtoChart" frameborder="0" data-id=""
+            <iframe id="J_iframe" width="100%" height="100%" src="${staticPath}/manage/mtoChart" frameborder="0"
+                    data-id=""
                     seamless></iframe>
         </div>
     </div>
     <!--右侧部分结束-->
 </div>
-
+<%--
 <!-- 全局js -->
 <script src="/js/jquery.min.js?v=2.1.4"></script>
 <script src="/js/bootstrap.min.js?v=3.3.6"></script>
@@ -180,7 +169,7 @@
 
 <!-- 第三方插件 -->
 <script src="/js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>--%>
 </body>
 
 </html>

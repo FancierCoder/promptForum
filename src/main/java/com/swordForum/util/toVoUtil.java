@@ -9,7 +9,6 @@ import com.swordForum.model.VO.TopicCatalogVo;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/11/22.
  */
 public class toVoUtil {
     public static final int DEFAULTLEN = 100;

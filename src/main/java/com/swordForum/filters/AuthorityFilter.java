@@ -16,11 +16,15 @@ public class AuthorityFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("user") == null) {
-            if (!ajaxDofilterSessionNull(request, response)) {
-                response.sendRedirect("/login.html");
+        try {
+            if (session.getAttribute("user") == null) {
+                if (!ajaxDofilterSessionNull(request, response)) {
+                    response.sendRedirect("/login.html");
+                }
             }
-        } else {
+        } catch (Exception e) {
+            response.sendRedirect("/login.html");
+        } finally {
             filterChain.doFilter(request, response);
         }
     }

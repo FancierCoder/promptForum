@@ -17,4 +17,90 @@
         mid, mname, mpassword, msex, mrole, memail
     </sql>
 
+    <select id="getTopicChartByWeek" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(ttime, '%Y年%v周') AS xstr,
+            COUNT(*)                     AS ynum
+        FROM topic
+        WHERE DATE_FORMAT(ttime, '%Y') = #{YEAR}
+        GROUP BY xstr
+    </select>
+    <select id="getTopicChartByMonth" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(ttime, '%Y年%m月') AS xstr,
+            COUNT(*)                     AS ynum
+        FROM topic
+        WHERE DATE_FORMAT(ttime, '%Y') = #{YEAR}
+        GROUP BY xstr
+
+    </select>
+    <select id="getCommentChartByWeek" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(ctime, '%Y年%v周') AS xstr,
+            COUNT(*)                     AS ynum
+        FROM comment
+        WHERE DATE_FORMAT(ctime, '%Y') = #{YEAR}
+        GROUP BY xstr
+    </select>
+    <select id="getCommentChartByMonth" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(ctime, '%Y年%m月') AS xstr,
+            COUNT(*)                     AS ynum
+        FROM comment
+        WHERE DATE_FORMAT(ctime, '%Y') = #{YEAR}
+        GROUP BY xstr
+    </select>
+    <select id="getRegisterChartByWeek" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(uregtime, '%Y年%v周') AS xstr,
+            COUNT(*)                        AS ynum
+        FROM user
+        WHERE DATE_FORMAT(uregtime, '%Y') = #{YEAR}
+        GROUP BY xstr
+    </select>
+    <select id="getRegisterChartByMonth" parameterType="java.lang.String" resultMap="chartvo">
+        SELECT
+            DATE_FORMAT(uregtime, '%Y年%m月') AS xstr,
+            COUNT(*)                        AS ynum
+        FROM user
+        WHERE DATE_FORMAT(uregtime, '%Y') = #{YEAR}
+        GROUP BY xstr
+    </select>
+    <resultMap id="chartvo" type="com.swordForum.model.VO.ChartVo">
+        <result property="xstr" column="xstr"></result>
+        <result property="ynum" column="ynum"></result>
+    </resultMap>
+    <select id="selectDetailTopic" resultMap="mantopic" parameterType="int">
+        SELECT
+        tid,tsid,tuid,ttopic,ttime,treplaycount,tclickcount,tlastclicktime,tstaus,tzan,sname,uemail,unickname,headimg
+        FROM
+        topic ,
+        section ,
+        USER
+        WHERE
+        <if test="sid != -1">
+            tsid=#{sid} And
+        </if>
+        tsid = sid
+        AND tuid = uid
+
+    </select>
+
+    <resultMap id="mantopic" type="com.swordForum.model.VO.ManTopic">
+        <id property="tid" column="tid"/>
+        <result property="tsid" column="tsid"/>
+        <result property="tuid" column="tuid"/>
+        <result property="ttopic" column="ttopic"/>
+        <result property="ttime" column="ttime"/>
+        <result property="treplaycount" column="treplaycount"/>
+        <result property="tclickcount" column="tclickcount"/>
+        <result property="tlastclicktime" column="tlastclicktime"/>
+        <result property="tstaus" column="tstaus"/>
+        <result property="tzan" column="tzan"/>
+        <result property="sname" column="sname"/>
+        <result property="uemail" column="uemail"/>
+        <result property="unickname" column="unickname"/>
+        <result property="headimg" column="headimg"/>
+    </resultMap>
+
 </mapper>

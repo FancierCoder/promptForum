@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/4/11
-  Time: 14:44
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../../common/base.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -19,12 +13,12 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
 
 </head>
 
@@ -53,6 +47,8 @@
                             <li><a onclick="setTopicYear(2016);">2016</a>
                             </li>
                             <li><a onclick="setTopicYear(2017);">2017</a>
+                            </li>
+                            <li><a onclick="setTopicYear(2018);">2018</a>
                             </li>
                         </ul>
                         </span>
@@ -87,6 +83,8 @@
                             </li>
                             <li><a onclick="setCommentYear(2017);">2017</a>
                             </li>
+                            <li><a onclick="setCommentYear(2018);">2018</a>
+                            </li>
                         </ul>
                         </span>
                         <a class="dropdown-toggle" data-toggle="dropdown" style="color: #9036ff">
@@ -120,6 +118,8 @@
                             </li>
                             <li><a onclick="setRegisterYear(2017);">2017</a>
                             </li>
+                            <li><a onclick="setRegisterYear(2018);">2018</a>
+                            </li>
                         </ul>
                         </span>
                         <a class="dropdown-toggle" data-toggle="dropdown" style="color: #9036ff">
@@ -144,15 +144,15 @@
 
 </div>
 <!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 
 
 <!-- ECharts -->
-<script src="/js/plugins/echarts/echarts-all.js"></script>
+<script src="${staticPath}/js/plugins/echarts/echarts-all.js"></script>
 
 <!-- 自定义js -->
-<script src="/js/content.js?v=1.0.0"></script>
+<script src="${staticPath}/js/content.js?v=1.0.0"></script>
 
 
 <script type="text/javascript">
@@ -163,7 +163,7 @@
 
     function TopicChart() {
         $.ajax({
-            url: '/mtopictcount',
+            url: '${staticPath}/manage/mtopictcount',
             type: 'post',
             cache: false,
             dataType: "json",
@@ -318,7 +318,7 @@
 
     function CommentChart() {
         $.ajax({
-            url: '/mcommentcount',
+            url: '${staticPath}/manage/mcommentcount',
             type: 'post',
             cache: false,
             dataType: "json",
@@ -406,7 +406,7 @@
 
     function RegisterChart() {
         $.ajax({
-            url: '/mregistercount',
+            url: '${staticPath}/manage/mregistercount',
             type: 'post',
             cache: false,
             dataType: "json",

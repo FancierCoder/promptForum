@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -59,7 +56,7 @@ public class CommentController {
         Section section = sectionMapper.selectById(maintopic.getTsid());
         User me = null;
         me = (User) request.getSession().getAttribute("user");
-        if (me != null && me.getUid() == topicuser.getUid()) {
+        if (me != null && me.getUid().equals(topicuser.getUid())) {
             commentMapper.updateRead(tid);
         }
         TopicCatalogVo topicCatalogVo = toVoUtil.toTopciVO(maintopic, topicuser, HtmlUtil.NOTFILTER, 1);
@@ -106,6 +103,8 @@ public class CommentController {
         map.put("topic", topicCatalogVo);
         /*增加帖子的点击数*/
         maintopic.setTclickcount(maintopic.getTclickcount() + 1);
+        /*更新查看帖子时间*/
+        maintopic.setTlastclicktime(new Date());
         topicMapper.updateById(maintopic);
         return "topicdetail";
     }

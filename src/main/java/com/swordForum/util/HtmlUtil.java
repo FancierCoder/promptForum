@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
- * Created by Administrator on 2016/11/21.
  */
 public class HtmlUtil {
     public static final int NOTFILTER = -1;

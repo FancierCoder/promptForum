@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/11/21.
  */
 public class DateUtil {
     private final static String DATE_FORMAT = "yyyy-MM-dd";

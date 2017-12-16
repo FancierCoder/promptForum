@@ -1,29 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2017/3/15
-  Time: 18:58
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../../common/base.jsp" %>
 <html>
 <head>
     <title>帖子管理</title>
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/css/plugins/bootstrap-table/bootstrap-table.min.css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
-    <script src="/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="/js/plugins/layer/layer.min.js"></script>
+    <%@ include file="../../common/commons.jsp" %>
 
     <style type="text/css">
         td {
@@ -56,8 +36,8 @@
            data-page-list="[3, 10, 50, 100, ALL]"
            data-show-footer="false"
            data-side-pagination="client"
-           data-query-params-type="undefined" , <%--注意如果用自定义的非limit格式去需要写上去--%>
-           data-url="/manlisttopics?sid=${sid}"
+           data-query-params-type="undefined"  <%--注意如果用自定义的非limit格式去需要写上去--%>
+           data-url="${staticPath}/manage/manlisttopics?sid=${sid}"
            data-response-handler="responseHandler">
     </table>
 </div>
@@ -78,7 +58,7 @@
                 title: '帖子id',
                 field: 'tid',
                 align: 'center',
-                valign: 'middle',
+                valign: 'middle'
             }, {
                 title: '标题',
                 field: 'ttopic',
@@ -142,7 +122,7 @@
                     formatter: stausFormatter
                 }, {
                     title: '上次访问时间',
-                    field: 'tlastclickcount',
+                    field: 'tlastclicktime',
                     align: 'center',
                     valign: 'middle',
                     formatter: dateFormatter
@@ -167,7 +147,7 @@
         $remove.click(function () {
             var ids = getIdSelections();
             $.ajax({
-                url: '/mdeletetopicbatch',
+                url: '${staticPath}/manage/mdeletetopicbatch',
                 type: 'post',
                 data: {tids: ids},
                 success: function (data) {
@@ -200,7 +180,7 @@
 
     function responseHandler(res) {
         $.each(res, function (i, row) {
-            row.state = $.inArray(row.tid, selections) != -1
+            row.state = $.inArray(row.tid, selections) != -1;
         });
         return res;
     }
@@ -215,18 +195,20 @@
     }
 
     function headimgFormatter(value, row, index) {
-        return '<img  class="img-circle" style="width: 32px;height: 32px;" src="/img/' + value + '"/>';
+        return '<img  class="img-circle" style="width: 32px;height: 32px;" src="${staticPath}/img/' + value + '"/>';
     }
 
     function dateFormatter(value) {
         var date = new Date(value);
-        y = date.getFullYear(),
+        var y = date.getFullYear(),
             m = date.getMonth() + 1,
             d = date.getDate(),
             h = date.getHours(),
             min = date.getMinutes(),
             s = date.getSeconds();
-        return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + (h < 10 ? "0" + h : h) + ":" + (min < 10 ? "0" + min : min) + ":"
+        return y + "-" + (m < 10 ? "0" + m : m)
+            + "-" + (d < 10 ? "0" + d : d) + " "
+            + (h < 10 ? "0" + h : h) + ":" + (min < 10 ? "0" + min : min) + ":"
             + (s < 10 ? "0" + s : s);
     }
 
@@ -252,12 +234,12 @@
 
     window.operateEvents = {
         'click .look': function (e, value, row, index) {
-            location.href = "/showTopicDetail/" + row.tid;
+            location.href = "${staticPath}/comment/showTopicDetail/" + row.tid;
         },
         'click .remove': function (e, value, row, index) {
             $.ajax({
                 type: 'post',
-                url: "/mdeletetopic",
+                url: "${staticPath}/manage/mdeletetopic",
                 data: {tid: row.tid},
                 success: function (data) {
                     if (data == 'success') {
@@ -276,7 +258,7 @@
         },
         'click .totop': function (e, value, row) {
             $.ajax({
-                url: '/mtotop',
+                url: '${staticPath}/manage/mtotop',
                 type: 'get',
                 data: {tid: row.tid, sid: row.tsid},
                 success: function (data) {
@@ -292,7 +274,7 @@
         },
         'click .todown': function (e, value, row) {
             $.ajax({
-                url: '/mcancletotop',
+                url: '${staticPath}/manage/mcancletotop',
                 type: 'get',
                 data: {tid: row.tid},
                 success: function (data) {
