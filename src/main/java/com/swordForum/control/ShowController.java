@@ -74,7 +74,7 @@ public class ShowController {
                 size = size - 1;
             }
         }
-        List<Topic> topics2 = catelogMapper.sectionTopic(new Page<Topic>(current, size), sid);//查询出sid板块下的未被置顶的帖子 时间降序
+        List<Topic> topics2 = catelogMapper.sectionTopic(new Page<>(current, size), sid);//查询出sid板块下的未被置顶的帖子 时间降序
         Topic countTopic = new Topic();
         countTopic.setTsid(sid);
         EntityWrapper<Topic> topicEntityWrapper = new EntityWrapper<>();

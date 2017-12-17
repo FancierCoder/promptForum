@@ -4,12 +4,12 @@ package com.swordForum.control;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.sun.istack.internal.Nullable;
 import com.swordForum.mapper.*;
-import com.swordForum.model.Manage;
-import com.swordForum.model.Section;
-import com.swordForum.model.Topic;
-import com.swordForum.model.User;
+import com.swordForum.model.*;
 import com.swordForum.model.VO.ChartVo;
+import com.swordForum.model.VO.CommentVo;
 import com.swordForum.model.VO.ManTopic;
+import com.swordForum.util.DateUtil;
+import com.swordForum.util.LevelUtil;
 import com.swordForum.util.MD5Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +24,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -84,31 +83,6 @@ public class ManageController {
             return "login2.html";
         }
         return "login2.html";
-    }
-
-    @RequestMapping("/mdeletecomment")
-    public void deleteComment(@RequestParam("cid") long cid, HttpServletResponse response) throws IOException {
-        int i = commentMapper.deleteById(cid);
-        PrintWriter pw = response.getWriter();
-        if (i == 1) {
-            pw.write("success");
-        } else {
-            pw.write("err");
-        }
-        pw.close();
-    }
-
-    @RequestMapping("/mdeletecommentbatch")
-    public void deleteCommentBatch(@RequestParam("cids") long[] cids, HttpServletResponse response) throws IOException {
-        List cidlist = Arrays.asList(cids);
-        int i = commentMapper.deleteBatchIds(cidlist);
-        PrintWriter pw = response.getWriter();
-        if (!(cidlist.size() == i)) {
-            pw.write("err");
-        } else {
-            pw.write("success");
-        }
-        pw.close();
     }
 
     @RequestMapping("/mtotop")
@@ -181,7 +155,7 @@ public class ManageController {
         } else if ("month".equals(type)) {
             chartVos = manageMapper.getCommentChartByMonth(year);
         }
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("commentchart", chartVos);
         return map;
     }
@@ -206,6 +180,135 @@ public class ManageController {
     @RequestMapping("/mtomanusers")
     public String toManUsersJsp() {
         return "manusers";
+    }
+
+
+    @RequestMapping("/manlistusers")
+    @ResponseBody
+    public List<User> manListUsers() {
+        ArrayList<User> userList = (ArrayList<User>) userMapper.selectList(new EntityWrapper<>(new User()));
+        return userList.size() == 0 ? null : userList;
+    }
+
+    @RequestMapping("/mtoedituser")
+    public String mToEditUser(@RequestParam("uid") long uid, Map<String, Object> map) {
+        //System.out.println("选择的用户id" + uid);
+        User user = userMapper.selectById(uid);
+        if (user == null) {
+            return "redirect:/404.html";
+        }
+        map.put("selectUser", user);
+        return "edituser";
+    }
+
+    //修改更新用户信息
+    @RequestMapping("/meditupdateuser")
+    public void mEditUpdateUser(@RequestParam("uid") long uid, @RequestParam("uemail") String uemail,
+                                @RequestParam("unickname") String unickname,
+                                @RequestParam("usex") int usex, @RequestParam("ubirthday") String ubirthdaystr,
+                                @RequestParam("ustatement") String ustatement, @RequestParam("ustate") int ustate,
+                                @RequestParam("upoint") int upoint, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Date birthday = DateUtil.toDate_Formate(ubirthdaystr);
+        //Pattern pattern2 = Pattern.compile("^[\\w]{6,12}$");
+        //Matcher matcher2 = pattern2.matcher(upassword.trim());
+        PrintWriter pw = response.getWriter();
+        if (ustate >= -1 && upoint >= 0 && (usex == 0 || usex == 1)) {
+            HttpSession session = request.getSession(false);
+            Manage manage = null;
+            if (session != null) {
+                manage = (Manage) session.getAttribute("admin");
+            }
+            if (manage != null) {
+                int level = LevelUtil.point2Level(upoint);
+                User user = new User();
+                user.setUid(uid);
+                user.setUnickname(unickname);
+                //user.setUpassword(upassword);
+                user.setUsex(usex);
+                user.setUbirthday(birthday);
+                user.setUstatement(ustatement);
+                user.setUstate(ustate);
+                user.setUlevel(level);
+                user.setUpoint(upoint);
+                userMapper.updateById(user);
+                pw.write("success");
+                pw.close();
+            } else {
+                pw.write("sessionout");
+                pw.close();
+            }
+
+        } else {
+            pw.write("err");
+            pw.close();
+        }
+
+    }
+
+    /**
+     * 到达adduser页面
+     */
+    @RequestMapping("/mtoadduser")
+    public String addUserJsp() {
+        return "adduser";
+    }
+
+    /**
+     * 增加用户
+     */
+    @RequestMapping("/madduser")
+    public void addUser(@RequestParam("uemail") String uemail,
+                        @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword,
+                        @RequestParam("usex") int usex, @RequestParam("ubirthday") String ubirthdaystr,
+                        @RequestParam("ustatement") String ustatement, @RequestParam("ustate") int ustate,
+                        @RequestParam("upoint") int upoint, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Date birthday = DateUtil.toDate_Formate(ubirthdaystr);
+        int level = LevelUtil.point2Level(upoint);
+        Pattern pattern2 = Pattern.compile("^[\\w]{6,12}$");
+        Matcher matcher2 = pattern2.matcher(upassword.trim());
+        Pattern pattern1 = Pattern.compile("^(\\w-*\\.*)+@(\\w-?)+(\\.\\w{2,})+$");
+        Matcher matcher1 = pattern1.matcher(uemail.trim());
+        PrintWriter pw = response.getWriter();
+        if (matcher1.matches() && matcher2.matches() && ustate >= -1 && upoint >= 0 && (usex == 0 || usex == 1 || usex == 2)) {
+            HttpSession session = request.getSession(false);
+            Manage manage = null;
+            if (session != null) {
+                manage = (Manage) session.getAttribute("admin");
+            }
+            if (manage != null) {
+                Map<String, Object> mapwhere = new HashMap<>(1);
+                mapwhere.put("uemail", uemail);
+                List<User> user = userMapper.selectByMap(mapwhere);
+                if (user == null || user.size() == 0) {
+                    User newuser = new User();
+                    newuser.setUemail(uemail);
+                    newuser.setUnickname(unickname);
+                    newuser.setUpassword(MD5Util.EncoderByMd5(upassword));
+                    newuser.setUsex(usex);
+                    newuser.setUbirthday(birthday);
+                    newuser.setUstatement(ustatement);
+                    newuser.setUstate(ustate);
+                    newuser.setUlevel(level);
+                    newuser.setUpoint(upoint);
+                    int i = userMapper.insert(newuser);
+                    /*插入数据，同步防止数据库出现多条邮箱一样的*/
+                    if (i == 1) {
+                        pw.write("success");
+                    } else {
+                        pw.write("busy");   //并发现象 繁忙
+                    }
+                } else {
+                    pw.write("has");        //用户已被注册
+                }
+                pw.close();
+            } else {
+                pw.write("sessionout");
+                pw.close();
+            }
+        } else {
+            pw.write("err");
+            pw.close();
+        }
     }
 
     /**
@@ -342,6 +445,52 @@ public class ManageController {
             pw.write("success");
         } else {
             pw.write("err");
+        }
+        pw.close();
+    }
+
+    /**
+     * 评论管理
+     **/
+    @RequestMapping("/mtomancomments")
+    public String toManComments() {
+        return "mancomments";
+    }
+
+    @RequestMapping("/manlistcomments")
+    @ResponseBody
+    public List<CommentVo> manListComments() {
+        ArrayList<Comment> comments = (ArrayList<Comment>) commentMapper.selectList(new EntityWrapper<>(null));
+        List<CommentVo> commentVos = new ArrayList<>(comments.size());
+        System.out.println(comments.size());
+        for (Comment comment : comments) {
+            CommentVo commentVo = CommentController.comment2Vo(comment, userMapper, topicMapper);
+            commentVos.add(commentVo);
+        }
+        return commentVos;
+    }
+
+    @RequestMapping("/mdeletecomment")
+    public void deleteComment(@RequestParam("cid") long cid, HttpServletResponse response) throws IOException {
+        int i = commentMapper.deleteById(cid);
+        PrintWriter pw = response.getWriter();
+        if (i == 1) {
+            pw.write("success");
+        } else {
+            pw.write("err");
+        }
+        pw.close();
+    }
+
+    @RequestMapping("/mdeletecommentbatch")
+    public void deleteCommentBatch(@RequestParam("cids") long[] cids, HttpServletResponse response) throws IOException {
+        List cidlist = Arrays.asList(cids);
+        int i = commentMapper.deleteBatchIds(cidlist);
+        PrintWriter pw = response.getWriter();
+        if (!(cidlist.size() == i)) {
+            pw.write("err");
+        } else {
+            pw.write("success");
         }
         pw.close();
     }

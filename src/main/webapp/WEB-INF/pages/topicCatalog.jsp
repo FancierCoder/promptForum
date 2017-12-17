@@ -45,51 +45,57 @@
 
                                     <div class="col-lg-12 ">
                                         <!-------------------------------------------------------------------------------------------->
+
                                         <div class="ibox">
-                                            <div class="ibox-content">
-                                                <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
-                                                   class="btn-link">
+                                            <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                               class="btn-link">
+                                                <div class="ibox-content">
+
                                                     <h2>
                                                             ${item.tTopic}
 
                                                     </h2>
-                                                </a>
-                                                <div class="small m-b-xs">
-                                                    <a href="${staticPath}/user/showUser/${item.tuid}"
-                                                       class="pull-left">
-                                                        <img alt="image" class="img-circle"
-                                                             style="width: 38px;height: 38px;"
-                                                             src="${staticPath}/img/${item.headimg}">
-                                                    </a>
+                                                        <%--</a>--%>
+                                                    <div class="small m-b-xs">
+                                                        <a href="${staticPath}/user/showUser/${item.tuid}"
+                                                           class="pull-left">
+                                                            <img alt="image" class="img-circle"
+                                                                 style="width: 38px;height: 38px;"
+                                                                 src="${staticPath}/img/${item.headimg}">
+                                                        </a>
 
-                                                    <strong style="margin-left: 5px;margin-bottom: 0px">${item.uNickName}</strong> </span>
-                                                    <span class="text-muted"><i
-                                                            class="fa fa-clock-o"></i> ${item.times}前</span>
-                                                </div>
-                                                <br/>
-                                                <p>
-                                                        ${item.shortContent}
-                                                </p>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h5>标签：</h5>
-                                                        <button class="btn btn-primary btn-xs" type="button">xxx
-                                                        </button>
-                                                        <button class="btn btn-white btn-xs" type="button">xxx</button>
+                                                        <strong style="margin-left: 5px;margin-bottom: 0px">${item.uNickName}</strong> </span>
+                                                        <span class="text-muted"><i
+                                                                class="fa fa-clock-o"></i> ${item.times}前</span>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="small text-right">
-                                                            <h5>状态：</h5>
-                                                            <div><i class="fa fa-comments-o"> </i> ${item.replyCount} 评论
+                                                    <br/>
+                                                    <p>
+                                                            ${item.shortContent}
+                                                    </p>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h5>标签：</h5>
+                                                            <button class="btn btn-primary btn-xs" type="button">xxx
+                                                            </button>
+                                                            <button class="btn btn-white btn-xs" type="button">xxx</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="small text-right">
+                                                                <h5>状态：</h5>
+                                                                <div><i class="fa fa-comments-o"> </i> ${item.replyCount} 评论
+                                                                </div>
+                                                                <i class="fa fa-eye"> </i> ${item.clickCount}浏览
                                                             </div>
-                                                            <i class="fa fa-eye"> </i> ${item.clickCount}浏览
                                                         </div>
                                                     </div>
+
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
+
                                         <!------------------------------------------>
                                     </div>
+
                                 </c:forEach>
                                 <div class="col-sm-6 col-sm-offset-3" id="page"></div>
                             </c:if>

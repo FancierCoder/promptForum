@@ -89,7 +89,7 @@
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i
                         class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                    <form role="search" class="navbar-form-custom" method="post" action="${staticPath}/show/search">
                         <div class="form-group">
                             <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
                                    id="top-search">
@@ -109,8 +109,8 @@
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" id="all">
-                                <i class="fa fa-bell" id="bell"></i> <span class="label label-primary"
-                                                                           id="allunread"></span>
+                                <i class="fa fa-bell" id="bell"></i>
+                                <span class="label label-primary" id="allunread"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li class="divider"></li>
@@ -118,7 +118,7 @@
                                     <a>
                                         <div>
                                             <i class="fa fa-qq fa-fw"></i> 反馈信息 待
-                                            <span class="pull-right text-muted small">12分钟钱</span>
+                                            <span class="pull-right text-muted small">12分钟前</span>
                                         </div>
                                     </a>
                                 </li>
@@ -126,7 +126,7 @@
                                 <li>
                                     <div class="text-center link-block">
                                         <a class="J_menuItem">
-                                            <strong>查看所有待 </strong>
+                                            <strong>查看所有 待</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                     </div>

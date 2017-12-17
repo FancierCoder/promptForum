@@ -19,7 +19,7 @@ public class DateUtil {
     public static String date(final Date createDate, int flag) {
         if (flag == 0) {
             Date now = new Date();
-            long interval = now.getTime() - createDate.getTime();
+            long interval = Math.abs(now.getTime() - createDate.getTime());
             if ((interval / 1000) < 60) {
                 return interval / 1000 + "秒";
             } else if (interval / 60000 < 60) {

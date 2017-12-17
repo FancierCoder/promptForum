@@ -19,18 +19,17 @@
         <button id="add" class="btn btn-primary">
             <i class="glyphicon glyphicon-plus"></i>增加板块
         </button>
-
     </div>
     <table id="table"
            data-search="true"
            data-query-params="queryParams"
            data-show-refresh="true"
-           data-detail-view="true"
+           data-detail-view="false"
            data-minimum-count-columns="2"
            data-show-pagination-switch="true"
            data-pagination="true"
            data-id-field="sid"
-           data-page-list="[5,10,ALL]"
+           data-page-list="[5,10,15,ALL]"
            data-show-footer="false"
            data-side-pagination="client"
            data-query-params-type="undefined" <%--注意如果用自定义的非limit格式去需要写上去--%>

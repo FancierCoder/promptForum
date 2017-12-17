@@ -88,6 +88,14 @@
         <filter-name>commonAuthority</filter-name>
         <url-pattern>/topic/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>commonAuthority</filter-name>
+        <url-pattern>/comment/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>commonAuthority</filter-name>
+        <url-pattern>/concern/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>springMVC</servlet-name>

@@ -129,7 +129,7 @@
         var nickname = $('#nickname').val().trim();
         var birthday = $('#birthday').val();
         var statement = $('#statement').val().trim();
-        alert(nickname + "-" + birthday + "-" + sex + "-" + statement);
+        //alert(nickname + "-" + birthday + "-" + sex + "-" + statement);
         if (nickname == null || nickname == '') {
             layer.tips("不允许为空", $('#nickname'));
             return false;

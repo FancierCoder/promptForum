@@ -311,7 +311,7 @@ public class UserController {
                           @RequestParam(value = "statement") String statement,
                           HttpServletRequest request,
                           HttpServletResponse response) {
-        System.out.println(nickname + " " + sex + " " + birthday + "\n" + headimg + " \n" + type + " " + statement);
+        //System.out.println(nickname + " " + sex + " " + birthday + "\n" + headimg + " \n" + type + " " + statement);
         User user = (User) request.getSession().getAttribute("user");
         user.setUnickname(nickname);
         user.setUsex(sex);
