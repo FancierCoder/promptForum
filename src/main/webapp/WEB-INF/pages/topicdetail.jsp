@@ -125,7 +125,7 @@
                                     <a href="${staticPath}/user/showUser/${single.rootcomment.uid}">
                                             ${single.rootcomment.nickname}
                                     </a>
-                                        ${single.rootcomment.content}
+                                    <span class="comment_content">${single.rootcomment.content}</span>
                                     <br/>
                                     <a class="small"><i class="fa fa-thumbs-up"></i> ${single.rootcomment.czan}</a>
                                     &nbsp;
@@ -142,14 +142,12 @@
                                                 <img alt="image" src="${staticPath}/img/${dire.headimg}">
                                             </a>
                                             <div cid="" class="media-body" directuid="${dire.uid}" id="${dire.cid}">
-                                                <a href="${staticPath}/user/showUser/${dire.uid}">
-                                                        ${dire.nickname}
-                                                </a>
-                                                    ${dire.content}
+                                                <a href="${staticPath}/user/showUser/${dire.uid}">${dire.nickname}</a>
+                                                <span class="comment_content">${dire.content}</span>
                                                 <br/>
                                                 <a class="small"><i class="fa fa-thumbs-up"></i> ${dire.czan}</a> &nbsp;
-                                                <a class="small" onclick="addNdirectTextArea(this,${dire.cid});"><i
-                                                        class="fa fa-comments"></i></a>&nbsp;
+                                                <a class="small" onclick="addNdirectTextArea(this,${dire.cid});">
+                                                    <i class="fa fa-comments"></i></a>&nbsp;
                                                 <small class="text-muted">${dire.timeinterval}前</small>
                                             </div>
 
@@ -169,8 +167,7 @@
                                                             </a>
                                                             &nbsp;<font color="#8b5de4">回复</font>
                                                             <a href="${staticPath}/user/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
-
-                                                                ${ndire.content}
+                                                            <span class="comment_content">${ndire.content}</span>
                                                             <br/>
                                                             <a class="small"><i
                                                                     class="fa fa-thumbs-up"></i> ${ndire.czan}</a>&nbsp;
@@ -189,11 +186,9 @@
                         </c:forEach>
                         <c:if test="${sessionScope.user==null}">
                             <div class="social-comment">
-
                                 <div class="media-body">
                                     请先<a href="${staticPath}/login.html">登录</a>再评论
                                 </div>
-
                             </div>
                         </c:if>
                         <c:if test="${sessionScope.user!=null}">
@@ -202,36 +197,53 @@
                                     <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/>
                                 </a>
                                 <div class="media-body">
-                                    <textarea class="form-control rootcontent" placeholder="填写评论..."></textarea>
-                                    <p><span class="emotion">表情</span>
-                                        <button type="button" class="btn btn-primary "
-                                                style="float: right;margin-top: 5px" onclick="submitroot()">发表评论
+                                    <textarea id="saytext" class="form-control rootcontent"
+                                              placeholder="填写评论..."></textarea>
+                                    <p>
+                                        <button type="button" class="btn btn-primary sub_btn"
+                                                style="float: right;margin-top: 5px" onclick="submitroot()">
+                                            发表评论
                                         </button>
+                                        <span class="emotion">表情</span>
                                     </p>
                                 </div>
                             </div>
                         </c:if>
                     </div>
                 </div>
-
-
                 </c:if>
             </div>
-
         </div>
-
-
     </div>
 </div>
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/jquery-1.12.3.js"></script>
+<script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 <script type="text/javascript" src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
+<link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js?v=1.0.0"></script>
 
 <script type="text/javascript">
+
+    $(function () {
+        $('.emotion').qqFace({
+            assign: 'saytext', //给那个控件赋值
+            path: '${staticPath}/js/plugins/qqface/face/' //表情存放的路径
+        });
+    });
+
+    //查看结果
+    function replace_em(str) {
+        str = str.replace(/\</g, '&lt;');
+        str = str.replace(/\>/g, '&gt;');
+        str = str.replace(/\n/g, '<br/>');
+        str = str.replace(/\[em_([0-9]*)\]/g, '<img src="${staticPath}/js/plugins/qqface/face/$1.gif" border="0" />');
+        return str;
+    }
+
     $.ajaxSetup({
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
@@ -250,15 +262,18 @@
     /*点赞事件*/
     function addtopicclick(obj) {
         var topicclick = $(obj).children("span").text();
-        var newclick = parseInt(topicclick) + 1;
-        $(obj).children("span").html(newclick);
         $(obj).removeAttr('onclick');
         $(obj).css({'background': '#eaeff0'});
         $.ajax({
             url: "${staticPath}/topic/addtopicclick",    //需要先登录
-            data: {tid: '${topic.tid}'},
+            data: {tid: '${topic.tid}', uid: '${sessionScope.user.uid}'},
+            success: function (result) {
+                if (result == 'success') {
+                    var newclick = parseInt(topicclick) + 1;
+                    $(obj).children("span").html(newclick);
+                }
+            }
         });
-
     }
 
     /*根评论提交事件*/
@@ -378,7 +393,15 @@
         }
     }
 
+    function getComment() {
+        $(".comment_content").each(function () {
+            //alert($(this).html());
+            $(this).html(replace_em($(this).html()));
+        });
+    }
+
     lookTheComment();
+    getComment();
 </script>
 
 

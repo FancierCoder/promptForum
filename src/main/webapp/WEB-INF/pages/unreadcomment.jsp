@@ -38,7 +38,7 @@
                                     <div class="media-body ">
                                         <small class="pull-right">${item.ctime}</small>
                                         <strong>${item.unickname}</strong> 在您发布的&nbsp;
-                                        <a href="${staticPath}/comment/showTopicDetail/${item.ctid}#${item.cid}"
+                                        <a href="${staticPath}/show/showTopicDetail/${item.ctid}#${item.cid}"
                                            class="btn-link">
                                                 ${item.ttopic}
                                         </a>&nbsp;发表了评论 :

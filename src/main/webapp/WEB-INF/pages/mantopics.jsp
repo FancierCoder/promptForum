@@ -234,7 +234,7 @@
 
     window.operateEvents = {
         'click .look': function (e, value, row, index) {
-            location.href = "${staticPath}/comment/showTopicDetail/" + row.tid;
+            location.href = "${staticPath}/show/showTopicDetail/" + row.tid;
         },
         'click .remove': function (e, value, row, index) {
             $.ajax({

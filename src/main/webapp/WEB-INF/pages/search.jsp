@@ -99,7 +99,7 @@
                                                 <!-------------------------------------------------------------------------------------------->
                                                 <div class="ibox">
                                                     <div class="ibox-content">
-                                                        <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                                        <a href="${staticPath}/show/showTopicDetail/${item.tid}"
                                                            class="btn-link">
                                                             <h3>
                                                                     ${item.tTopic}

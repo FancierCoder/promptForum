@@ -1,9 +1,11 @@
 package com.swordForum.control;
 
 
+import com.swordForum.mapper.DzMapper;
 import com.swordForum.mapper.LogtableMapper;
 import com.swordForum.mapper.TopicMapper;
 import com.swordForum.mapper.UserMapper;
+import com.swordForum.model.Dz;
 import com.swordForum.model.Logtable;
 import com.swordForum.model.Topic;
 import com.swordForum.model.User;
@@ -40,12 +42,27 @@ public class TopicController {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private DzMapper dzMapper;
+
     /*帖子点赞*/
     @RequestMapping("/addtopicclick")
-    public synchronized void addclick(@RequestParam("tid") long tid) {
+    public synchronized void addclick(@RequestParam("tid") long tid, @RequestParam("uid") long uid, HttpServletResponse response) throws IOException {
         Topic topic = topicMapper.selectById(tid);
         topic.setTzan(topic.getTzan() + 1);
-        topicMapper.updateById(topic);
+        Integer j = topicMapper.updateById(topic);
+
+        Dz dz = new Dz();
+        dz.setDzfromuid(uid);
+        dz.setDztopicid(tid);
+        Integer i = dzMapper.insert(dz);
+
+        PrintWriter writer = response.getWriter();
+        if (j == 1 && i == 1)
+            writer.write("success");
+        else
+            writer.write("false");
+
     }
 
     @RequestMapping("/addTopic")

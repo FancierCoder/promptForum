@@ -133,7 +133,7 @@
                                         <div class="media-body ">
                                             <small class="pull-right">${item.times}前</small>
                                             <strong>${item.uNickName}</strong> 发布
-                                            <a href="${staticPath}/comment/showTopicDetail/${item.tid}"
+                                            <a href="${staticPath}/show/showTopicDetail/${item.tid}"
                                                class="btn-link">
                                                     ${item.tTopic}
                                             </a>

@@ -29,7 +29,7 @@ public class SixinHandler implements WebSocketHandler {
     //保存记录谁正在和谁对话
     public static final Map<Long, Long> who_To_who = new HashMap<>();
     //记录当前页面的长连接对象，为了和index.jsp分开,因为js的new Socket只能连接一个到一个地方
-    public static final Map<Long, WebSocketSession> chatusers = new HashMap<>();
+    private static final Map<Long, WebSocketSession> chatusers = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
@@ -155,7 +155,7 @@ public class SixinHandler implements WebSocketHandler {
      * @param uid
      * @return
      */
-    public List<GroupByIdVo> unReadSixinCount(long uid) {
+    private List<GroupByIdVo> unReadSixinCount(long uid) {
         List<GroupByIdVo> countList = sixinMapper.unReadSixinCount(uid);
         return countList;
     }
