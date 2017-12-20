@@ -103,10 +103,15 @@
                                         <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/>
                                     </a>
                                     <div class="media-body">
-                                        <textarea class="form-control rootcontent" placeholder="填写评论..."></textarea>
-                                        <button type="button" class="btn btn-primary "
-                                                style="float: right;margin-top: 5px" onclick="submitroot()">发表评论
-                                        </button>
+                                        <textarea id="saytext" class="form-control rootcontent"
+                                                  placeholder="填写评论..."></textarea>
+                                        <p>
+                                            <button type="button" class="btn btn-primary sub_btn"
+                                                    style="float: right;margin-top: 5px" onclick="submitroot()">
+                                                发表评论
+                                            </button>
+                                            <span class="emotion">表情</span>
+                                        </p>
                                     </div>
                                 </div>
                             </c:if>
@@ -225,6 +230,7 @@
 <link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js?v=1.0.0"></script>
+
 
 <script type="text/javascript">
 
@@ -352,7 +358,9 @@
         var rootid = $(obj).parent().parent().attr('rootcid');
         var rootname = $(obj).parent().children().first('a').text().trim();
 
-        var html = '<div class="social-comment" id="direct"> <a  class="pull-left"> <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control directcontent"  placeholder="@' + rootname + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitdirect(this,' + rootid + ')">发表评论</button>' +
+        var html = '<div class="social-comment" id="direct"> ' +
+            '<a  class="pull-left"> ' +
+            '<img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/> </a> <div class="media-body"> <textarea class="form-control directcontent"  placeholder="@' + rootname + '"></textarea> <button type="button" class="btn btn-primary "  style="float: right;margin-top: 1px" onclick="submitdirect(this,' + rootid + ')">发表评论</button>' +
             '<button type="button" class="btn btn-primary " onclick="cancle(this)" style="float: right;margin-top: 1px;margin-right:2px">取消</button> </div> </div>';
         $(obj).parent().after(html);
     }
