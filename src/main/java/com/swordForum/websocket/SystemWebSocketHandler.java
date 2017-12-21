@@ -54,7 +54,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             Map.Entry<Long, WebSocketSession> entry = it.next();
             if (entry.getValue().getId().equals(webSocketSession.getId())) {
                 users.remove(entry.getKey());
-                System.out.println("消息传输错误socket回话移除用户Id" + entry.getKey());
+                System.out.println("消息传输错误socket回话移除用户Id：" + entry.getKey());
                 break;
             }
         }
@@ -69,7 +69,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
             Map.Entry<Long, WebSocketSession> entry = it.next();
             if (entry.getValue().getId().equals(webSocketSession.getId())) {
                 users.remove(entry.getKey());
-                System.out.println("关闭连接后socket回话移除用户Id" + entry.getKey());
+                System.out.println("关闭连接后socket回话移除用户Id：" + entry.getKey());
                 break;
             }
         }
