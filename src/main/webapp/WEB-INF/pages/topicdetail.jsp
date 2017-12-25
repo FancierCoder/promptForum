@@ -91,13 +91,12 @@
                             </div>
                             <c:if test="${sessionScope.user==null}">
                                 <div class="social-comment">
-
                                     <div class="media-body">
                                         请先<a href="${staticPath}/login.html">登录</a>再评论
                                     </div>
                                 </div>
                             </c:if>
-                            <c:if test="${sessionScope.user!=null}">
+                            <c:if test="${sessionScope.user != null}">
                                 <div class="social-comment">
                                     <a class="pull-left">
                                         <img alt="image" src="${staticPath}/img/${sessionScope.user.headimg}"/>
@@ -222,7 +221,7 @@
     </div>
 </div>
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery-1.12.3.js"></script>
+<script src="${staticPath}/js/jquery-1.12.4.js"></script>
 <script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>

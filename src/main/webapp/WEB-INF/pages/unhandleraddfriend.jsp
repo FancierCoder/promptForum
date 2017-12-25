@@ -46,7 +46,7 @@
                                                     ${single.addfriend.staus}
                                             </td>
                                             <td>
-                                                创建于 <fmt:formatDate value="${single.addfriend.time}" type="both"/>
+                                                创建于 <fmt:formatDate value="${single.addfriend.addtime}" type="both"/>
                                             </td>
                                             <td class="project-people">
                                                 <a href=""><img alt="image" class="img-circle"
@@ -70,7 +70,7 @@
                                                 的用户申请加你为好友
                                             </td>
                                             <td>
-                                                创建于 <fmt:formatDate value="${single.addfriend.time}" type="both"/>
+                                                创建于 <fmt:formatDate value="${single.addfriend.addtime}" type="both"/>
                                             </td>
                                             <td class="project-people">
                                                 <a href="${staticPath}/user/showUser/${single.user.uid}"><img
@@ -106,7 +106,7 @@
             url: "${staticPath}/finishaddfriend?touid=" + touid,
             success: function (data) {
                 if (data == 'success') {
-                    alert("完成了一个" + touid);
+                    //alert("完成了一个" + touid);
                     $(obj).parent().parent().fadeOut("slow");
                 }
             }

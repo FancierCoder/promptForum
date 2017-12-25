@@ -74,7 +74,6 @@
                                                     <c:if test="${section.sid==maxsid}">
                                                         <span class="label label-danger pull-right">推荐</span>
                                                     </c:if>
-
                                                 </a></li>
                                             </c:forEach>
                                         </ul>

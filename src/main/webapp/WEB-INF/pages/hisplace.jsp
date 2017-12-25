@@ -166,7 +166,8 @@
 
 <script type="text/javascript">
 
-    /*这里做了两组id对应两组事件方法，但仅仅修改id是不行的因为修改后根据id选择器获取的元素并没有改变，所以它对应的事件方法并没有改变，因此需要在每个绑定事件种写判断，
+    /*这里做了两组id对应两组事件方法，但仅仅修改id是不行的,
+    因为修改后根据id选择器获取的元素并没有改变，所以它对应的事件方法并没有改变，因此需要在每个绑定事件种写判断，
     既然要达到根据Id选择不同的方法，那就直接判断id*/
     function addCon() {
         $.ajax({
@@ -246,20 +247,21 @@
         location.href = '${staticPath}/tosixin#' + hisuid;
     }
 
-    //    $('#send').on('click',function () {
-    //        var size=sizeSet();
-    //            layer.open({
-    //                type:2,
-    //                shade:0.8,
-    //                title:'私信',
-    //                area:size,
-    //                content:'/tosixin',
-    //                success: function(layero, index) {
-    //                    layer.iframeAuto(index);
-    //                }
-    //            })
-    //
-    //        });
+    $('#send').on('click', function () {
+        var size = sizeSet();
+        layer.open({
+            type: 2,
+            shade: 0.8,
+            title: '私信',
+            area: size,
+            content: '${staticPath}/tosixin',
+            success: function (layero, index) {
+                layer.iframeAuto(index);
+            }
+        })
+
+    });
+
     $('#addfriend').on('click', function () {
         $.ajax({
             url: '${staticPath}/askforaddfriend?hisuid=${his.uid}',

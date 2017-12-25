@@ -50,11 +50,12 @@
                                         <c:forEach items="${myfriends}" var="friend">
                                             <div class="chat-user" id="${friend.uid}">
                                                 <span class="pull-right label label-primary"></span>
-                                                <c:if test="${friend.uid!=-1}">
-                                                    <a href="${staticPath}/user/showUser/${friend.uid}"><img
-                                                            class="chat-avatar"
-                                                            src="${staticPath}/img/${friend.headimg}"
-                                                            title="查看->${friend.uemail}"></a>
+                                                <c:if test="${friend.uid != -1}">
+                                                    <a href="${staticPath}/user/showUser/${friend.uid}">
+                                                        <img class="chat-avatar"
+                                                             src="${staticPath}/img/${friend.headimg}"
+                                                             alt="${friend.uemail}">
+                                                    </a>
                                                 </c:if>
                                                 <c:if test="${friend.uid==-1}">
                                                     <a><img class="chat-avatar"
@@ -81,9 +82,12 @@
                                 <div class="form-group">
                                     <textarea class="form-control message-input" name="message" id="sendmessage"
                                               placeholder="输入消息内容，按alt+回车键发送"></textarea>
-                                    <button type="button" class="btn btn-primary btn-group "
-                                            style="float: right;margin-top: 5px;margin-right: 5px" id="sendbtn">发送
-                                    </button>
+                                    <p>
+                                        <button type="button" class="btn btn-primary btn-group "
+                                                style="float: right;margin-top: 5px;margin-right: 5px" id="sendbtn">发送
+                                        </button>
+                                        <span class="emotion">表情</span>
+                                    </p>
                                 </div>
 
                             </div>
@@ -105,6 +109,23 @@
     request.setAttribute("port", serverPort);
 %>
 <script type="text/javascript">
+
+    $(function () {
+        $('.emotion').qqFace({
+            assign: 'sendmessage', //给那个控件赋值
+            path: '${staticPath}/js/plugins/qqface/face/' //表情存放的路径
+        });
+    });
+
+    //查看结果
+    function replace_em(str) {
+        str = str.replace(/\</g, '&lt;');
+        str = str.replace(/\>/g, '&gt;');
+        str = str.replace(/\n/g, '<br/>');
+        str = str.replace(/\[em_([0-9]*)\]/g, '<img src="${staticPath}/js/plugins/qqface/face/$1.gif" border="0" />');
+        return str;
+    }
+
     var websocket;
     var hisuid;
     var lastfrienddiv = null;
@@ -138,13 +159,13 @@
         if (message != null) {
             var img = $('#title').children("img").attr("src");
             var nickname = $('#title').children("span").text();
-            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="${staticPath}/' + img +
-                '" alt=""> ' +
+            var hesend = '<div class="chat-message" > ' +
+                '<img class="hismessage-avatar img-circle" src="${staticPath}/' + img + '" alt=""> ' +
                 '<div class="hismessage"> <a class="message-author" >' + nickname +
                 '</a> ' +
                 '<span class="hismessage-date"> ' + dateFormatter(new Date()) +
                 ' </span> ' +
-                '<span class="message-content">' + message +
+                '<span class="message-content">' + replace_em(message) +
                 ' </span> </div> </div>';
             $('#discussion').append(hesend);
             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
@@ -183,7 +204,7 @@
                                 '<a class="mymessage-author" > ${sessionScope.user.unickname}</a> ' +
                                 '<span class="mymessage-date">' + dateFormatter(data[i].time) +
                                 ' </span> ' +
-                                '<span class="message-content">' + data[i].content +
+                                '<span class="message-content">' + replace_em(data[i].content) +
                                 ' </span> </div> </div>';
                             discussiondiv.append(isend);
                             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
@@ -194,7 +215,7 @@
                                 '</a> ' +
                                 '<span class="hismessage-date"> ' + dateFormatter(data[i].time) +
                                 ' </span> ' +
-                                '<span class="message-content">' + data[i].content +
+                                '<span class="message-content">' + replace_em(data[i].content) +
                                 ' </span> </div> </div>';
                             discussiondiv.append(hesend);
                             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
@@ -253,7 +274,7 @@
                 '<a class="mymessage-author" > ${sessionScope.user.unickname}</a> ' +
                 '<span class="mymessage-date">' + dateFormatter(new Date()) +
                 ' </span> ' +
-                '<span class="message-content">' + text +
+                '<span class="message-content">' + replace_em(text) +
                 ' </span> </div> </div>';
             $('#discussion').append(isend);
             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);

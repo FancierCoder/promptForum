@@ -113,6 +113,7 @@ public class MessageControl {
      * 添加好友,发送请求
      **/
     @RequestMapping("/askforaddfriend")
+    @ResponseBody
     public void askForAddFriend(@RequestParam("hisuid") Long hisuid, HttpServletRequest request, HttpServletResponse response) throws IOException {
         User me = (User) request.getSession(false).getAttribute("user");
         Addfriend addfriend = new Addfriend();
@@ -122,10 +123,14 @@ public class MessageControl {
         addfriend.setStaus("等待");
         addfriend.setFlag(0);
         int i = addfriendMapper.insert(addfriend);
-        Map<String, Integer> countMap = webSocketHandler.unReadMsgCount(me.getUid());
-        webSocketHandler.sendMessageToUser(hisuid, new TextMessage(JSON.toJSONString(countMap)));
         PrintWriter pw = response.getWriter();
-        pw.write("success");
+        if (i > 0) {
+            Map<String, Integer> countMap = webSocketHandler.unReadMsgCount(me.getUid());
+            webSocketHandler.sendMessageToUser(hisuid, new TextMessage(JSON.toJSONString(countMap)));
+            pw.write("success");
+        } else {
+            pw.write("error");
+        }
     }
 
     /**
@@ -135,7 +140,7 @@ public class MessageControl {
     public String unHandlerAddFriend(HttpServletRequest request, @RequestParam("page") int current, Map<String, Object> map) {
         User me = (User) request.getSession().getAttribute("user");
         EntityWrapper<Addfriend> ew1 = new EntityWrapper<>();
-        ew1.where("fromuid=" + me.getUid()).and("staus!={0}", "'等待'").and("flag=1").orderBy("time", false);
+        ew1.where("fromuid=" + me.getUid()).and("staus!={0}", "'等待'").and("flag=1").orderBy("addtime", false);
         List<Addfriend> iadd = addfriendMapper.selectList(ew1);
         List<AddFriendVo> iaddVo = new ArrayList<>(iadd.size());
         for (Addfriend addfriend1 : iadd) {
@@ -146,7 +151,7 @@ public class MessageControl {
             iaddVo.add(addFriendVo);
         }
         EntityWrapper<Addfriend> ew2 = new EntityWrapper<>();
-        ew2.where("touid=" + me.getUid()).and("staus='等待'").orderBy("time", false);
+        ew2.where("touid=" + me.getUid()).and("staus='等待'").orderBy("addtime", false);
         List<Addfriend> addi = addfriendMapper.selectList(ew2);
         List<AddFriendVo> addiVo = new ArrayList<>(addi.size());
         for (Addfriend addFriend2 : addi) {

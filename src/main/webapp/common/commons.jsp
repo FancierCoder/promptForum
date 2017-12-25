@@ -8,11 +8,13 @@
 <link href="${staticPath}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 <link href="${staticPath}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
 <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
 
 <!-- 全局js -->
 <script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
 <script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>

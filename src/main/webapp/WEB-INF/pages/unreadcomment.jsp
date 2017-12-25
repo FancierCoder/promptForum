@@ -44,7 +44,7 @@
                                         </a>&nbsp;发表了评论 :
                                         <br>
                                         <div class="well">
-                                                ${item.content}
+                                            <span class="comment_content">${item.content}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -71,6 +71,24 @@
             }
         }
     });
+
+    //查看结果
+    function replace_em(str) {
+        str = str.replace(/\</g, '&lt;');
+        str = str.replace(/\>/g, '&gt;');
+        str = str.replace(/\n/g, '<br/>');
+        str = str.replace(/\[em_([0-9]*)\]/g, '<img src="${staticPath}/js/plugins/qqface/face/$1.gif" border="0" />');
+        return str;
+    }
+
+    function getComment() {
+        $(".comment_content").each(function () {
+            //alert($(this).html());
+            $(this).html(replace_em($(this).html()));
+        });
+    }
+
+    getComment();
 </script>
 </body>
 
