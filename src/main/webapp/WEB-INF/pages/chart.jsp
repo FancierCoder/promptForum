@@ -225,10 +225,7 @@
                 };
                 a.setOption(lineoption);
                 $(window).resize(a.resize);
-
             }
-
-
         });
     }
 

@@ -78,8 +78,7 @@
                                     <div class="ibox-content" id="eg">
                                         <div class="click2edit wrapper" id="content">
                                             <h3>你好 </h3>
-                                            <p>这里写你的文章
-                                            </p>
+                                            <p>这里写你的文章</p>
                                         </div>
                                     </div>
                                 </div>
