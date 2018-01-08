@@ -72,16 +72,16 @@
                 title: '评论id',
                 field: 'cid',
                 align: 'center',
-                valign: 'middle',
+                valign: 'middle'
             }, {
                 title: '内容',
-                field: 'content',
+                field: 'content'
 
             }, {
                 title: '时间',
                 field: 'timeinterval',
                 align: 'center',
-                valign: 'middle',
+                valign: 'middle'
             }, {
                 title: '发言人id',
                 field: 'uid',
@@ -92,43 +92,46 @@
                 field: 'fromuemail',
                 align: 'center',
                 valign: 'middle'
-            },
-                {
-                    title: '昵称',
-                    field: 'nickname',
-                    align: 'center',
-                    valign: 'middle',
+            }, {
+                title: '昵称',
+                field: 'nickname',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                title: '头像',
+                field: 'headimg',
+                align: 'center',
+                valign: 'middle',
+                formatter: headimgFormatter
+            }, {
+                title: '帖子id',
+                field: 'tid',
+                align: 'center',
+                valign: 'middle'
 
-                }, {
-                    title: '头像',
-                    field: 'headimg',
-                    align: 'center',
-                    valign: 'middle',
-                    formatter: headimgFormatter
-                }, {
-                    title: '帖子id',
-                    field: 'tid',
-                    align: 'center',
-                    valign: 'middle'
-
-                }, {
-                    title: '标题',
-                    field: 'ttopic',
-                    align: 'center',
-                    valign: 'middle'
-                },
-                {
-                    title: '上级评论id',
-                    field: 'rootid',
-                    align: 'center',
-                    valign: 'middle'
-                }, {
-                    title: '操作',
-                    field: 'operate',
-                    align: 'center',
-                    events: operateEvents,
-                    formatter: operateFormatter
-                }]
+            }, {
+                title: '标题',
+                field: 'ttopic',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                title: '上级评论id',
+                field: 'rootid',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                title: '状态',
+                field: 'isshow',
+                align: 'center',
+                valign: 'middle',
+                formatter: stausFormatter
+            }, {
+                title: '操作',
+                field: 'operate',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            }]
         });
         setTimeout(function () {
             $table.bootstrapTable('resetView');
@@ -142,12 +145,13 @@
 
         $remove.click(function () {
             var ids = getIdSelections();
+            //alert(ids);
             $.ajax({
                 url: '${staticPath}/manage/mdeletecommentbatch',
                 type: 'post',
                 data: {cids: ids},
                 success: function (data) {
-                    if (data == 'ok') {
+                    if (data == 'success') {
                         $table.bootstrapTable('remove', {
                             field: 'cid',
                             values: ids
@@ -195,7 +199,7 @@
     }
 
     function stausFormatter(value, row, inde) {
-        return value == 0 ? '否' : '<font class="text-danger">是</font>'
+        return value == 0 ? '<font class="text-danger" id="comment-' + row.cid + '">未审核</font>' : '<span id="comment-' + row.cid + '">通过</span>';
     }
 
     function operateFormatter(value, row, index) {
@@ -205,9 +209,13 @@
             '</a>',
             '<a class="remove" href="javascript:void(0)" title="删除">',
             '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>',
+            '<a class="ok" href="javascript:void(0)" title="通过">',
+            '<i class="glyphicon glyphicon-ok"></i>',
             '</a>'
         ].join('');
     }
+
 
     window.operateEvents = {
         'click .look': function (e, value, row, index) {
@@ -231,9 +239,30 @@
                     }
                 }
             })
+        }, 'click .ok': function (e, value, row, index) {
+            var status = row.isshow;
+            //alert(status);
+            if (status == 0) {
+                $.ajax({
+                    type: 'post',
+                    url: "${staticPath}/manage/commentShow",
+                    data: {cid: row.cid},
+                    success: function (data) {
+                        if (data == 'success') {
+                            layer.msg("审核通过");
+
+                            $table.bootstrapTable('refresh');
+                        } else {
+                            layer.msg("审核失败");
+                        }
+                    }
+                });
+            } else {
+                layer.msg("已经审核成功了！");
+            }
         }
 
-    }
+    };
 
     function getHeight() {
         return $(window).height() - $('h1').outerHeight(true);

@@ -109,14 +109,14 @@
     request.setAttribute("port", serverPort);
 %>
 <script type="text/javascript">
-
+    <c:if test="${sessionScope.user != null}">
     $(function () {
         $('.emotion').qqFace({
             assign: 'sendmessage', //给那个控件赋值
             path: '${staticPath}/js/plugins/qqface/face/' //表情存放的路径
         });
     });
-
+    </c:if>
     //查看结果
     function replace_em(str) {
         str = str.replace(/\</g, '&lt;');

@@ -49,19 +49,32 @@ public class ShowController {
         }
         TopicCatalogVo topicCatalogVo = toVoUtil.toTopciVO(maintopic, topicuser, HtmlUtil.NOTFILTER, 1);
         List<CommentVoS> commentvoslist = new ArrayList<>();   //所有的评论集合
-        Map<String, Object> rootmap = new HashMap<>();
-        rootmap.put("ctid", tid);
-        rootmap.put("rootcid", 0L);
-        List<Comment> rootComments = commentMapper.selectByMap(rootmap);  //查出所以得根评论
+//        Map<String, Object> rootmap = new HashMap<>();
+//        rootmap.put("ctid", tid);
+//        rootmap.put("rootcid", 0L);
+        Comment comment = new Comment();
+        comment.setCtid(tid);
+        comment.setRootcid(0L);
+        EntityWrapper<Comment> commentEntityWrapper = new EntityWrapper<>();
+        commentEntityWrapper.setEntity(comment);
+        commentEntityWrapper.and("isshow = 1");
+        //List<Comment> rootComments = commentMapper.selectByMap(rootmap);  //查出所以得根评论
+        List<Comment> rootComments = commentMapper.selectList(commentEntityWrapper);  //查出所以得根评论
         for (Comment c : rootComments) {
             //直接根评论
             CommentVo rootcomment = comment2Vo(c, userMapper);
             //根据根评论的cid来查出里面的子评论
             Long cid = c.getCid();
-            Map<String, Object> rootdirectmap = new HashMap<>();
-            rootdirectmap.put("rootcid", cid);
-            rootdirectmap.put("parentuid", 0L);
-            List<Comment> rootdirects = commentMapper.selectByMap(rootdirectmap);//根评论下的直接评论
+//            Map<String, Object> rootdirectmap = new HashMap<>();
+//            rootdirectmap.put("rootcid", cid);
+//            rootdirectmap.put("parentuid", 0L);
+            Comment subComment = new Comment();
+            subComment.setRootcid(cid);
+            subComment.setParentuid(0L);
+            EntityWrapper<Comment> wrapper = new EntityWrapper<>(subComment);
+            wrapper.and("isshow = 1");
+            //List<Comment> rootdirects = commentMapper.selectByMap(rootdirectmap);//根评论下的直接评论
+            List<Comment> rootdirects = commentMapper.selectList(wrapper);//根评论下的直接评论
             List<CommentVo> root_directcomment = new ArrayList<>();
             for (Comment c2 : rootdirects) {
                 CommentVo onedirect = comment2Vo(c2, userMapper);

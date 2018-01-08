@@ -5,7 +5,7 @@ public class CommentVo {
     private String headimg;              //头像
     private String nickname;             //昵称
     private String fromuemail;             //发言人账号
-
+    private Integer isshow;           //状态
 
     private String content;                //评论内容
     private Long cid;                   //评论id
@@ -130,5 +130,13 @@ public class CommentVo {
 
     public void setParentunickname(String parentunickname) {
         this.parentunickname = parentunickname;
+    }
+
+    public Integer getIsshow() {
+        return isshow;
+    }
+
+    public void setIsshow(Integer isshow) {
+        this.isshow = isshow;
     }
 }

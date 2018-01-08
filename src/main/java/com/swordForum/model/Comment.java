@@ -3,21 +3,18 @@ package com.swordForum.model;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
-
 import java.io.Serializable;
 
 /**
  * <p>
- * <p>
+ *
  * </p>
  *
  * @author 李铎
- * @since 2017-12-01
+ * @since 2018-01-08
  */
 public class Comment extends Model<Comment> {
 
@@ -64,6 +61,10 @@ public class Comment extends Model<Comment> {
      * 直接评论下的间接评论
      */
     private Long parentcid;
+    /**
+     * 是否显示 0不显示 1显示
+     */
+    private Integer isshow;
 
 
     public Long getCid() {
@@ -146,6 +147,14 @@ public class Comment extends Model<Comment> {
         this.parentcid = parentcid;
     }
 
+    public Integer getIsshow() {
+        return isshow;
+    }
+
+    public void setIsshow(Integer isshow) {
+        this.isshow = isshow;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.cid;
@@ -164,6 +173,7 @@ public class Comment extends Model<Comment> {
                 ", czan=" + czan +
                 ", isread=" + isread +
                 ", parentcid=" + parentcid +
+                ", isshow=" + isshow +
                 "}";
     }
 }

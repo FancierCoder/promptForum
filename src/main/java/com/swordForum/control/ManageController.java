@@ -438,10 +438,13 @@ public class ManageController {
 
     @RequestMapping("/mdeletetopicbatch")
     public void deleteTopicBatch(@RequestParam("tids[]") long[] tids, HttpServletResponse response) throws IOException {
-        List tidList = Arrays.asList(tids);
-        int i = topicMapper.deleteBatchIds(tidList);
+        //List tidList = Arrays.asList(tids);
+        int i = 0;
+        for (long tid : tids) {
+            i = topicMapper.deleteById(tid);
+        }
         PrintWriter pw = response.getWriter();
-        if (i == tidList.size()) {
+        if (i > 0) {
             pw.write("success");
         } else {
             pw.write("err");
@@ -460,7 +463,7 @@ public class ManageController {
     @RequestMapping("/manlistcomments")
     @ResponseBody
     public List<CommentVo> manListComments() {
-        ArrayList<Comment> comments = (ArrayList<Comment>) commentMapper.selectList(new EntityWrapper<>(null));
+        ArrayList<Comment> comments = (ArrayList<Comment>) commentMapper.selectList(new EntityWrapper<Comment>(null).orderBy("ctime", false));
         List<CommentVo> commentVos = new ArrayList<>(comments.size());
         System.out.println(comments.size());
         for (Comment comment : comments) {
@@ -483,15 +486,30 @@ public class ManageController {
     }
 
     @RequestMapping("/mdeletecommentbatch")
-    public void deleteCommentBatch(@RequestParam("cids") long[] cids, HttpServletResponse response) throws IOException {
-        List cidlist = Arrays.asList(cids);
-        int i = commentMapper.deleteBatchIds(cidlist);
+    public void deleteCommentBatch(@RequestParam("cids[]") long[] cids, HttpServletResponse response) throws IOException {
+        //List cidlist = Arrays.asList(cids);
+        int i = 0;
+        for (long cid : cids) {
+            i = commentMapper.deleteById(cid);
+        }
         PrintWriter pw = response.getWriter();
-        if (!(cidlist.size() == i)) {
+        if (i == 0) {
             pw.write("err");
         } else {
             pw.write("success");
         }
         pw.close();
+    }
+
+    @RequestMapping("/commentShow")
+    public void commentShow(@RequestParam("cid") long cid, HttpServletResponse response) throws IOException {
+        Comment comment = new Comment();
+        comment.setCid(cid);
+        comment.setIsshow(1);
+        Integer flag = commentMapper.updateById(comment);
+        if (flag > 0) {
+            response.getWriter().write("success");
+        } else
+            response.getWriter().write("err");
     }
 }

@@ -151,7 +151,7 @@
                 type: 'post',
                 data: {tids: ids},
                 success: function (data) {
-                    if (data == 'ok') {
+                    if (data == 'success') {
                         $table.bootstrapTable('remove', {
                             field: 'tid',
                             values: ids

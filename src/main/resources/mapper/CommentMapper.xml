@@ -14,7 +14,13 @@
         <result column="czan" property="czan"/>
         <result column="isread" property="isread"/>
         <result column="parentcid" property="parentcid"/>
+        <result column="isshow" property="isshow"/>
     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        cid, ctid, cuid, ctime, content, rootcid, parentuid, czan, isread, parentcid, isshow
+    </sql>
 
     <resultMap id="unreadComm" type="com.swordForum.model.VO.UnreadComm">
         <id property="cid" column="cid"/>
@@ -27,22 +33,19 @@
         <result property="ctime" column="ctime"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        cid, ctid, cuid, ctime, content, rootcid, parentuid, czan, isread, parentcid
-    </sql>
 
     <!--查询根评论下非直接评论-->
     <select id="selectNdirect" resultType="com.swordForum.model.Comment" parameterType="java.util.Map">
-        select * from comment where ctid=#{ctid} and rootcid=#{rootcid} and parentuid != 0;
+        select * from comment where ctid=#{ctid} and rootcid=#{rootcid} and parentuid != 0 AND isshow = 1;
     </select>
-    <select id="unreadCount" parameterType="long" resultType="int">
-        SELECT COUNT(*) FROM COMMENT WHERE ctid IN( SELECT tid FROM topic WHERE tuid=#{uid} ) AND isread=0
+    <select id="unreadCount" parameterType="long" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM COMMENT WHERE ctid IN( SELECT tid FROM topic WHERE tuid=#{uid} ) AND isread=0 AND isshow =
+        1
     </select>
     <select id="unreadComment" parameterType="long" resultMap="unreadComm">
         SELECT cuid,unickname,headimg,ctid,ttopic,cid,content ,ctime
         FROM COMMENT ,topic,USER
-        WHERE ctid IN( SELECT tid FROM topic WHERE tuid=#{uid} )AND isread=0 AND
+        WHERE ctid IN( SELECT tid FROM topic WHERE tuid=#{uid} )AND isread=0 AND isshow = 1 AND
         ctid=tid AND cuid=uid ORDER BY ctime DESC
     </select>
     <update id="updateRead" parameterType="long">

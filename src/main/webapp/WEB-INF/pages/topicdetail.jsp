@@ -233,13 +233,14 @@
 
 <script type="text/javascript">
 
+    <c:if test="${sessionScope.user != null}">
     $(function () {
         $('.emotion').qqFace({
             assign: 'saytext', //给那个控件赋值
             path: '${staticPath}/js/plugins/qqface/face/' //表情存放的路径
         });
     });
-
+    </c:if>
     //查看结果
     function replace_em(str) {
         str = str.replace(/\</g, '&lt;');
@@ -294,7 +295,11 @@
                 data: {content: content, tid:${topic.tid}},
                 success: function (data) {
                     if (data == 'success') {
-                        location.reload();
+                        layer.msg("发表成功，审核通过后就能显示了！");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1200);
+
                     } else {
                         layer.msg("发表评论失败");
                         location.reload();

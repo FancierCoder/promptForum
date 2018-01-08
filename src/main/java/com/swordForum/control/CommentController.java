@@ -59,6 +59,7 @@ public class CommentController {
         cvo.setCzan(comment.getCzan());
         cvo.setUid(comment.getCuid());   //自己的uid
         cvo.setParentcid(comment.getParentcid());
+        cvo.setIsshow(comment.getIsshow());
         //自己的昵称,头像,账号
         User me = userMapper.selectById(comment.getCuid());
         cvo.setHeadimg(me.getHeadimg());
