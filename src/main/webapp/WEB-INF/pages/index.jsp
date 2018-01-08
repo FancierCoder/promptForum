@@ -305,7 +305,7 @@
         layer.open({
             type: 2,
             title: '用户登录',
-            shadeClose: true,
+            shadeClose: false,
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['600px', '600px'],
@@ -314,15 +314,18 @@
     });
 
     $("#register").click(function () {
-        layer.open({
+        var register = layer.open({
             type: 2,
             title: '用户注册',
-            shadeClose: true,
+            shadeClose: false,
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['600px', '600px'],
             content: '${staticPath}/register.html'
         });
+        setTimeout(function () {
+            layer.full(register);
+        }, 200);
     });
 
     $("#changePass").click(function () {
