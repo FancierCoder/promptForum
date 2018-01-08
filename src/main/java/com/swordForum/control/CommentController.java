@@ -85,7 +85,7 @@ public class CommentController {
                            @RequestParam(value = "parentuid", required = false, defaultValue = "0") long parentuid,
                            @RequestParam(value = "parentcid", required = false, defaultValue = "0") long parentcid,
                            HttpServletRequest request, HttpServletResponse response) throws Exception {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         Long uid = user.getUid();
         Comment comment = new Comment();
         comment.setContent(HtmlUtil.filter(content));

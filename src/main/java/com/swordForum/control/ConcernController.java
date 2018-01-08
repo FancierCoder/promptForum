@@ -42,7 +42,7 @@ public class ConcernController {
                         @RequestParam("pagesize") int pagesize,
                         @RequestParam(value = "search", required = false) String search,
                         HttpServletRequest request) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Map<String, Object> map = new HashMap<>();
         Page page = new Page(current, pagesize);
         List<ConVo> conVoList = null;
@@ -92,7 +92,7 @@ public class ConcernController {
 
     @RequestMapping("/addConcern")
     public void addConcern(@RequestParam("hisuid") long hisuid, HttpServletResponse response, HttpServletRequest request) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Concern concern = new Concern();
         concern.setConfromuid(me.getUid());
         concern.setContouid(hisuid);
@@ -115,7 +115,7 @@ public class ConcernController {
                         @RequestParam("pagesize") int pagesize,
                         @RequestParam(value = "search", required = false) String search,
                         HttpServletRequest request) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Map<String, Object> map = new HashMap<String, Object>();
         Page page = new Page(current, pagesize);
         List<ConVo> conVoList = null;
@@ -131,7 +131,7 @@ public class ConcernController {
 
     @RequestMapping("/cancelConcern")
     public void cancelConcern(@RequestParam("hisuid") long hisuid, HttpServletResponse response, HttpServletRequest request) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Map<String, Object> map = new HashMap<String, Object>(2);
         map.put("confromuid", me.getUid());
         map.put("contouid", hisuid);

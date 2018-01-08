@@ -43,7 +43,7 @@ public class ShowController {
         User topicuser = userMapper.selectById(maintopic.getTuid());
         Section section = sectionMapper.selectById(maintopic.getTsid());
         User me = null;
-        me = (User) request.getSession().getAttribute("user");
+        me = (User) request.getSession(false).getAttribute("user");
         if (me != null && me.getUid().equals(topicuser.getUid())) {
             commentMapper.updateRead(tid);
         }

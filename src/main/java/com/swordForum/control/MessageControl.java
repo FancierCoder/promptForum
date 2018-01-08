@@ -144,7 +144,7 @@ public class MessageControl {
      **/
     @RequestMapping("/unhandleraddfriend")
     public String unHandlerAddFriend(HttpServletRequest request, @RequestParam("page") int current, Map<String, Object> map) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         EntityWrapper<Addfriend> ew1 = new EntityWrapper<>();
         ew1.where("fromuid=" + me.getUid()).and("staus!={0}", "'等待'").and("flag=1").orderBy("addtime", false);
         List<Addfriend> iadd = addfriendMapper.selectList(ew1);
@@ -177,7 +177,7 @@ public class MessageControl {
      **/
     @RequestMapping("/unReadComment")
     public String unReadComment(HttpServletRequest request, @RequestParam("page") int current, Map<String, Object> map) {
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Page page = new Page(current, 8);
         List<UnreadComm> unreadComms = commentMapper.unreadComment(page, me.getUid());
         map.put("unreadcomms", unreadComms);

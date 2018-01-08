@@ -68,7 +68,7 @@ public class ManageController {
         if (me == null) {
             return "redirect:/login2.html?logininfo=err";
         } else {
-            request.getSession().setAttribute("admin", me);
+            request.getSession(false).setAttribute("admin", me);
             return "manage";
         }
     }

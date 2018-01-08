@@ -68,7 +68,7 @@ public class TopicController {
     @RequestMapping("/addTopic")
     public void addTopic(@RequestParam("sid") int sid, @RequestParam("topic") String topic, @RequestParam("content") String content, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Topic newTopic = new Topic();
-        User u = (User) request.getSession().getAttribute("user");
+        User u = (User) request.getSession(false).getAttribute("user");
         long uid = u.getUid();
         newTopic.setTuid(uid);
         newTopic.setTsid(sid);
@@ -93,7 +93,7 @@ public class TopicController {
                 u.setUpoint(newpoint);
                 u.setUlevel(level);
                 userMapper.updateById(u);
-                request.getSession().setAttribute("user", u);
+                request.getSession(false).setAttribute("user", u);
             }
             if (pw != null) {
                 pw.write("success");

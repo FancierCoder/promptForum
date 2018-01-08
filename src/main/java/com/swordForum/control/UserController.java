@@ -61,11 +61,11 @@ public class UserController {
     public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("verCode") String verCode, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String kaptcha = null;
         try {
-            kaptcha = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            kaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
             if (kaptcha == null) {
                 throw new RuntimeException("验证码已失效");
             }
-            request.getSession().removeAttribute(Constants.KAPTCHA_SESSION_KEY);
+            request.getSession(false).removeAttribute(Constants.KAPTCHA_SESSION_KEY);
         } catch (Exception e) {
             response.getWriter().write("verCode_date");
             return;
@@ -159,13 +159,15 @@ public class UserController {
             Logtable logtable = new Logtable(user.getUid(), new IpUtil().getIp(request), 2);
             logtableMapper.insert(logtable);
         }
-        session.invalidate();
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/index.jsp";
     }
 
     @RequestMapping("/showmyplace")
     public String showmyplace(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         long[] othernums = userOtherinfo(user.getUid());
         request.setAttribute("mytopicnum", othernums[0]);
         request.setAttribute("myconcernnum", othernums[1]);
@@ -219,7 +221,7 @@ public class UserController {
     public String mytopic(HttpServletRequest request, Map<String, Object> map,
                           @RequestParam("page") int current, @RequestParam("condition") String condition) {
         Long start = System.currentTimeMillis();
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         Page<Topic> page = new Page<>(current, 8);
         EntityWrapper<Topic> ew = new EntityWrapper<>();
         List<TopicCatalogVo> topicCatalogVos = null;
@@ -328,7 +330,7 @@ public class UserController {
                           HttpServletRequest request,
                           HttpServletResponse response) {
         //System.out.println(nickname + " " + sex + " " + birthday + "\n" + headimg + " \n" + type + " " + statement);
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         user.setUnickname(nickname);
         user.setUsex(sex);
         user.setUbirthday(DateUtil.toDate_Formate(birthday));
@@ -393,7 +395,7 @@ public class UserController {
 
     @RequestMapping("/sendyzm")
     public void sendyzm(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         String uemail = user.getUemail().trim();
         MailUtil mailUtil = new MailUtil();
         String yzm = RandomUtil.getyzm(4);
@@ -401,7 +403,7 @@ public class UserController {
                 "请勿告诉他人！";
         mailUtil.sendSimpleMail(uemail, "仗剑论坛-SwordForum", content.trim());
         //存放到application,当验证完清除
-        request.getSession().getServletContext().setAttribute(uemail, yzm);
+        request.getSession(false).getServletContext().setAttribute(uemail, yzm);
     }
 
     @RequestMapping("/alterpassword")
@@ -410,7 +412,7 @@ public class UserController {
                               @RequestParam("beginp") String beginp,
                               @RequestParam("endp") String endp,
                               @RequestParam("yzm") String yzm) throws Exception {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         String password = user.getUpassword();
         PrintWriter pw = null;
         if (!MD5Util.checkPassword(beginp, password)) {
@@ -418,7 +420,7 @@ public class UserController {
             pw.write("errpassword");
             pw.close();
         } else {
-            String sendyzm = (String) request.getSession().getServletContext().getAttribute(user.getUemail());
+            String sendyzm = (String) request.getSession(false).getServletContext().getAttribute(user.getUemail());
             sendyzm = sendyzm.toUpperCase();
             yzm = yzm.toUpperCase();
             if (!sendyzm.equals(yzm)) {
@@ -433,11 +435,11 @@ public class UserController {
                 String ip = new IpUtil().getIp(request);
                 Logtable logtable = new Logtable(user.getUid(), ip, 3);
                 logtableMapper.insert(logtable);
-                request.getSession().removeAttribute("user");
+                request.getSession(false).removeAttribute("user");
                 pw = response.getWriter();
                 pw.write("success");
                 pw.close();
-                request.getSession().getServletContext().removeAttribute(user.getUemail());
+                request.getSession(false).getServletContext().removeAttribute(user.getUemail());
             }
         }
     }
@@ -464,7 +466,7 @@ public class UserController {
             String yzm = RandomUtil.getyzm(6);
             mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---重置您的密码<br/>" +
                     "请勿告诉他人！");
-            request.getSession().getServletContext().setAttribute(email, yzm);
+            request.getSession(false).getServletContext().setAttribute(email, yzm);
         }
     }
 
@@ -474,7 +476,7 @@ public class UserController {
                                @RequestParam("newpassword") String newpassword,
                                HttpServletRequest request,
                                HttpServletResponse response) throws Exception {
-        String sendyzm = (String) request.getSession().getServletContext().getAttribute(email);
+        String sendyzm = (String) request.getSession(false).getServletContext().getAttribute(email);
         if (sendyzm != null && sendyzm.length() > 0) {
             sendyzm = sendyzm.toUpperCase();
             yzm = yzm.toUpperCase();
@@ -485,7 +487,7 @@ public class UserController {
                 user.setUpassword(MD5Util.EncoderByMd5(newpassword));
                 int i = userMapper.updateById(user);
                 if (i == 1) {
-                    request.getSession().getServletContext().removeAttribute(email);
+                    request.getSession(false).getServletContext().removeAttribute(email);
                     //记录
                     String ip = new IpUtil().getIp(request);
                     Logtable logtable = new Logtable(user.getUid(), ip, 4);
@@ -535,7 +537,7 @@ public class UserController {
     @RequestMapping("/showUser/{uid}")      //展示他人用户基本信息和帖子
     public String showUser(@PathVariable long uid, HttpServletRequest request) {
         User user = userMapper.selectById(uid);
-        User me = (User) request.getSession().getAttribute("user");
+        User me = (User) request.getSession(false).getAttribute("user");
         if (me == null) {
             return "redirect:/login.html";
         }
@@ -590,12 +592,12 @@ public class UserController {
         Matcher matcher1 = pattern1.matcher(uemail.trim());
         Pattern pattern2 = Pattern.compile("^[\\w]{6,12}$");
         Matcher matcher2 = pattern2.matcher(upassword.trim());
-        String sendyzm = (String) request.getSession().getServletContext().getAttribute(uemail);
+        String sendyzm = (String) request.getSession(false).getServletContext().getAttribute(uemail);
         if (sendyzm != null && sendyzm.length() > 0) {
             sendyzm = sendyzm.toUpperCase();
             yzm = yzm.toUpperCase();
             if (sendyzm.equals(yzm)) {
-                request.getSession().getServletContext().removeAttribute(uemail);
+                request.getSession(false).getServletContext().removeAttribute(uemail);
                 if (matcher1.matches() && matcher2.matches() && unickname.trim().length() > 0) {
                     Map<String, Object> mapwhere = new HashMap<>(1);
                     mapwhere.put("uemail", uemail);
@@ -662,7 +664,7 @@ public class UserController {
             String yzm = RandomUtil.getyzm(6);
             mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---注册账号<br/>" +
                     "请勿告诉他人！");
-            request.getSession().getServletContext().setAttribute(email, yzm);
+            request.getSession(false).getServletContext().setAttribute(email, yzm);
         }
     }
 }
