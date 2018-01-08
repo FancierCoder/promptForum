@@ -104,9 +104,17 @@
                         }
                     }
                 });
-                setTimeout(function () {
-                    $(obj).removeAttr('disabled');
-                }, 45000);
+                var time = 45;
+                var text = $(obj).text();
+                setInterval(function () {
+                    $(obj).text(text + "(" + time + ")");
+                    if (time == 0) {
+                        $(obj).removeAttr("disabled");
+                        $(obj).text(text);
+                        return;
+                    }
+                    time--;
+                }, 1000);
             }
         } else {
             layer.tips("请输入邮箱", $('#email'));

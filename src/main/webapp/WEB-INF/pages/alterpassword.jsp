@@ -69,6 +69,17 @@
             type: 'get',
             url: '${staticPath}/user/sendyzm'
         });
+        var time = 45;
+        var text = $(obj).text();
+        setInterval(function () {
+            $(obj).text(text + "(" + time + ")");
+            if (time == 0) {
+                $(obj).removeAttr("disabled");
+                $(obj).text(text);
+                return;
+            }
+            time--;
+        }, 1000);
     }
 
     function alterpsd() {

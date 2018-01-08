@@ -58,7 +58,10 @@ public class UserController {
     private SixinMapper sixinMapper;
 
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
-    public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("verCode") String verCode, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void checkLogin(@RequestParam("username") String username,
+                           @RequestParam("password") String password,
+                           @RequestParam("verCode") String verCode,
+                           HttpServletRequest request, HttpServletResponse response) throws Exception {
         String kaptcha = null;
         try {
             kaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
@@ -399,7 +402,7 @@ public class UserController {
         String uemail = user.getUemail().trim();
         MailUtil mailUtil = new MailUtil();
         String yzm = RandomUtil.getyzm(4);
-        String content = "您的验证码为：" + yzm + "(不区分大小写)--修改密码<br/>" +
+        String content = "<h2>您的验证码为：</h2><font color='red'>" + yzm + "</font><br/>(不区分大小写)--修改密码<br/>" +
                 "请勿告诉他人！";
         mailUtil.sendSimpleMail(uemail, "仗剑论坛-SwordForum", content.trim());
         //存放到application,当验证完清除
@@ -464,7 +467,8 @@ public class UserController {
         } else {
             MailUtil mailUtil = new MailUtil();
             String yzm = RandomUtil.getyzm(6);
-            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---重置您的密码<br/>" +
+            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum",
+                    "<h2>您的验证码为：</h2><font color='red'>" + yzm + "</font><br/>(不区分大小写)---重置您的密码<br/>" +
                     "请勿告诉他人！");
             request.getSession(false).getServletContext().setAttribute(email, yzm);
         }
@@ -586,7 +590,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister", method = RequestMethod.POST)
-    public void checkRegister(@RequestParam("uemail") String uemail, @RequestParam("unickname") String unickname, @RequestParam("upassword") String upassword, @RequestParam("yzm") String yzm, PrintWriter pw, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void checkRegister(@RequestParam("uemail") String uemail,
+                              @RequestParam("unickname") String unickname,
+                              @RequestParam("upassword") String upassword,
+                              @RequestParam("yzm") String yzm,
+                              PrintWriter pw, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         /*******前后台双重验证，防止插入数据出错********/
         Pattern pattern1 = Pattern.compile("^(\\w-*\\.*)+@(\\w-?)+(\\.\\w{2,})+$");
         Matcher matcher1 = pattern1.matcher(uemail.trim());
@@ -662,7 +670,8 @@ public class UserController {
         } else {
             MailUtil mailUtil = new MailUtil();
             String yzm = RandomUtil.getyzm(6);
-            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum", "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font>(不区分大小写)---注册账号<br/>" +
+            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum",
+                    "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font><br/>(不区分大小写)---注册账号<br/>" +
                     "请勿告诉他人！");
             request.getSession(false).getServletContext().setAttribute(email, yzm);
         }
