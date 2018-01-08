@@ -13,6 +13,7 @@
         <mysql.version>6.0.6</mysql.version>
         <mybatis-plus>2.1.6</mybatis-plus>
         <slf4j.version>1.7.25</slf4j.version>
+        <kaptcha-version>0.0.9</kaptcha-version>
     </properties>
     <dependencies>
 
@@ -218,6 +219,11 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.axet</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha-version}</version>
+        </dependency>
 
     </dependencies>
     <build>

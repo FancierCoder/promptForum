@@ -33,7 +33,6 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
             }
         }
         return false;
-
     }
 
     public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Exception e) {

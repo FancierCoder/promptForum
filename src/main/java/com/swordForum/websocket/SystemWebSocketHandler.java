@@ -33,8 +33,10 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
         if (users.get(uid) == null) {
             users.put(uid, webSocketSession);
-            Map<String, Integer> countMap = unReadMsgCount(uid);
-            webSocketSession.sendMessage(new TextMessage(JSON.toJSONString(countMap)));
+            if (uid != null) {
+                Map<String, Integer> countMap = unReadMsgCount(uid);
+                webSocketSession.sendMessage(new TextMessage(JSON.toJSONString(countMap)));
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.swordForum.control;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.google.code.kaptcha.Constants;
 import com.swordForum.listener.Online;
 import com.swordForum.mapper.*;
 import com.swordForum.model.*;
@@ -57,7 +58,22 @@ public class UserController {
     private SixinMapper sixinMapper;
 
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
-    public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void checkLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("verCode") String verCode, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String kaptcha = null;
+        try {
+            kaptcha = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (kaptcha == null) {
+                throw new RuntimeException("验证码已失效");
+            }
+            request.getSession().removeAttribute(Constants.KAPTCHA_SESSION_KEY);
+        } catch (Exception e) {
+            response.getWriter().write("verCode_date");
+            return;
+        }
+        if (!verCode.equalsIgnoreCase(kaptcha)) {
+            response.getWriter().write("verCode_err");
+            return;
+        }
         Map<String, Object> mapwhere = new HashMap<>(2);
         mapwhere.put("uemail", username);
         mapwhere.put("upassword", MD5Util.EncoderByMd5(password));
@@ -144,7 +160,7 @@ public class UserController {
             logtableMapper.insert(logtable);
         }
         session.invalidate();
-        return "redirect:/login.html";
+        return "redirect:/index.jsp";
     }
 
     @RequestMapping("/showmyplace")

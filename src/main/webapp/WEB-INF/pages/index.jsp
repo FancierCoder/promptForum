@@ -108,8 +108,7 @@
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="${staticPath}/user/showmyplace">我的空间</a></li>
                             <li><a class="J_menuItem" href="${staticPath}/user/intoalterinfo">修改资料</a></li>
-                            <li><a class="J_menuItem" href="${staticPath}/user/intoalterpassword">密码修改</a></li>
-
+                            <li><a href="#" id="changePass">密码修改</a></li>
                         </ul>
                     </li>
                     <%--私信--%>
@@ -192,7 +191,12 @@
                     </c:if>
                     <c:if test="${sessionScope.user==null}">
                         <li>
-                            <a class="btn-sm" style="color: #010101" href="${staticPath}/login.html" target="_top">
+                            <a class="btn-sm" style="color: #010101" id="register">
+                                <i class="fa fa-registered "></i> 注册
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn-sm" style="color: #010101" id="login">
                                 <i class="fa fa-user "></i> 登录
                             </a>
                         </li>
@@ -202,7 +206,8 @@
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe id="J_iframe" width="100%" height="100%" src="${staticPath}/section/toCatalog" frameborder="0"
-                    seamless></iframe>
+                    seamless>
+            </iframe>
         </div>
     </div>
     <!--右侧部分结束-->
@@ -296,6 +301,40 @@
 
     isLoginFirst();
 
+    $("#login").click(function () {
+        layer.open({
+            type: 2,
+            title: '用户登录',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '600px'],
+            content: '${staticPath}/login.html'
+        });
+    });
+
+    $("#register").click(function () {
+        layer.open({
+            type: 2,
+            title: '用户注册',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '600px'],
+            content: '${staticPath}/register.html'
+        });
+    });
+
+    $("#changePass").click(function () {
+        layer.open({
+            type: 2,
+            title: '修改密码',
+            shadeClose: false,
+            shade: 0.3,
+            area: ['400px', '500px'],
+            content: ['${staticPath}/user/intoalterpassword', 'no']
+        });
+    });
 </script>
 </body>
 
