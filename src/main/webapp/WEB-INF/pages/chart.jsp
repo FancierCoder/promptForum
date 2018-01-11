@@ -40,17 +40,20 @@
                     <h5>文章发表量</h5>
                     <div class="ibox-tools">
                         <span>
-                        <a class="dropdown-toggle" data-toggle="dropdown" style="color:#9036ff ">
-                            年份
-                        </a>
-                        <ul class="dropdown-menu dropdown-user1">
-                            <li><a onclick="setTopicYear(2016);">2016</a>
-                            </li>
-                            <li><a onclick="setTopicYear(2017);">2017</a>
-                            </li>
-                            <li><a onclick="setTopicYear(2018);">2018</a>
-                            </li>
-                        </ul>
+                            <a class="dropdown-toggle" data-toggle="dropdown" style="color:#9036ff ">
+                                年份
+                            </a>
+                            <ul class="dropdown-menu dropdown-user1">
+                                <li>
+                                    <a onclick="setTopicYear(2016);">2016</a>
+                                </li>
+                                <li>
+                                    <a onclick="setTopicYear(2017);">2017</a>
+                                </li>
+                                <li>
+                                    <a onclick="setTopicYear(2018);">2018</a>
+                                </li>
+                            </ul>
                         </span>
                         <a class="dropdown-toggle" data-toggle="dropdown" style="color: #9036ff">
                             格式
@@ -144,7 +147,7 @@
 
 </div>
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/jquery-1.12.4.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 
 
@@ -220,7 +223,7 @@
                                     {type: 'average', name: '平均值'}
                                 ]
                             }
-                        },
+                        }
                     ]
                 };
                 a.setOption(lineoption);
@@ -238,7 +241,7 @@
 
     function setTopicYear(obj) {
         topicyear = obj;
-        alert(topicyear);
+        //alert(topicyear);
         TopicChart();
     }
 
@@ -479,13 +482,13 @@
         RegisterChart();
     }
 
-    function setRegisteryear(obj) {
-        registertyear = obj;
+    function setRegisterYear(obj) {
+        registeryear = obj;
         RegisterChart();
     }
 
 
-    var mapChart = echarts.init(document.getElementById("echarts-map-chart"));
+    /*var mapChart = echarts.init(document.getElementById("echarts-map-chart"));
     var mapoption = {
         title: {
             text: 'iphone销量',
@@ -1051,7 +1054,7 @@
 
     funnelChart.setOption(funneloption);
     $(window).resize(funnelChart.resize);
-
+*/
 
 </script>
 
