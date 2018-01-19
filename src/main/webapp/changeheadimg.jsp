@@ -65,7 +65,7 @@
                 if (/^image\/\w+$/.test(file.type)) {
                     fileReader.readAsDataURL(file);
                     fileReader.onload = function () {
-                        $inputImage.val("");
+                        //$inputImage.val("");
                         $image.cropper("reset", true).cropper("replace", this.result);
                     };
                 } else {
