@@ -78,9 +78,9 @@ public class ManageController {
             session.invalidate();
         } catch (Exception e) {
             e.printStackTrace();
-            return "login2.html";
+            return "redirect:/login2.html";
         }
-        return "login2.html";
+        return "redirect:/login2.html";
     }
 
     @RequestMapping("/mtotop")

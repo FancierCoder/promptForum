@@ -434,9 +434,6 @@
     lookTheComment();
     getComment();
 
-    function direZan(cId) {
-
-    }
 </script>
 
 

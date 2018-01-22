@@ -16,7 +16,7 @@
 <script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
 <script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
 <script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>

@@ -10,11 +10,11 @@
     <title> - 登录</title>
     <meta name="keywords" content="论坛，仗剑论坛，仗剑">
     <meta name="description" content="前台用户登录">
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
@@ -42,14 +42,14 @@
             <div class="form-group">
                 <p>
                     <input type="text" id="verCode" class="col-lg-6" placeholder="验证码">
-                    <img id="code" src="/captcha.jpg" height="30px" onclick="refreshCode();">
+                    <img id="code" src="captcha.jpg" height="30px" onclick="refreshCode();">
                 </p>
             </div>
             <!--button标签默认是submit行为，他会自动提交表单，但是我的表单没有action所以会刷新，我曹-->
             <button type="button" id='submit' onClick="submit_f();" class="btn btn-primary block full-width m-b">登 录
             </button>
 
-            <p class="text-muted text-center"><a href="/forgetPass">
+            <p class="text-muted text-center"><a href="forgetPass">
                 <small>忘记密码了？</small>
             </a> | <a href="register.html">注册一个新账号</a>
             </p>
@@ -59,10 +59,10 @@
 </div>
 
 <!-- 全局js -->
-<script src="/js/jquery.min.js?v=2.1.4"></script>
-<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
 <!--layer插件-->
-<script src="/js/plugins/layer/layer.js"></script>
+<script src="js/plugins/layer/layer.js"></script>
 <script type="text/javascript">
 
     function isNull() {
@@ -85,7 +85,7 @@
             });
             $.ajax({
                 type: 'post',
-                url: "/user/checkLogin",
+                url: "user/checkLogin",
                 cache: false,
                 dataType: "text",
                 data: {
@@ -101,7 +101,7 @@
                         $('#submit').addClass("disabled");
                         layer.msg("欢迎您！", {anim: 4});
                         setTimeout(function () {
-                            top.location.href = '/user/login';
+                            top.location.href = 'user/login';
                         }, 2000);
                     } else if (data === '-1') {
                         layer.msg("您的账号已永久被封", {anim: 6});
@@ -123,7 +123,7 @@
     }
 
     function refreshCode() {
-        $("#code").attr("src", "/captcha.jpg?t=" + $.now());
+        $("#code").attr("src", "captcha.jpg?t=" + $.now());
     }
 
     setTimeout(function () {
