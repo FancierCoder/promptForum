@@ -40,3 +40,4 @@
 <!-- 第三方插件 -->
 <script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
 <script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
+<jsp:include page="/judge.jsp"/>

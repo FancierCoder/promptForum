@@ -193,7 +193,7 @@ public class ManageController {
         //System.out.println("选择的用户id" + uid);
         User user = userMapper.selectById(uid);
         if (user == null) {
-            return "redirect:/404.html";
+            return "redirect:/404.jsp";
         }
         map.put("selectUser", user);
         return "edituser";

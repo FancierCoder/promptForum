@@ -115,7 +115,7 @@
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
             var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-            if (sessionstatus == "timeout") {
+            if (sessionstatus === "timeout") {
                 layer.msg("请先登录");
                 setTimeout(function () {
                     location.replace("${staticPath}/login.html");
@@ -171,10 +171,10 @@
     var submitMyTopic = function () {
         var content = $('#content').code();
         var topic = $('#topic').val().trim();
-        if (topic == null || topic == '') {
+        if (topic == null || topic === '') {
             layer.tips("不能为空", $('#topic'));
             return false;
-        } else if (content == null || content == '') {
+        } else if (content == null || content === '') {
             layer.tips("内容不能为空", $('#eg'));
             return false;
         }
@@ -183,7 +183,7 @@
             url: '${staticPath}/topic/addTopic',
             data: {topic: topic, sid: $('#section').val(), content: content},
             success: function (data) {
-                if (data == 'success') {
+                if (data === 'success') {
                     layer.msg("发布成功");
                     layer.confirm('继续发布帖子吗', {
                         btn: ['是', '否'] //按钮

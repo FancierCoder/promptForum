@@ -1,8 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
 <head>
-
+    <base href="${pageContext.request.contextPath}/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -30,7 +31,7 @@
     <div class="error-desc">
         服务器好像出错了...
         <br/>您可以返回主页看看
-        <br/><a href="/index.jsp" target="_parent" class="btn btn-primary m-t">主页</a>
+        <br/><a href="index.jsp" target="_parent" class="btn btn-primary m-t">主页</a>
     </div>
 </div>
 
