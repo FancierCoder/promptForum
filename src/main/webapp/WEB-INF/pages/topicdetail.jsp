@@ -131,7 +131,8 @@
                                     </a>
                                     <span class="comment_content">${single.rootcomment.content}</span>
                                     <br/>
-                                    <a class="small"><i class="fa fa-thumbs-up"></i> ${single.rootcomment.czan}</a>
+                                    <a class="small" onclick="addCommentClick(this, ${single.rootcomment.cid})"><i
+                                            class="fa fa-thumbs-up"></i><span>${single.rootcomment.czan}</span></a>
                                     &nbsp;
                                     <a class="small" onclick="adddirecTextArea(this);"><i
                                             class="fa fa-comments"></i></a>&nbsp;
@@ -149,7 +150,8 @@
                                                 <a href="${staticPath}/user/showUser/${dire.uid}">${dire.nickname}</a>
                                                 <span class="comment_content">${dire.content}</span>
                                                 <br/>
-                                                <a class="small"><i class="fa fa-thumbs-up"></i> ${dire.czan}</a> &nbsp;
+                                                <a class="small" onclick="addCommentClick(this, ${dire.cid})"><i
+                                                        class="fa fa-thumbs-up"></i><span>${dire.czan}</span></a> &nbsp;
                                                 <a class="small" onclick="addNdirectTextArea(this,${dire.cid});">
                                                     <i class="fa fa-comments"></i></a>&nbsp;
                                                 <small class="text-muted">${dire.timeinterval}前</small>
@@ -173,8 +175,9 @@
                                                             <a href="${staticPath}/user/showUser/${ndire.parentuid}">${ndire.parentunickname}</a>
                                                             <span class="comment_content">${ndire.content}</span>
                                                             <br/>
-                                                            <a class="small"><i
-                                                                    class="fa fa-thumbs-up"></i> ${ndire.czan}</a>&nbsp;
+                                                            <a class="small"
+                                                               onclick="addCommentClick(this, ${ndire.cid})"><i
+                                                                    class="fa fa-thumbs-up"></i><span>${ndire.czan}</span></a>&nbsp;
                                                             <a class="small"
                                                                onclick="addNdirectTextArea(this,${dire.cid});"><i
                                                                     class="fa fa-comments"></i></a>&nbsp;
@@ -254,12 +257,11 @@
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         complete: function (XMLHttpRequest, textStatus) {
             var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus");
-            if (sessionstatus == "timeout") {
+            if (sessionstatus === "timeout") {
                 layer.msg("请先登录");
                 setTimeout(function () {
                     location.replace("${staticPath}/login.html");
                 }, 500);
-
             }
         }
     })
@@ -274,8 +276,25 @@
             url: "${staticPath}/topic/addtopicclick",    //需要先登录
             data: {tid: '${topic.tid}', uid: '${sessionScope.user.uid}'},
             success: function (result) {
-                if (result == 'success') {
+                if (result === 'success') {
                     var newclick = parseInt(topicclick) + 1;
+                    $(obj).children("span").html(newclick);
+                }
+            }
+        });
+    }
+
+    /*点赞事件*/
+    function addCommentClick(obj, cId) {
+        var commentClick = $(obj).children("span").text();
+        $(obj).removeAttr('onclick');
+        $(obj).css({'background': '#eaeff0'});
+        $.ajax({
+            url: "${staticPath}/comment/addCommentClick",    //需要先登录
+            data: {cId: cId},
+            success: function (result) {
+                if (result === 'success') {
+                    var newclick = parseInt(commentClick) + 1;
                     $(obj).children("span").html(newclick);
                 }
             }
@@ -285,7 +304,7 @@
     /*根评论提交事件*/
     function submitroot() {
         var content = $('.rootcontent').val().trim();  //使用了类选择器
-        if (content == null || content == '') {
+        if (content == null || content === '') {
             layer.tips("不能为空", $('.rootcontent'));
             return false;
         } else {
@@ -294,8 +313,8 @@
                 type: 'post',
                 data: {content: content, tid:${topic.tid}},
                 success: function (data) {
-                    if (data == 'success') {
-                        layer.msg("发表成功，审核通过后就能显示了！");
+                    if (data === 'success') {
+                        layer.msg("发表成功，审核通过后就能显示了！", {anim: 4});
                         setTimeout(function () {
                             location.reload();
                         }, 1200);
@@ -331,7 +350,7 @@
         var parentuid = $(obj).parent().parent().prev().attr('directuid');
         var rootcid = $(obj).parent().parent().parent().parent().attr('rootcid');
         var content = $(".Ndirectcontent").val().trim();
-        if (content == null || content == '') {
+        if (content == null || content === '') {
             layer.tips("不允许为空", $('.Ndirectcontent'));
             return false;
         }
@@ -340,7 +359,7 @@
             type: 'post',
             data: {content: content, tid:${topic.tid}, rootcid: rootcid, parentuid: parentuid, parentcid: direcid},
             success: function (data) {
-                if (data == 'success') {
+                if (data === 'success') {
                     location.reload();
                 } else {
                     layer.msg("发表评论失败");
@@ -372,7 +391,7 @@
     function submitdirect(obj, rootcid) {
 
         var content = $('.directcontent').val().trim();
-        if (content == null || content == '') {
+        if (content == null || content === '') {
             layer.tips("不允许为空", $('.directcontent'));
             return false;
         }
@@ -381,7 +400,7 @@
             type: 'post',
             data: {content: content, tid:${topic.tid}, rootcid: rootcid},
             success: function (data) {
-                if (data == 'success') {
+                if (data === 'success') {
                     location.reload();
                 } else {
                     layer.msg("发表评论失败");
@@ -414,6 +433,10 @@
 
     lookTheComment();
     getComment();
+
+    function direZan(cId) {
+
+    }
 </script>
 
 

@@ -239,7 +239,7 @@
         var timer = null;
         if (data != null) {
 
-            if (allcount != 0) {
+            if (allcount !== 0) {
                 $('#allunread').html(allcount);
 
                 var i = 0;
@@ -257,7 +257,7 @@
             }
 
             /**未读评论**/
-            if (commentcount != 0) {
+            if (commentcount !== 0) {
                 $('#unreadComment').attr("color", "red");
                 $('#unreadComment').html(commentcount);
             } else {
@@ -265,7 +265,7 @@
                 $('#unreadComment').html(commentcount);
             }
             /**未读私信**/
-            if (sixincount != 0) {
+            if (sixincount !== 0) {
                 $('#unreadsixin').attr("color", "red");
                 $('#unreadsixin').html(sixincount);
             } else {
@@ -273,7 +273,7 @@
                 $('#unreadsixin').html(sixincount);
             }
             /**通知**/
-            if (advisecount != 0) {
+            if (advisecount !== 0) {
                 $('#unreadadvise').attr('color', 'red');
                 $('#unreadadvise').html(advisecount);
             } else {
@@ -290,8 +290,8 @@
 
     function isLoginFirst() {
         var loginFirstFlag = '${sessionScope.loginfirst}';
-        if (loginFirstFlag == 'yes') {
-            layer.msg("今日首次登录积分+10 ^_^");
+        if (loginFirstFlag === 'yes') {
+            layer.msg("今日首次登录积分+10 ^_^", {anim: 4});
             $.ajax({
                 url: '${staticPath}/user/firstLoginSession',
                 type: 'get'

@@ -123,4 +123,15 @@ public class CommentController {
 
         }
     }
+
+    @RequestMapping("/addCommentClick")
+    public synchronized void addClick(@RequestParam("cId") long cId,
+                                      HttpServletResponse response) throws IOException {
+        Comment comment = commentMapper.selectById(cId);
+        comment.setCzan(comment.getCzan() + 1);
+        Integer flag = commentMapper.updateById(comment);
+        PrintWriter writer = response.getWriter();
+        if (flag > 0)
+            writer.write("success");
+    }
 }

@@ -45,6 +45,10 @@
                                         <br>
                                         <div class="well">
                                             <span class="comment_content">${item.content}</span>
+                                            <br>
+                                            <span>
+                                                <a href="${staticPath}/show/showTopicDetail/${item.ctid}#${item.cid}">查看</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

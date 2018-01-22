@@ -29,7 +29,7 @@
 <script src="${staticPath}/js/plugins/summernote/summernote.min.js"></script>
 <script src="${staticPath}/js/plugins/summernote/summernote-zh-CN.js"></script>
 <!-- Peity -->
-<script src="${staticPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="${staticPath}/js/plugins/peity/jquery-peity.js"></script>
 <script src="${staticPath}/js/demo/peity-demo.js"></script>
 <!-- 自定义js -->
 <script src="${staticPath}/js/hAdmin.js?v=4.1.0"></script>

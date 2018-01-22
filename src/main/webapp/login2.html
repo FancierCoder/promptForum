@@ -60,15 +60,15 @@
         }
 
         var info = getUrlParam("logininfo");
-        if (info == 'err') {
+        if (info === 'err') {
             layer.tips("账号或密码错误", $('form'), {tips: [1, '#0FA6D8']});
         }
 
     });
 
     function checkNull() {
-        if ($.trim($('#username').val()) == '' || $.trim($('#password').val()) == '') {
-            layer.tips("账号或密码不允许为空", $('form'));
+        if ($.trim($('#username').val()) === '' || $.trim($('#password').val()) === '') {
+            layer.tips("账号或密码不允许为空", $('form'), {anim: 6});
             return false;
         } else {
             return true;

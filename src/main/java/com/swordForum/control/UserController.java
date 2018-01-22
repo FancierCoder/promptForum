@@ -457,7 +457,7 @@ public class UserController {
         /*账号是否存在*/
         Map<String, Object> mapwhere = new HashMap<>(1);
         mapwhere.put("uemail", email);
-        PrintWriter pw = null;
+        PrintWriter pw;
 
         if (userMapper.selectByMap(mapwhere).size() == 0) {
             pw = response.getWriter();

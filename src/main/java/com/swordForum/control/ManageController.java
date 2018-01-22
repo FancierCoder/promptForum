@@ -2,7 +2,6 @@ package com.swordForum.control;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.sun.istack.internal.Nullable;
 import com.swordForum.mapper.*;
 import com.swordForum.model.*;
 import com.swordForum.model.VO.ChartVo;
@@ -63,7 +62,6 @@ public class ManageController {
         Manage manage = new Manage();
         manage.setMname(username);
         manage.setMpassword(MD5Util.EncoderByMd5(password));
-        @Nullable
         Manage me = manageMapper.selectOne(manage);
         if (me == null) {
             return "redirect:/login2.html?logininfo=err";
