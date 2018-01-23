@@ -137,7 +137,7 @@ public class UserController {
     public String login(HttpServletRequest request) {
         User user = (User) request.getSession(false).getAttribute("user");
         if (user != null && user.getUid() != null) {
-            return "redirect:/index.jsp";
+            return "redirect:/Index";
         } else {
             return "redirect:/login.html";
         }
@@ -165,7 +165,7 @@ public class UserController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/index.jsp";
+        return "redirect:/Index";
     }
 
     @RequestMapping("/showmyplace")

@@ -43,7 +43,7 @@
                     <div class="logo-element">仗剑</div>
                 </li>
                 <li>
-                    <a class="" href="${staticPath}/index.jsp" onclick="">
+                    <a class="" href="${staticPath}/Index" onclick="">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">主页</span>
                     </a>

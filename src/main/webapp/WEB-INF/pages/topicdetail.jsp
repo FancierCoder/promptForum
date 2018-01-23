@@ -42,7 +42,7 @@
             <div class="ibox ">
                 <div class="ibox-content text-left">
                     <div class="m-b-xxs">
-                        <a href="${staticPath}/index.jsp" class="loadnav">主页</a>&nbsp;/
+                        <a href="${staticPath}/Index" target="_top" class="loadnav">主页</a>&nbsp;/
                         <a href="${staticPath}/show/topicCatalog?sid=${sectionid}&&page=1"
                            class="loadnav"> ${sectionname}</a>&nbsp;/
                         <span class="topichead">${topic.tTopic}</span>
