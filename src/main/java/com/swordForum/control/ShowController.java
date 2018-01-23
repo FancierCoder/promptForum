@@ -43,7 +43,11 @@ public class ShowController {
         User topicuser = userMapper.selectById(maintopic.getTuid());
         Section section = sectionMapper.selectById(maintopic.getTsid());
         User me = null;
-        me = (User) request.getSession(false).getAttribute("user");
+        try {
+            me = (User) request.getSession(false).getAttribute("user");
+        } catch (NullPointerException e) {
+            System.out.println("未登录");
+        }
         if (me != null && me.getUid().equals(topicuser.getUid())) {
             commentMapper.updateRead(tid);
         }
