@@ -1,3 +1,4 @@
+<%@ page import="java.net.InetAddress" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="../../common/base.jsp" %>
 <!DOCTYPE html>
@@ -213,7 +214,10 @@
     <!--右侧部分结束-->
     <%
         int serverPort = request.getServerPort();
+        String serverAddr;
+        serverAddr = InetAddress.getLocalHost().getHostAddress();
         request.setAttribute("port", serverPort);
+        request.setAttribute("addr", serverAddr);
     %>
 </div>
 
@@ -221,11 +225,11 @@
 <script>
     var websocket;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:${requestScope.port}/msgCountSocket");
+        websocket = new WebSocket("ws://${requestScope.addr}:${requestScope.port}/msgCountSocket");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:${requestScope.port}/msgCountSocket");
+        websocket = new MozWebSocket("ws://${requestScope.addr}:${requestScope.port}/msgCountSocket");
     } else {
-        websocket = new SockJS("http://localhost:${requestScope.port}/sockjs/msgCountSocket");
+        websocket = new SockJS("http://${requestScope.addr}:${requestScope.port}/sockjs/msgCountSocket");
     }
     websocket.onopen = function (evnt) {
 
