@@ -135,7 +135,12 @@ public class UserController {
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request) {
-        User user = (User) request.getSession(false).getAttribute("user");
+        User user = null;
+        try {
+            user = (User) request.getSession(false).getAttribute("user");
+        } catch (Exception e) {
+            System.out.println("未登录");
+        }
         if (user != null && user.getUid() != null) {
             return "redirect:/Index";
         } else {
