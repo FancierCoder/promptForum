@@ -31,9 +31,17 @@ public class MailUtil {
     public void sendSimpleMail(String email, String subject, String context) {
         readPro();
         Properties props = new Properties();
+        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
         //开启debug
         props.setProperty("mail.debug", "true");
         //需要身份验证
+
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        //邮箱发送服务器端口,这里设置为465端口
+        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.isSSL", "true");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
         props.setProperty("mail.smtp.auth", "true");
         //设置邮件服务器主机名
         props.setProperty("mail.smtp.host", host);
