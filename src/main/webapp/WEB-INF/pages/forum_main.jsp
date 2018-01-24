@@ -24,7 +24,7 @@
                     <div class="ibox-content m-b-sm border-bottom">
                         <div class="p-xs">
                             <div class="pull-left m-r-md">
-                                <i class="fa fa-globe text-navy mid-icon"></i>
+                                <i class="fa fa-globe text-navy big-icon"></i>
                             </div>
                             <h2>欢迎来到仗剑论坛</h2>
                             <span>你可以自由选择你感兴趣的话题。</span>

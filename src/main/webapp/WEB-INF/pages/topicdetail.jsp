@@ -232,7 +232,6 @@
 <link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js?v=1.0.0"></script>
-<jsp:include page="../../judge.jsp"/>
 
 <script type="text/javascript">
 

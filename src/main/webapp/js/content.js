@@ -17,12 +17,10 @@
 
 
 //判断当前页面是否在iframe中
-function judge(path) {
-    if (top === this) {
-        var gohome = '<div class="gohome"><a class="animated bounceInUp" href="' + path + '/Index" title="返回首页">' +
-            '<i class="fa fa-home"></i></a></div>';
-        $('body').append(gohome);
-    }
+if (top === this) {
+    var gohome = '<div class="gohome"><a class="animated bounceInUp" href="/Index" title="返回首页">' +
+        '<i class="fa fa-home"></i></a></div>';
+    $('body').append(gohome);
 }
 
 

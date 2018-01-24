@@ -32,7 +32,7 @@
         </a>
         <h3>欢迎加入 仗剑论坛</h3>
 
-        <form class="m-t">
+        <form class="m-t" onsubmit="return submit_f()">
             <div class="form-group">
                 <input type="text" id="username" class="form-control" placeholder="用户邮箱" autofocus>
             </div>
@@ -102,7 +102,7 @@
                         layer.msg("欢迎您！", {anim: 4});
                         setTimeout(function () {
                             top.location.href = 'user/login';
-                        }, 2000);
+                        }, 1500);
                     } else if (data === '-1') {
                         layer.msg("您的账号已永久被封", {anim: 6});
                     } else if (data === 'verCode_date') {
@@ -116,10 +116,13 @@
                         layer.msg("您的账号还有" + data + "天解封", {anim: 6});
                     }
                     refreshCode();
+                    return false;
                 }
 
             });
+            return false;
         }
+        return false;
     }
 
     function refreshCode() {
@@ -128,7 +131,7 @@
 
     setTimeout(function () {
         refreshCode();
-    }, 100);
+    }, 200);
 
 </script>
 

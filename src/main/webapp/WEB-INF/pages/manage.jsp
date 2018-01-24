@@ -17,7 +17,11 @@
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -155,21 +159,20 @@
     </div>
     <!--右侧部分结束-->
 </div>
-<%--
 <!-- 全局js -->
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.6"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="js/plugins/layer/layer.min.js"></script>
+<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 
 <!-- 自定义js -->
-<script src="js/hAdmin.js?v=4.1.0"></script>
-<script type="text/javascript" src="/js/index.js"></script>
+<script src="${staticPath}/js/hAdmin.js?v=4.1.0"></script>
+<script type="text/javascript" src="${staticPath}/js/index.js"></script>
 
 <!-- 第三方插件 -->
-<script src="js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>--%>
+<script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
+<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 </body>
 
 </html>

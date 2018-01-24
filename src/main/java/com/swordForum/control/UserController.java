@@ -106,7 +106,7 @@ public class UserController {
                     //System.out.println("==今天不是第一次登录====");
                 }
                 request.getSession(false).setAttribute("user", user);
-                Online.add();
+                Online.add(request, user);
                 System.out.println("登录成功：" + user.getUnickname());
                 try {
                     response.getWriter().write("success");
@@ -142,7 +142,7 @@ public class UserController {
             System.out.println("未登录");
         }
         if (user != null && user.getUid() != null) {
-            return "redirect:/Index";
+            return "redirect:/index.jsp";
         } else {
             return "redirect:/login.html";
         }

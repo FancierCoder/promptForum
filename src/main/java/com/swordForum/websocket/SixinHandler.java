@@ -66,7 +66,7 @@ public class SixinHandler implements WebSocketHandler {
             Map map = webSocketHandler.unReadMsgCount(hisuid);
             webSocketHandler.sendMessageToUser(hisuid, new TextMessage(JSON.toJSONString(map)));
 
-        } else if (who_To_who.get(hisuid) == 0L || who_To_who.get(hisuid) != uid) {
+        } else if (who_To_who.get(hisuid) == 0L || !who_To_who.get(hisuid).equals(uid)) {
             //对方打开了这个页面或者不是和我在聊天，这个时候不应该推送到Index.jsp而是更新用户列表的未读数量
             sixin.setIsread(0);
             sixinMapper.insert(sixin);
@@ -83,7 +83,7 @@ public class SixinHandler implements WebSocketHandler {
             Map map = new HashMap(1);
             map.put("someonecount", groupByIdVo);
             sendMessageToUser(hisuid, new TextMessage(JSON.toJSONString(map)));
-        } else if (who_To_who.get(hisuid) == uid) {
+        } else if (who_To_who.get(hisuid).equals(uid)) {
             //是和我正在聊天
             sixin.setIsread(1);
             sixinMapper.insert(sixin);
