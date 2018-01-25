@@ -73,17 +73,17 @@
             }, {
                 title: '内容',
                 field: 'content',
-
+                class: 'comm'
             }, {
                 title: '时间',
                 field: 'timeinterval',
                 align: 'center',
-                valign: 'middle',
+                valign: 'middle'
             }, {
                 title: '帖子id',
                 field: 'tid',
                 align: 'center',
-                valign: 'middle',
+                valign: 'middle'
 
             }, {
                 title: '标题',
@@ -150,7 +150,7 @@
 
     function responseHandler(res) {
         $.each(res, function (i, row) {
-            row.state = $.inArray(row.cid, selections) != -1
+            row.state = $.inArray(row.cid, selections) !== -1
         });
         return res;
     }
@@ -169,7 +169,7 @@
     }
 
     function stausFormatter(value, row, inde) {
-        return value == 0 ? '否' : '<font class="text-danger">是</font>'
+        return value === 0 ? '否' : '<font class="text-danger">是</font>'
     }
 
     function operateFormatter(value, row, index) {
@@ -193,7 +193,7 @@
                 url: "${staticPath}/user/deletemycomment",
                 data: {cid: row.cid},
                 success: function (data) {
-                    if (data == 'success') {
+                    if (data === 'success') {
                         layer.msg("删除成功");
                         $table.bootstrapTable('remove', {
                             field: 'cid',
@@ -213,7 +213,7 @@
                 type: 'get',
                 data: {tid: row.tid, sid: row.tsid},
                 success: function (data) {
-                    if (data == 'success') {
+                    if (data === 'success') {
                         layer.msg("置顶成功,目前一个版块只能有一个被置顶。");
                         $table.bootstrapTable('refresh');
 
@@ -229,7 +229,7 @@
                 type: 'get',
                 data: {tid: row.tid},
                 success: function (data) {
-                    if (data == 'success') {
+                    if (data === 'success') {
                         $table.bootstrapTable('refresh');
                     } else {
                         layer.msg("置顶失败");
@@ -245,6 +245,40 @@
     }
 
     initTable();
+
+    function replace_em(str) {
+        str = str.replace(/\</g, '&lt;');
+        str = str.replace(/\>/g, '&gt;');
+        str = str.replace(/\n/g, '<br/>');
+        str = str.replace(/\[em_([0-9]*)\]/g, '<img src="${staticPath}/js/plugins/qqface/face/$1.gif" border="0"/>');
+        return str;
+    }
+
+    function getComment() {
+        $(".comm").each(function (index, ele) {
+            //alert(index);
+            if (index === 1 || index === 0)
+                return true;
+            $(this).html(replace_em($(this).text()));
+        });
+    }
+
+    $table.on('load-success.bs.table', function (data) {
+        getComment();
+        setTimeout(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        }, 200);
+    });
+    $table.on('page-change.bs.table', function (data) {
+        getComment();
+        setTimeout(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        }, 200);
+    });
 
 </script>
 
