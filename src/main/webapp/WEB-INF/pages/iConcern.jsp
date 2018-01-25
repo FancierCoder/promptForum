@@ -21,7 +21,7 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
-           dat-show-export="true"
+           data-show-export="true"
            data-detail-view="true"
            data-detail-formatter="detailFormatter"
            data-minimum-count-columns="2"
@@ -170,7 +170,7 @@
     }
 
     function sexFormatter(value) {
-        return value == 0 ? '男' : '女';
+        return value === 0 ? '男' : '女';
     }
 
     function operateFormatter(value, row, index) {

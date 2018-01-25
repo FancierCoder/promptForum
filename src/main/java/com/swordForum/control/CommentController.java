@@ -7,6 +7,9 @@ import com.swordForum.model.Logtable;
 import com.swordForum.model.Topic;
 import com.swordForum.model.User;
 import com.swordForum.model.VO.CommentVo;
+import com.swordForum.service.TopicService;
+import com.swordForum.service.UserService;
+import com.swordForum.service.impl.TopicServiceImpl;
 import com.swordForum.util.DateUtil;
 import com.swordForum.util.HtmlUtil;
 import com.swordForum.util.IpUtil;
@@ -36,9 +39,11 @@ public class CommentController {
     @Resource
     private CommentMapper commentMapper;
     @Resource
-    private UserMapper userMapper;
+    private UserService userService;
     @Resource
     private TopicMapper topicMapper;
+    @Resource
+    private TopicService topicService;
     @Resource
     private SectionMapper sectionMapper;
     @Resource
@@ -47,8 +52,7 @@ public class CommentController {
     private SystemWebSocketHandler systemWebSocketHandler;
 
 
-
-    public static CommentVo comment2Vo(Comment comment, UserMapper userMapper, TopicMapper topicMapper) {
+    public CommentVo comment2Vo(Comment comment) {
 
         CommentVo cvo = new CommentVo();
         cvo.setCid(comment.getCid());
@@ -61,20 +65,20 @@ public class CommentController {
         cvo.setParentcid(comment.getParentcid());
         cvo.setIsshow(comment.getIsshow());
         //自己的昵称,头像,账号
-        User me = userMapper.selectById(comment.getCuid());
+        User me = userService.selectEmailAndNickAndHeadByUid(comment.getCuid());
         cvo.setHeadimg(me.getHeadimg());
         cvo.setNickname(me.getUnickname());
         cvo.setFromuemail(me.getUemail());
         //parent的昵称
-        Long parentuid = comment.getParentuid();
-        if (parentuid != 0) {
-            User parent = userMapper.selectById(parentuid);
-            cvo.setParentunickname(parent.getUnickname());
+        Long parentUid = comment.getParentuid();
+        if (parentUid != 0) {
+            String nickname = userService.selectNicknameByUid(parentUid);
+            cvo.setParentunickname(nickname);
         }
         //帖子信息，id和标题
         cvo.setTid(comment.getCtid());
-        Topic t = topicMapper.selectById(comment.getCtid());
-        cvo.setTtopic(t.getTtopic());
+        String topic = topicService.selectTopicByTid(comment.getCtid());
+        cvo.setTtopic(topic);
         return cvo;
     }
 

@@ -20,7 +20,7 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
-           dat-show-export="true"
+           data-show-export="true"
            data-detail-view="true"
            data-detail-formatter="detailFormatter"
            data-minimum-count-columns="2"
@@ -129,7 +129,7 @@
 
     function responseHandler(res) {
         $.each(res.rows, function (i, row) {
-            row.state = $.inArray(row.conid, selections) != -1
+            row.state = $.inArray(row.conid, selections) !== -1
         });
         return res;
     }
@@ -156,7 +156,7 @@
     }
 
     function sexFormatter(value) {
-        return value == 0 ? '男' : '女';
+        return value === 0 ? '男' : '女';
     }
 
     function operateFormatter(value, row, index) {
@@ -180,7 +180,7 @@
                 url: "${staticPath}/concern/deleteIConcern",
                 data: {conid: row.conid},
                 success: function (data) {
-                    if (data == 'ok') {
+                    if (data === 'ok') {
                         layer.msg("删除成功")
                         $table.bootstrapTable('remove', {
                             field: 'conid',

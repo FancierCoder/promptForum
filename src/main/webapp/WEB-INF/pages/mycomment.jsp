@@ -3,7 +3,18 @@
 <html>
 <head>
     <title>评论管理</title>
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
+    <script src="${staticPath}/js/jquery-3.2.1.js"></script>
+    <script src="${staticPath}/js/bootstrap.js"></script>
+    <script src="${staticPath}/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+
+    <script src="${staticPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="${staticPath}/js/plugins/layer/layer.js"></script>
     <style type="text/css">
         td {
             font-family: Arial;
@@ -27,7 +38,7 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
-           dat-show-export="true"
+           data-show-export="true"
            data-minimum-count-columns="2"
            data-show-pagination-switch="true"
            data-pagination="true"

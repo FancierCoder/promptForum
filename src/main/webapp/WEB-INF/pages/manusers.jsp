@@ -3,7 +3,18 @@
 <html>
 <head>
     <title>用户管理</title>
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
+    <script src="${staticPath}/js/jquery-3.2.1.js"></script>
+    <script src="${staticPath}/js/bootstrap.js"></script>
+    <script src="${staticPath}/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+
+    <script src="${staticPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="${staticPath}/js/plugins/layer/layer.js"></script>
 
     <style type="text/css">
         td {
@@ -28,7 +39,7 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
-           dat-show-export="true"
+           data-show-export="true"
            data-minimum-count-columns="2"
            data-show-pagination-switch="true"
            data-pagination="true"
@@ -37,7 +48,7 @@
            data-show-footer="false"
            data-side-pagination="client"
            data-query-params-type="undefined"  <%--注意如果用自定义的非limit格式去需要写上去--%>
-           data-url="${staticPath}/manage//manlistusers"
+           data-url="${staticPath}/manage/manlistusers"
            data-response-handler="responseHandler">
     </table>
 </div>
@@ -68,7 +79,8 @@
                 title: '性别',
                 field: 'usex',
                 align: 'center',
-                valign: 'middle'
+                valign: 'middle',
+                formatter: sexFormatter
             }, {
                 title: '生日',
                 field: 'ubirthday',
@@ -145,7 +157,7 @@
 
     function responseHandler(res) {
         $.each(res, function (i, row) {
-            row.state = $.inArray(row.tid, selections) != -1;
+            row.state = $.inArray(row.tid, selections) !== -1;
         });
         return res;
     }
@@ -157,6 +169,10 @@
             search: params.searchText
         };
         return temp;
+    }
+
+    function sexFormatter(value) {
+        return value === 0 ? '男' : '女';
     }
 
     function headimgFormatter(value, row, index) {
@@ -178,7 +194,7 @@
     }
 
     function stausFormatter(value, row, inde) {
-        return value == 0 ? '正常' : '<font class="text-danger">被封</font>'
+        return value === 0 ? '正常' : '<font class="text-danger">被封</font>'
     }
 
     function operateFormatter(value, row, index) {
@@ -214,7 +230,7 @@
         var flag = 1;   //1为pc 2为安卓 3为ipad
         for (var v = 0; v < Agents.length; v++) {
             if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                if (Agents[v] == 'iPad' || Agents[v] == 'iPod') {
+                if (Agents[v] === 'iPad' || Agents[v] === 'iPod') {
                     flag = 3;
                 } else {
                     flag = 2;
@@ -224,9 +240,9 @@
             }
         }
 
-        if (flag == 1) {
+        if (flag === 1) {
             size = ['800px', '600px'];
-        } else if (flag == 2) {
+        } else if (flag === 2) {
             size = ['240px', '420px'];
         } else {
             size = ['420px', '600px'];

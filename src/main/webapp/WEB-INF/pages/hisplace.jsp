@@ -12,7 +12,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
 
 </head>
 
@@ -22,6 +26,7 @@
         <div class="col-sm-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
+                    <c:set var="his" value="${requestScope.his}"/>
                     <h5>${his.uemail}的资料</h5>
                 </div>
                 <div>
@@ -163,7 +168,16 @@
         </div>
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/demo/peity-demo.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
 <script type="text/javascript">
 
     /*这里做了两组id对应两组事件方法，但仅仅修改id是不行的,

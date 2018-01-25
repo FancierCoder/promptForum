@@ -10,7 +10,11 @@
     <title> - 论坛</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
 
 </head>
 
@@ -24,7 +28,7 @@
                     <div class="ibox-content m-b-sm border-bottom">
                         <div class="p-xs">
                             <div class="pull-left m-r-md">
-                                <i class="fa fa-globe text-navy big-icon"></i>
+                                <i class="fa fa-globe text-navy mid-icon"></i>
                             </div>
                             <h2>欢迎来到仗剑论坛</h2>
                             <span>你可以自由选择你感兴趣的话题。</span>
@@ -89,7 +93,13 @@
         </div>
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js?v=1.0.0"></script>
 <script type="text/javascript">
     $(function () {
         $.ajax({

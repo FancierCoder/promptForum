@@ -4,7 +4,11 @@
 <html>
 <head>
     <title>我的帖子</title>
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div class="row">
@@ -95,7 +99,10 @@
     </div>
 </div>
 </body>
-
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
+<script src="${staticPath}/js/plugins/layer/layui.js"></script>
+<script src="${staticPath}/js/plugins/layer/laypage/laypage.js"></script>
 <script type="text/javascript">
     /*翻页+查询*/
     laypage({

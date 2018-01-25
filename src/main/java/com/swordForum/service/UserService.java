@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface UserService extends IService<User> {
 
+    String selectNicknameByUid(Long uid);
+
+    User selectEmailAndNickAndHeadByUid(Long uid);
 }

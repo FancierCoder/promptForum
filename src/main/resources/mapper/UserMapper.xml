@@ -22,5 +22,12 @@
     <sql id="Base_Column_List">
         uid, uemail, upassword, unickname, usex, ubirthday, ulevel, headimg, ustatement, uregtime, ustate, upoint
     </sql>
+    <select id="selectNicknameByUid" resultType="java.lang.String">
+        SELECT unickname FROM user WHERE uid = #{uid}
+    </select>
+    <select id="selectEmailAndNickAndHeadByUid" resultType="com.swordForum.model.User">
+        SELECT uemail, unickname, headimg FROM USER WHERE uid = #{uid}
+    </select>
+
 
 </mapper>

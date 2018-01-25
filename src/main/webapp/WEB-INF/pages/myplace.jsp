@@ -10,7 +10,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -133,7 +137,15 @@
         </div>
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js?v=1.0.0"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/demo/peity-demo.js"></script>
 </body>
 
 </html>

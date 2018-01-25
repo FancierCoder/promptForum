@@ -11,7 +11,7 @@
         <spring.version>4.3.12.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
         <mysql.version>6.0.6</mysql.version>
-        <mybatis-plus>2.1.6</mybatis-plus>
+        <mybatis-plus>2.1.8</mybatis-plus>
         <slf4j.version>1.7.25</slf4j.version>
         <kaptcha-version>0.0.9</kaptcha-version>
     </properties>

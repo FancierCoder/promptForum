@@ -8,7 +8,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
     <title>${sname}</title>
 </head>
@@ -109,6 +113,9 @@
     </div>
 </div>
 </body>
+<script src="${staticPath}/js/jquery.min.js"></script>
+<script src="${staticPath}/js/plugins/layer/layui.js"></script>
+<script src="${staticPath}/js/plugins/layer/laypage/laypage.js"></script>
 <script type="text/javascript">
     laypage({
         cont: $('#page'),

@@ -8,14 +8,10 @@
     <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
     <link href="${staticPath}/css/style.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
-    <script src="${staticPath}/js/jquery.min.js"></script>
+    <link href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <script src="${staticPath}/js/jquery-3.2.1.js"></script>
     <script src="${staticPath}/js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="${staticPath}/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
     <script src="${staticPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 
@@ -42,7 +38,7 @@
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
-           dat-show-export="true"
+           data-show-export="true"
            data-minimum-count-columns="2"
            data-show-pagination-switch="true"
            data-pagination="true"
@@ -151,7 +147,7 @@
                 type: 'post',
                 data: {cids: ids},
                 success: function (data) {
-                    if (data == 'success') {
+                    if (data === 'success') {
                         $table.bootstrapTable('remove', {
                             field: 'cid',
                             values: ids
@@ -180,7 +176,7 @@
 
     function responseHandler(res) {
         $.each(res, function (i, row) {
-            row.state = $.inArray(row.cid, selections) != -1
+            row.state = $.inArray(row.cid, selections) !== -1
         });
         return res;
     }
@@ -199,7 +195,7 @@
     }
 
     function stausFormatter(value, row, inde) {
-        return value == 0 ? '<font class="text-danger" id="comment-' + row.cid + '">未审核</font>' : '<span id="comment-' + row.cid + '">通过</span>';
+        return value === 0 ? '<font class="text-danger" id="comment-' + row.cid + '">未审核</font>' : '<span id="comment-' + row.cid + '">通过</span>';
     }
 
     function operateFormatter(value, row, index) {
@@ -227,7 +223,7 @@
                 url: "${staticPath}/manage/mdeletecomment",
                 data: {cid: row.cid},
                 success: function (data) {
-                    if (data == 'success') {
+                    if (data === 'success') {
                         layer.msg("删除成功");
                         $table.bootstrapTable('remove', {
                             field: 'cid',
@@ -242,13 +238,13 @@
         }, 'click .ok': function (e, value, row, index) {
             var status = row.isshow;
             //alert(status);
-            if (status == 0) {
+            if (status === 0) {
                 $.ajax({
                     type: 'post',
                     url: "${staticPath}/manage/commentShow",
                     data: {cid: row.cid},
                     success: function (data) {
-                        if (data == 'success') {
+                        if (data === 'success') {
                             layer.msg("审核通过");
 
                             $table.bootstrapTable('refresh');

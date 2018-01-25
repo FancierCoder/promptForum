@@ -21,5 +21,8 @@
     <sql id="Base_Column_List">
         tid, tsid, tuid, ttopic, tcontent, ttime, treplaycount, tclickcount, tlastclicktime, tstaus, tzan
     </sql>
+    <select id="selectTopicByTid" resultType="java.lang.String">
+        SELECT ttopic FROM topic WHERE tid = #{tid}
+    </select>
 
 </mapper>

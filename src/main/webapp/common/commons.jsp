@@ -21,6 +21,7 @@
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/laypage/laypage.js"></script>
+<script src="${staticPath}/js/plugins/layer/layui.js"></script>
 <script src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
 <script src="${staticPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- layerDate plugin javascript -->

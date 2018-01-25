@@ -10,7 +10,7 @@
     <meta name="description" content="后台登录">
     <link rel="shortcut icon" href="img/favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
@@ -29,13 +29,24 @@
 <div class="signinpanel">
     <div class="row">
         <div class="col-sm-12">
-            <form method="post" action="manage/mloginback" onsubmit="return checkNull()">
-                <h4 class="no-margins">登录：</h4>
+            <form onsubmit="return submit_f()">
+                <h4 class="no-margins">后台登录：</h4>
                 <p class="m-t-md">登录到Z+后台</p>
-                <input type="text" class="form-control uname" placeholder="用户名" id="username" name="username"/>
-                <input type="password" class="form-control pword m-b" placeholder="密码" id="password" name="password"/>
+                <div class="form-group">
+                    <input type="text" class="form-control uname" placeholder="用户名" id="username" name="username"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control pword m-b" placeholder="密码" id="password" name="password"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="verCode" name="verCode" class="form-control" placeholder="验证码">
+                    <div class="input-group-addon">
+                    <img id="code" src="captcha.jpg" onclick="refreshCode();">
+                    </div>
+                </div>
+
                 <!--<a href="#">忘记密码了？</a>-->
-                <button class="btn btn-success btn-block" type="submit">登录</button>
+                <button class="btn btn-success btn-block" onclick="submit_f()" type="button">登录</button>
             </form>
         </div>
     </div>
@@ -46,12 +57,12 @@
     </div>
 </div>
 <!-- 全局js -->
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.js"></script>
 <!--layer插件-->
-<script src="js/plugins/layer/layer.min.js"></script>
+<script src="js/plugins/layer/layer.js"></script>
 <script type="text/javascript">
-    $(function () {
+    /*$(function () {
         function getUrlParam(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
             var r = window.location.search.substr(1).match(reg);  //匹配目标参数
@@ -64,16 +75,66 @@
             layer.tips("账号或密码错误", $('form'), {tips: [1, '#0FA6D8']});
         }
 
-    });
+    });*/
 
     function checkNull() {
-        if ($.trim($('#username').val()) === '' || $.trim($('#password').val()) === '') {
-            layer.tips("账号或密码不允许为空", $('form'), {anim: 6});
+        if ($.trim($('#username').val()) === '') {
+            layer.tips("请输入账号", $('#username'), {anim: 4});
+            return false;
+        } else if ($.trim($('#password').val()) === ''){
+            layer.tips("请输入密码", $('#password'), {anim: 4});
+            return false;
+        } else if ($.trim($('#verCode').val()) === '' ){
+            layer.tips("验证码不允许为空", $('#verCode'), {anim: 6});
             return false;
         } else {
             return true;
         }
     }
+
+    function submit_f() {
+        if (checkNull()) {
+            var load = layer.load(0);
+            var username = $("#username").val().trim();
+            var password = $("#password").val().trim();
+            var verCode = $("#verCode").val().trim();
+            $.ajax({
+                type: "POST",
+                url: "/manage/mloginback",
+                cache: false,
+                data: {username: username, password: password, verCode: verCode},
+                dataType: "json",
+                success: function (data) {
+                    if (data.code === 500){
+                        if (data.msg === "verCode_invalidate"){
+                            layer.msg("验证码已失效！");
+                        } else if (data.msg === "verCode_date"){
+                            layer.msg("验证码超时！")
+                        } else if (data.msg === "verCode_err"){
+                            layer.tips("验证码错误！", $("#verCode"), {tips: 4, anim: 6, icon: 5});
+                        } else if (data.msg === "err")
+                            layer.msg("账号或密码错误！");
+                    } else if (data.code === 0){
+                        layer.msg("登录成功！");
+                        setTimeout(function () {
+                            location.href = "" + data.msg;
+                        },500);
+                    }
+                    layer.close(load);
+                    refreshCode();
+                }
+            });
+        } else
+            return false;
+    }
+
+    function refreshCode() {
+        $("#code").attr("src", "/captcha.jpg?t=" + $.now());
+    }
+
+    setTimeout(function () {
+        refreshCode();
+    }, 200);
 </script>
 
 

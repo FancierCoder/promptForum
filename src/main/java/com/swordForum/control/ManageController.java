@@ -2,6 +2,7 @@ package com.swordForum.control;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.google.code.kaptcha.Constants;
 import com.swordForum.mapper.*;
 import com.swordForum.model.*;
 import com.swordForum.model.VO.ChartVo;
@@ -10,6 +11,7 @@ import com.swordForum.model.VO.ManTopic;
 import com.swordForum.util.DateUtil;
 import com.swordForum.util.LevelUtil;
 import com.swordForum.util.MD5Util;
+import com.swordForum.util.R;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,20 +56,40 @@ public class ManageController {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private CommentController commentController;
+
     /**
      * 登录到后台
      **/
     @RequestMapping("/mloginback")
-    public String loginback(String username, String password, HttpServletRequest request) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    @ResponseBody
+    public R loginback(@RequestParam String username,
+                       @RequestParam String password,
+                       @RequestParam String verCode,
+                       HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
+        String kaptcha;
+        try {
+            kaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (kaptcha == null) {
+                return R.error("verCode_invalidate");
+            }
+            request.getSession(false).removeAttribute(Constants.KAPTCHA_SESSION_KEY);
+        } catch (Exception e) {
+            return R.error("verCode_date");
+        }
+        if (!verCode.equalsIgnoreCase(kaptcha)) {
+            return R.error("verCode_err");
+        }
         Manage manage = new Manage();
         manage.setMname(username);
         manage.setMpassword(MD5Util.EncoderByMd5(password));
         Manage me = manageMapper.selectOne(manage);
         if (me == null) {
-            return "redirect:/login2.html?logininfo=err";
+            return R.error("err");
         } else {
             request.getSession(false).setAttribute("admin", me);
-            return "manage";
+            return R.ok("/manage");
         }
     }
 
@@ -458,14 +480,18 @@ public class ManageController {
         return "mancomments";
     }
 
+
     @RequestMapping("/manlistcomments")
     @ResponseBody
     public List<CommentVo> manListComments() {
-        ArrayList<Comment> comments = (ArrayList<Comment>) commentMapper.selectList(new EntityWrapper<Comment>(null).orderBy("ctime", false));
+        ArrayList<Comment> comments =
+                (ArrayList<Comment>) commentMapper.selectList(new EntityWrapper<Comment>(null).orderBy("ctime", false));
         List<CommentVo> commentVos = new ArrayList<>(comments.size());
-        System.out.println(comments.size());
+        System.out.println("评论条数:" + comments.size());
+
         for (Comment comment : comments) {
-            CommentVo commentVo = CommentController.comment2Vo(comment, userMapper, topicMapper);
+            CommentVo commentVo =
+                    commentController.comment2Vo(comment);
             commentVos.add(commentVo);
         }
         return commentVos;

@@ -15,4 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper extends BaseMapper<User> {
 
+    String selectNicknameByUid(Long uid);
+
+    User selectEmailAndNickAndHeadByUid(Long uid);
 }

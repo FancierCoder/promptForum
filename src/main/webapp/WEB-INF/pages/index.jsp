@@ -231,22 +231,20 @@
 <script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
-
 <!-- 自定义js -->
 <script src="${staticPath}/js/hAdmin.js?v=4.1.0"></script>
 <script src="${staticPath}/js/index.js"></script>
-
 <!-- 第三方插件 -->
 <script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
 <script>
     var websocket;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://${requestScope.addr}:${requestScope.port}/msgCountSocket");
+        websocket = new WebSocket("ws://39.106.197.163/msgCountSocket");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://${requestScope.addr}:${requestScope.port}/msgCountSocket");
+        websocket = new MozWebSocket("ws://39.106.197.163/msgCountSocket");
     } else {
-        websocket = new SockJS("http://${requestScope.addr}:${requestScope.port}/sockjs/msgCountSocket");
+        websocket = new SockJS("http://39.106.197.163/sockjs/msgCountSocket");
     }
     websocket.onopen = function (evnt) {
 

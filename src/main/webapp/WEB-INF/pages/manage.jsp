@@ -18,7 +18,7 @@
     <![endif]-->
 
     <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
-    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
     <link href="${staticPath}/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
     <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
@@ -160,8 +160,8 @@
     <!--右侧部分结束-->
 </div>
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
-<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
 <script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
@@ -172,7 +172,7 @@
 
 <!-- 第三方插件 -->
 <script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
 </body>
 
 </html>

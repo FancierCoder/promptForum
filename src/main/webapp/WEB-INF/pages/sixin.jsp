@@ -15,7 +15,12 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/plugins/jsTree/style.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -80,7 +85,7 @@
                             </div>
                             <div class="chat-message-form">
                                 <div class="form-group">
-                                    <textarea class="form-control message-input" name="message" id="sendmessage"
+                                    <textarea class="form-control message-input" name="message" id="sendMessage"
                                               placeholder="输入消息内容，按alt+回车键发送"></textarea>
                                     <p>
                                         <button type="button" class="btn btn-primary btn-group "
@@ -104,15 +109,23 @@
 
 
 </div>
-<%
-    int serverPort = request.getServerPort();
-    request.setAttribute("port", serverPort);
-%>
+
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js"></script>
+<script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
+<script src="${staticPath}/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
+<!-- 第三方插件 -->
+<script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
+<script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
+<script src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
+<link href="${staticPath}/js/plugins/qqface/css/qqFace.css" rel="stylesheet">
 <script type="text/javascript">
     <c:if test="${sessionScope.user != null}">
     $(function () {
         $('.emotion').qqFace({
-            assign: 'sendmessage', //给那个控件赋值
+            assign: 'sendMessage', //给那个控件赋值
             path: '${staticPath}/js/plugins/qqface/face/' //表情存放的路径
         });
     });
@@ -129,14 +142,14 @@
     var websocket;
     var hisuid;
     var lastfrienddiv = null;
-    $('#sendmessage').attr("readonly", true);
+    $('#sendMessage').attr("readonly", true);
     $('#sendbtn').attr('disabled', true);
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:${requestScope.port}/chatouser");
+        websocket = new WebSocket("ws://39.106.197.163/chatouser");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:${requestScope.port}/chatouser");
+        websocket = new MozWebSocket("ws://39.106.197.163/chatouser");
     } else {
-        websocket = new SockJS("http://localhost:${requestScope.port}/sockjs/chattouser");
+        websocket = new SockJS("http://39.106.197.163/sockjs/chattouser");
     }
     websocket.onopen = function (evnt) {
 
@@ -179,12 +192,12 @@
         $('#title').children("img").attr("src", img);
         $('#title').children('span').html(nickname);
         if (uid == -1) {
-            $('#sendmessage').val("");
-            $('#sendmessage').attr("readonly", true);
+            $('#sendMessage').val("");
+            $('#sendMessage').attr("readonly", true);
             $('#sendbtn').attr('disabled', true);
         } else {
-            $('#sendmessage').val("");
-            $('#sendmessage').attr("readonly", false);
+            $('#sendMessage').val("");
+            $('#sendMessage').attr("readonly", false);
             $('#sendbtn').attr('disabled', false);
         }
         $.ajax({
@@ -249,7 +262,7 @@
             + (s < 10 ? "0" + s : s);
     }
 
-    $('#sendmessage').keydown(function (e) {
+    $('#sendMessage').keydown(function (e) {
         if (e.ctrlKey && e.which == 13) {
             send();
         }
@@ -259,7 +272,7 @@
     })
 
     function send() {
-        var text = $('#sendmessage').val().trim();
+        var text = $('#sendMessage').val().trim();
         if (text == '') {
             alert("不能为空");
         } else {
@@ -278,7 +291,7 @@
                 ' </span> </div> </div>';
             $('#discussion').append(isend);
             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
-            $('#sendmessage').val("");
+            $('#sendMessage').val("");
         }
     }
 

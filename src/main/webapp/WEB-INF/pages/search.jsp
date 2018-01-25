@@ -13,7 +13,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
 
 </head>
 
@@ -159,7 +163,11 @@
     </div>
 </div>
 
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js"></script>
+<script src="${staticPath}/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
 </body>
 
 </html>

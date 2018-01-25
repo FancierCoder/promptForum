@@ -15,4 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TopicMapper extends BaseMapper<Topic> {
 
+    String selectTopicByTid(Long tid);
 }

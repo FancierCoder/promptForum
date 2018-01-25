@@ -226,7 +226,7 @@
 <!-- 全局js -->
 <script src="${staticPath}/js/jquery-1.12.4.js"></script>
 <script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
-<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${staticPath}/js/bootstrap.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
 <script type="text/javascript" src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
 <link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">

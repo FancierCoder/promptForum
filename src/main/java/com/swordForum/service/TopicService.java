@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface TopicService extends IService<Topic> {
 
+    String selectTopicByTid(Long tid);
 }

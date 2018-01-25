@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.swordForum.mapper.*;
-import com.swordForum.model.Addfriend;
-import com.swordForum.model.Friend;
-import com.swordForum.model.Sixin;
-import com.swordForum.model.User;
+import com.swordForum.model.*;
 import com.swordForum.model.VO.AddFriendVo;
 import com.swordForum.model.VO.UnreadComm;
 import com.swordForum.websocket.SixinHandler;
@@ -278,10 +275,28 @@ public class MessageControl {
         //生成图片验证码
         BufferedImage image = producer.createImage(text);
         //保存到shiro session
-        request.getSession(false).setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        try {
+            request.getSession(false).setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        } catch (Exception e) {
+            request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        }
 
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
+    }
+
+    @RequestMapping("/manage")
+    public String toManage(HttpServletRequest request) {
+        Manage admin;
+        try {
+            admin = (Manage) request.getSession(false).getAttribute("admin");
+            if (admin == null)
+                return "redirect:/login2.html";
+            else
+                return "manage";
+        } catch (Exception e) {
+            return "redirect:/login2.html";
+        }
     }
 
 }

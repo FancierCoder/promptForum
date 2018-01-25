@@ -105,8 +105,8 @@ public class UserController {
                     request.getSession(false).setAttribute("loginfirst", "no");
                     //System.out.println("==今天不是第一次登录====");
                 }
-                request.getSession(false).setAttribute("user", user);
                 Online.add(request, user);
+                request.getSession(false).setAttribute("user", user);
                 System.out.println("登录成功：" + user.getUnickname());
                 try {
                     response.getWriter().write("success");
@@ -272,8 +272,9 @@ public class UserController {
         List<Comment> comments = commentMapper.selectByMap(mapwhere);
         List<CommentVo> commentVos = new ArrayList<>(comments.size());
         System.out.println(comments.size());
+        CommentController commentController = new CommentController();
         for (Comment comment : comments) {
-            CommentVo commentVo = CommentController.comment2Vo(comment, userMapper, topicMapper);
+            CommentVo commentVo = commentController.comment2Vo(comment);
             commentVos.add(commentVo);
         }
         return commentVos;

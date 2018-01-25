@@ -3,7 +3,18 @@
 <html>
 <head>
     <title>板块管理</title>
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
+    <script src="${staticPath}/js/jquery-3.2.1.js"></script>
+    <script src="${staticPath}/js/bootstrap.js"></script>
+    <script src="${staticPath}/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+
+    <script src="${staticPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="${staticPath}/js/plugins/layer/layer.js"></script>
 </head>
 <style type="text/css">
     td {
