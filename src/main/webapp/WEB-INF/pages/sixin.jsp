@@ -253,7 +253,7 @@
     function dateFormatter(value) {
         var date = new Date(value);
         y = date.getFullYear(),
-            m = date.getMonth() + 1,
+            m = date.getMonth(),
             d = date.getDate(),
             h = date.getHours(),
             min = date.getMinutes(),
