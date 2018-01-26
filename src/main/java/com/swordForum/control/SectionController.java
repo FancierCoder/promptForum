@@ -33,18 +33,18 @@ public class SectionController {
     public String getAllSection(Map map) {
         List<String> parentName = sectionMapper.getParentName();
         List<SectionVo> sectionVoList = new ArrayList<>(parentName.size());
-        for (int i = 0; i < parentName.size(); i++) {
+        for (String aParentName : parentName) {
             Map<String, Object> mapWhere = new HashMap<>();
-            mapWhere.put("sparentname", parentName.get(i));
+            mapWhere.put("sparentname", aParentName);
             List<Section> par_sections = sectionMapper.selectByMap(mapWhere);
             SectionVo sectionVo = new SectionVo();
-            sectionVo.setSparentname(parentName.get(i));
+            sectionVo.setSparentname(aParentName);
             sectionVo.setSections(par_sections);
             sectionVoList.add(sectionVo);
         }
         map.put("sectionvos", sectionVoList);
-        Long maxsid = sectionMapper.selectMaxClickSid();
-        map.put("maxsid", maxsid);
+        Long maxSid = sectionMapper.selectMaxClickSid();
+        map.put("maxsid", maxSid);
         return "index";
     }
 

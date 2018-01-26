@@ -240,11 +240,11 @@
 <script>
     var websocket;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://39.106.197.163/msgCountSocket");
+        websocket = new WebSocket("ws://39.106.197.163:8080${ctxPath}/msgCountSocket");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://39.106.197.163/msgCountSocket");
+        websocket = new MozWebSocket("ws://39.106.197.163:8080${ctxPath}/msgCountSocket");
     } else {
-        websocket = new SockJS("http://39.106.197.163/sockjs/msgCountSocket");
+        websocket = new SockJS("http://39.106.197.163:8080${ctxPath}/sockjs/msgCountSocket");
     }
     websocket.onopen = function (evnt) {
 

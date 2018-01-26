@@ -59,39 +59,6 @@ public class ManageController {
     @Resource
     private CommentController commentController;
 
-    /**
-     * 登录到后台
-     **/
-    @RequestMapping("/mloginback")
-    @ResponseBody
-    public R loginback(@RequestParam String username,
-                       @RequestParam String password,
-                       @RequestParam String verCode,
-                       HttpServletRequest request) throws IOException, NoSuchAlgorithmException {
-        String kaptcha;
-        try {
-            kaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
-            if (kaptcha == null) {
-                return R.error("verCode_invalidate");
-            }
-            request.getSession(false).removeAttribute(Constants.KAPTCHA_SESSION_KEY);
-        } catch (Exception e) {
-            return R.error("verCode_date");
-        }
-        if (!verCode.equalsIgnoreCase(kaptcha)) {
-            return R.error("verCode_err");
-        }
-        Manage manage = new Manage();
-        manage.setMname(username);
-        manage.setMpassword(MD5Util.EncoderByMd5(password));
-        Manage me = manageMapper.selectOne(manage);
-        if (me == null) {
-            return R.error("err");
-        } else {
-            request.getSession(false).setAttribute("admin", me);
-            return R.ok("/manage");
-        }
-    }
 
     @RequestMapping("/mleave")
     public String mleave(HttpServletRequest request) {

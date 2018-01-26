@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import javax.annotation.Resource;
 
@@ -17,12 +18,14 @@ import javax.annotation.Resource;
 public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(systemWebSocketHandler, "/msgCountSocket").addInterceptors(new WebSocketHandshakeInterceptor());
-        registry.addHandler(systemWebSocketHandler, "/sockjs/msgCountSocket").addInterceptors(
-                new WebSocketHandshakeInterceptor()).withSockJS();
-        registry.addHandler(sixinHandler, "/chatouser").addInterceptors(new WebSocketHandshakeInterceptor());
-        registry.addHandler(sixinHandler, "/sockjs/chattouser").
-                addInterceptors(new WebSocketHandshakeInterceptor()).withSockJS();
+        registry.addHandler(systemWebSocketHandler, "/msgCountSocket").
+                addInterceptors(new WebSocketHandshakeInterceptor()).setAllowedOrigins("*");
+        registry.addHandler(systemWebSocketHandler, "/sockjs/msgCountSocket")
+                .addInterceptors(new WebSocketHandshakeInterceptor()).setAllowedOrigins("*").withSockJS();
+        registry.addHandler(sixinHandler, "/chattouser")
+                .addInterceptors(new WebSocketHandshakeInterceptor()).setAllowedOrigins("*");
+        registry.addHandler(sixinHandler, "/sockjs/chattouser")
+                .addInterceptors(new WebSocketHandshakeInterceptor()).setAllowedOrigins("*").withSockJS();
     }
 
     /*@Bean

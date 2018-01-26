@@ -51,9 +51,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         if (webSocketSession.isOpen()) {
             webSocketSession.close();
         }
-        Iterator<Map.Entry<Long, WebSocketSession>> it = users.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Long, WebSocketSession> entry = it.next();
+        for (Map.Entry<Long, WebSocketSession> entry : users.entrySet()) {
             if (entry.getValue().getId().equals(webSocketSession.getId())) {
                 users.remove(entry.getKey());
                 System.out.println("消息传输错误socket回话移除用户Id：" + entry.getKey());
@@ -66,9 +64,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         if (webSocketSession.isOpen()) {
             webSocketSession.close();
         }
-        Iterator<Map.Entry<Long, WebSocketSession>> it = users.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Long, WebSocketSession> entry = it.next();
+        for (Map.Entry<Long, WebSocketSession> entry : users.entrySet()) {
             if (entry.getValue().getId().equals(webSocketSession.getId())) {
                 users.remove(entry.getKey());
                 System.out.println("关闭连接后socket回话移除用户Id：" + entry.getKey());

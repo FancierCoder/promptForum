@@ -58,6 +58,7 @@
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <async-supported>true</async-supported>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>utf-8</param-value>
@@ -79,6 +80,7 @@
     <filter>
         <filter-name>commonAuthority</filter-name>
         <filter-class>com.swordForum.filters.AuthorityFilter</filter-class>
+        <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
         <filter-name>commonAuthority</filter-name>
@@ -95,6 +97,16 @@
     <filter-mapping>
         <filter-name>commonAuthority</filter-name>
         <url-pattern>/concern/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>adminAuthority</filter-name>
+        <filter-class>com.swordForum.filters.AdminAuthorityFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>adminAuthority</filter-name>
+        <url-pattern>/manage/*</url-pattern>
     </filter-mapping>
 
     <servlet>

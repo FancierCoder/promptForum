@@ -8,4 +8,4 @@
 <%--项目路径 --%>
 <c:set var="path" value="${ctxPath}"/>
 <%--静态文件目录 --%>
-<c:set var="staticPath" value="${ctxPath}"/>
+<c:set var="staticPath" value=""/>

@@ -145,11 +145,11 @@
     $('#sendMessage').attr("readonly", true);
     $('#sendbtn').attr('disabled', true);
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://39.106.197.163/chatouser");
+        websocket = new WebSocket("ws://39.106.197.163:8080${ctxPath}/chattouser");
     } else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://39.106.197.163/chatouser");
+        websocket = new MozWebSocket("ws://39.106.197.163:8080${ctxPath}/chattouser");
     } else {
-        websocket = new SockJS("http://39.106.197.163/sockjs/chattouser");
+        websocket = new SockJS("http://39.106.197.163:8080${ctxPath}/sockjs/chattouser");
     }
     websocket.onopen = function (evnt) {
 
@@ -160,7 +160,7 @@
         var somecount = data.someonecount;
         var message = data.message;
 
-        if (unreadlist != null && unreadlist.length != 0) {
+        if (unreadlist != null && unreadlist.length !== 0) {
             for (var i = 0; i < unreadlist.length; i++) {
                 var element = unreadlist[i];
                 $('div[uid=' + element.uid + ']').children(':first').html(element.count);
@@ -173,7 +173,7 @@
             var img = $('#title').children("img").attr("src");
             var nickname = $('#title').children("span").text();
             var hesend = '<div class="chat-message" > ' +
-                '<img class="hismessage-avatar img-circle" src="${staticPath}/' + img + '" alt=""> ' +
+                '<img class="hismessage-avatar img-circle" src="' + img + '" alt=""> ' +
                 '<div class="hismessage"> <a class="message-author" >' + nickname +
                 '</a> ' +
                 '<span class="hismessage-date"> ' + dateFormatter(new Date()) +
@@ -191,7 +191,7 @@
         var nickname = $(obj).text();
         $('#title').children("img").attr("src", img);
         $('#title').children('span').html(nickname);
-        if (uid == -1) {
+        if (uid === -1) {
             $('#sendMessage').val("");
             $('#sendMessage').attr("readonly", true);
             $('#sendbtn').attr('disabled', true);
@@ -210,7 +210,7 @@
                     $('#discussion').html("");
                     for (var i = 0; i < data.length; i++) {
                         var discussiondiv = $('#discussion');
-                        if (data[i].sifromuid ==${sessionScope.user.uid}) {
+                        if (data[i].sifromuid ===${sessionScope.user.uid}) {
                             var isend = '<div class="chat-message"> ' +
                                 '<img class="mymessage-avatar " src="${staticPath}/img/${sessionScope.user.headimg}" alt=""> ' +
                                 '<div class="mymessage"> ' +
@@ -222,7 +222,7 @@
                             discussiondiv.append(isend);
                             $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
                         } else {
-                            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="${staticPath}/' + img +
+                            var hesend = '<div class="chat-message" > <img class="hismessage-avatar img-circle" src="' + img +
                                 '" alt=""> ' +
                                 '<div class="hismessage"> <a class="message-author" >' + nickname +
                                 '</a> ' +
@@ -263,17 +263,18 @@
     }
 
     $('#sendMessage').keydown(function (e) {
-        if (e.ctrlKey && e.which == 13) {
+        if (e.ctrlKey && e.which === 13) {
             send();
         }
-    })
+    });
+
     $('#sendbtn').on('click', function () {
         send();
-    })
+    });
 
     function send() {
         var text = $('#sendMessage').val().trim();
-        if (text == '') {
+        if (text === '') {
             alert("不能为空");
         } else {
             var data = {};

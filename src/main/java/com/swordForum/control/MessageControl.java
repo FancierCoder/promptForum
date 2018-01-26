@@ -9,6 +9,8 @@ import com.swordForum.mapper.*;
 import com.swordForum.model.*;
 import com.swordForum.model.VO.AddFriendVo;
 import com.swordForum.model.VO.UnreadComm;
+import com.swordForum.util.MD5Util;
+import com.swordForum.util.R;
 import com.swordForum.websocket.SixinHandler;
 import com.swordForum.websocket.SystemWebSocketHandler;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -45,6 +49,8 @@ public class MessageControl {
     private SystemWebSocketHandler webSocketHandler;
     @Resource
     private CommentMapper commentMapper;
+    @Resource
+    private ManageMapper manageMapper;
 
     @RequestMapping("/tosixin")
     public String toSixin(HttpServletRequest request, Map<String, Object> map) {
@@ -296,6 +302,40 @@ public class MessageControl {
                 return "manage";
         } catch (Exception e) {
             return "redirect:/login2.html";
+        }
+    }
+
+    /**
+     * 登录到后台
+     **/
+    @RequestMapping("/mloginback")
+    @ResponseBody
+    public R loginback(@RequestParam String username,
+                       @RequestParam String password,
+                       @RequestParam String verCode,
+                       HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String kaptcha;
+        try {
+            kaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (kaptcha == null) {
+                return R.error("verCode_invalidate");
+            }
+            request.getSession(false).removeAttribute(Constants.KAPTCHA_SESSION_KEY);
+        } catch (Exception e) {
+            return R.error("verCode_date");
+        }
+        if (!verCode.equalsIgnoreCase(kaptcha)) {
+            return R.error("verCode_err");
+        }
+        Manage manage = new Manage();
+        manage.setMname(username);
+        manage.setMpassword(MD5Util.EncoderByMd5(password));
+        Manage me = manageMapper.selectOne(manage);
+        if (me == null) {
+            return R.error("err");
+        } else {
+            request.getSession(false).setAttribute("admin", me);
+            return R.ok("/manage");
         }
     }
 

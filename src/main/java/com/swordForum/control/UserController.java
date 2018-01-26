@@ -170,7 +170,7 @@ public class UserController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/Index";
+        return "redirect:/index.jsp";
     }
 
     @RequestMapping("/showmyplace")

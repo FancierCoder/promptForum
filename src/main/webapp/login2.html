@@ -36,7 +36,8 @@
                     <input type="text" class="form-control uname" placeholder="用户名" id="username" name="username"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control pword m-b" placeholder="密码" id="password" name="password"/>
+                    <input type="password" autocomplete="new-password" class="form-control pword m-b" placeholder="密码"
+                           id="password" name="password"/>
                 </div>
                 <div class="form-group">
                     <input type="text" id="verCode" name="verCode" class="form-control" placeholder="验证码">
@@ -100,7 +101,7 @@
             var verCode = $("#verCode").val().trim();
             $.ajax({
                 type: "POST",
-                url: "/manage/mloginback",
+                url: "/mloginback",
                 cache: false,
                 data: {username: username, password: password, verCode: verCode},
                 dataType: "json",

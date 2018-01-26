@@ -146,7 +146,15 @@ public class SixinHandler implements WebSocketHandler {
      * @param message
      */
     public void sendMessageToUsers(TextMessage message) {
-
+//        for (WebSocketSession user : users) {
+//            try {
+//                if (user.isOpen()) {
+//                    user.sendMessage(message);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     /**
