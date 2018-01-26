@@ -34,7 +34,7 @@ public class SixinHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
         //查询有多少未读记录 数字显示在在线列表好友后面
-        Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
+        Long uid = (Long) webSocketSession.getAttributes().get("socketUid");
         if (chatusers.get(uid) == null) {
             chatusers.put(uid, webSocketSession);
             who_To_who.put(uid, 0L);   //表示打开这个页面
@@ -50,7 +50,7 @@ public class SixinHandler implements WebSocketHandler {
         if (webSocketMessage.getPayloadLength() == 0) return;
         Sixin sixin = JSON.parseObject(webSocketMessage.getPayload().toString(), Sixin.class);
         sixin.setTime(new Date());
-        Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
+        Long uid = (Long) webSocketSession.getAttributes().get("socketUid");
         Long hisuid = sixin.getSitouid();
         sixin.setSifromuid(uid);
         if (!MessageControl.isFriend(hisuid, uid, friendMapper)) {
@@ -95,7 +95,7 @@ public class SixinHandler implements WebSocketHandler {
 
     @Override
     public void handleTransportError(WebSocketSession webSocketSession, Throwable throwable) throws Exception {
-        Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
+        Long uid = (Long) webSocketSession.getAttributes().get("socketUid");
         if (who_To_who.get(uid) != null) {
             who_To_who.remove(uid);
         }
@@ -110,7 +110,7 @@ public class SixinHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-        Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
+        Long uid = (Long) webSocketSession.getAttributes().get("socketUid");
         if (who_To_who.get(uid) != null) {
             who_To_who.remove(uid);
         }

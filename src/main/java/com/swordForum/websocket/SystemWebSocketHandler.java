@@ -30,7 +30,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     private AddfriendMapper addfriendMapper;
 
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        Long uid = (Long) webSocketSession.getAttributes().get("socketuid");
+        Long uid = (Long) webSocketSession.getAttributes().get("socketUid");
         if (users.get(uid) == null) {
             users.put(uid, webSocketSession);
             if (uid != null) {

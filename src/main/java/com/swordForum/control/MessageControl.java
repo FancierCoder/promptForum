@@ -111,11 +111,7 @@ public class MessageControl {
         friendWhere.setTouid(meid);
         int j = friendMapper.selectCount(friendEntityWrapper);
 
-        if ((i + j) != 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (i + j) != 0;
     }
 
     /**

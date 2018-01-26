@@ -11,22 +11,30 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * 存放的是'socketuid'用户id
+ * 存放的是'socketUid'用户id
  */
 public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
-    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
+    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Map<String, Object> map) {
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest serverRequest = (ServletServerHttpRequest) request;
             HttpSession session = serverRequest.getServletRequest().getSession(false);
             if (session != null) {
-                User user = (User) session.getAttribute("user");
+                User user = null;
+                try {
+                    user = (User) session.getAttribute("user");
+                } catch (Exception e) {
+                    System.out.println("beforeHandshake---未登录");
+                }
                 if (user != null) {
-                    if (map.get("socketuid") == null) {
-                        map.put("socketuid", user.getUid());
+//                    if (map.get("socketUid") == null) {
+                    map.put("socketUid", user.getUid());
                         return true;
-                    } else {
-                        return true;
-                    }
+                    //                   } else {
+                    //                       return true;
+//                    }
+                } else {
+                    map.put("socketUid", -1L);
+                    return true;
                 }
             } else {
                 return false;
