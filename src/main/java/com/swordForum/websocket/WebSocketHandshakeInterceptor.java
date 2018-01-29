@@ -28,7 +28,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
                 if (user != null) {
 //                    if (map.get("socketUid") == null) {
                     map.put("socketUid", user.getUid());
-                        return true;
+                    return true;
                     //                   } else {
                     //                       return true;
 //                    }
