@@ -42,22 +42,22 @@
                     <div class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2  col-md-2 control-label ">标题：</label>
-                            <div class="col-sm-10 col-md-7">
+                            <div class="col-sm-10 col-md-8">
                                 <input type="text" class="form-control" id="topic">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 col-md-2 control-label">所属版块：</label>
 
-                            <div class="col-sm-10 col-md-7">
+                            <div class="col-sm-10 col-md-8">
                                 <select class="form-control m-b" id="section">
 
                                 </select>
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-sm-2 col-md-2  control-label">内容：</label>
-                            <div class="col-sm-10 col-md-7 ">
+                            <label class="col-sm-2 col-md-2 control-label">内容：</label>
+                            <div class="col-sm-10 col-md-8">
                                 <div class="ibox float-e-margins">
                                     <div class="row">
                                         <div class="ibox-title col-sm-12">
@@ -71,8 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="ibox-content" id="eg">
-                                        <div class="click2edit wrapper" id="content"><h3>你好 </h3>
-                                            <p>这里写你的文章</p></div>
+                                        <div class="click2edit wrapper" id="content"><h3>你好 </h3><p>这里写你的文章</p></div>
                                     </div>
                                 </div>
                                 <div>
@@ -161,7 +160,6 @@
             maxHeight: null,
             focus: true
         });
-        $(".click2edit").summernote('code', '');
     };
     var save = function () {
         $("#eg").removeClass("no-padding");
