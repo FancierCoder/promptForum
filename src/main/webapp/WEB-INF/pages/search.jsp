@@ -164,10 +164,12 @@
 </div>
 
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery.min.js"></script>
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js"></script>
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js"></script>
+<link href="${staticPath}/css/pace-theme-center-simple.tmpl.css" rel="stylesheet">
+<script src="${staticPath}/js/plugins/pace/pace.js"></script>
 </body>
 
 </html>

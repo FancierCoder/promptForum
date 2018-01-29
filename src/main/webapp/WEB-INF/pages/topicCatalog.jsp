@@ -115,6 +115,8 @@
 </body>
 <script src="${staticPath}/js/jquery.min.js"></script>
 <script src="${staticPath}/js/plugins/layer/layui.js"></script>
+<link href="${staticPath}/css/pace-theme-center-simple.tmpl.css" rel="stylesheet">
+<script src="${staticPath}/js/plugins/pace/pace.js"></script>
 <script src="${staticPath}/js/plugins/layer/laypage/laypage.js"></script>
 <script type="text/javascript">
     laypage({

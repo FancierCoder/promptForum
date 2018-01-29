@@ -9,7 +9,7 @@
 <link href="${staticPath}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
 <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 <link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
-<link href="${staticPath}/css/plugins/metisMenu/metisMenu.css">
+<link href="${staticPath}/css/plugins/metisMenu/metisMenu.css" rel="stylesheet">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
 

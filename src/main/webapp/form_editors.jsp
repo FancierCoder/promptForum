@@ -98,7 +98,8 @@
 
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js"></script>
-
+<link href="${staticPath}/css/pace-theme-center-simple.tmpl.css" rel="stylesheet">
+<script src="${staticPath}/js/plugins/pace/pace.js"></script>
 <!-- SUMMERNOTE -->
 <link href="${staticPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
 <link href="${staticPath}/css/plugins/summernote/normalize.css" rel="stylesheet">

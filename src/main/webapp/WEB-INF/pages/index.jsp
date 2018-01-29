@@ -23,7 +23,8 @@
     <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
     <link href="${staticPath}/css/style.css" rel="stylesheet">
-    <link href="${staticPath}/css/plugins/metisMenu/metisMenu.css">
+    <link href="${staticPath}/css/plugins/metisMenu/metisMenu.css" rel="stylesheet">
+    <link href="${staticPath}/css/pace-theme-center-simple.tmpl.css" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg " style="overflow:hidden">

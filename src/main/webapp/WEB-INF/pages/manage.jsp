@@ -19,9 +19,9 @@
 
     <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
     <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
-    <link href="${staticPath}/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
-    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
     <link href="${staticPath}/css/plugins/metisMenu/metisMenu.css">
 </head>
 
@@ -172,6 +172,7 @@
 <script type="text/javascript" src="${staticPath}/js/index.js"></script>
 
 <!-- 第三方插件 -->
+<link href="${staticPath}/css/pace-theme-center-simple.tmpl.css" rel="stylesheet">
 <script src="${staticPath}/js/plugins/pace/pace.js"></script>
 <script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
 </body>
