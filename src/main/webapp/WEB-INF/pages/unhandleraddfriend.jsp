@@ -16,8 +16,10 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
-
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 </head>
 
 <body class="gray-bg">
@@ -99,7 +101,11 @@
         </div>
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery.min.js"></script>
+<script src="${staticPath}/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
 <script>
     function finish(touid, obj) {
         $.ajax({

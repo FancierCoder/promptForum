@@ -3,8 +3,12 @@
 <html>
 <head>
     <title>更换头像</title>
-    <%@ include file="common/commons.jsp" %>
-
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
+    <link href="${staticPath}/css/plugins/cropper/cropper.css" rel="stylesheet">
 </head>
 <body bgcolor="#ebf6e9" style="height: 500px">
 <div class="ibox-content">
@@ -37,7 +41,12 @@
         </div>
     </div>
 </div>
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
+<!-- Image cropper -->
+<script src="${staticPath}/js/plugins/cropper/cropper.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $(".image-crop > img").attr({'src': $("#myheadimg", parent.document).attr('src')});
