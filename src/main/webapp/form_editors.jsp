@@ -14,12 +14,10 @@
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
-    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
-    <link href="${staticPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="${staticPath}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
-    <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -39,10 +37,7 @@
                         Summernote是一个简单的基于Bootstrap的WYSIWYG富文本编辑器
                     </p>
 
-                    <div class="alert alert-warning">
-                        官方文档请参考：
-                        <a href="http://hackerwins.github.io/summernote/features.html#api">http://hackerwins.github.io/summernote/features.html#api</a>
-                    </div>
+
 
                     <div class="form-horizontal">
                         <div class="form-group">
@@ -76,10 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="ibox-content" id="eg">
-                                        <div class="click2edit wrapper" id="content">
-                                            <h3>你好 </h3>
-                                            <p>这里写你的文章</p>
-                                        </div>
+                                        <div class="click2edit wrapper" id="content"><h3>你好 </h3>
+                                            <p>这里写你的文章</p></div>
                                     </div>
                                 </div>
                                 <div>
@@ -99,15 +92,17 @@
 </div>
 
 <!-- 全局js -->
-<script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
-<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
 
 <!-- 自定义js -->
-<script src="${staticPath}/js/content.js?v=1.0.0"></script>
+<script src="${staticPath}/js/content.js"></script>
 
 <!-- SUMMERNOTE -->
-<script src="${staticPath}/js/plugins/summernote/summernote.min.js"></script>
+<link href="${staticPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="${staticPath}/css/plugins/summernote/normalize.css" rel="stylesheet">
+<script src="${staticPath}/js/plugins/summernote/summernote.js"></script>
 <script src="${staticPath}/js/plugins/summernote/summernote-zh-CN.js"></script>
 
 <script>
@@ -124,9 +119,9 @@
         }
     });
     $(document).ready(function () {
-        $('.summernote').summernote({
-            lang: 'zh-CN'
-        });
+        // $('.summernote').summernote({
+        //     lang: 'zh-CN'
+        // });
         $.ajax({
             url: '${staticPath}/section/getSection',
             cache: false,
@@ -160,18 +155,23 @@
         $("#eg").addClass("no-padding");
         $('.click2edit').summernote({
             lang: 'zh-CN',
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,
             focus: true
         });
+        $(".click2edit").summernote('code', '');
     };
     var save = function () {
         $("#eg").removeClass("no-padding");
-        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-        $('.click2edit').destroy();
+        var aHTML = $('.click2edit').summernote('code'); //save HTML If you need(aHTML: array).
+        $('.click2edit').summernote('destroy');
     };
     var submitMyTopic = function () {
-        var content = $('#content').code();
+        var isEmpty = $(".click2edit").summernote('isEmpty');
+        var content = $('#content').summernote('code');
         var topic = $('#topic').val().trim();
-        if (topic == null || topic === '') {
+        if (isEmpty) {
             layer.tips("不能为空", $('#topic'));
             return false;
         } else if (content == null || content === '') {

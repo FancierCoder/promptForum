@@ -9,6 +9,7 @@
 <link href="${staticPath}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
 <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 <link rel="stylesheet" href="${staticPath}/js/plugins/qqface/css/qqFace.css">
+<link href="${staticPath}/css/plugins/metisMenu/metisMenu.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="${staticPath}/css/plugins/bootstrap-table/bootstrap-table.min.css">
 
@@ -17,9 +18,9 @@
 <script src="${staticPath}/js/jquery-migrate-1.4.1.js"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-<script src="${staticPath}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
+<script src="${staticPath}/js/plugins/metisMenu/metisMenu.js"></script>
+<script src="${staticPath}/js/plugins/slimscroll/jquery.slimscroll.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
 <script src="${staticPath}/js/plugins/layer/laypage/laypage.js"></script>
 <script src="${staticPath}/js/plugins/layer/layui.js"></script>
 <script src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
@@ -39,5 +40,5 @@
 <!-- Image cropper -->
 <script src="${staticPath}/js/plugins/cropper/cropper.min.js"></script>
 <!-- 第三方插件 -->
-<script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
+<script src="${staticPath}/js/plugins/pace/pace.js"></script>
 <script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>

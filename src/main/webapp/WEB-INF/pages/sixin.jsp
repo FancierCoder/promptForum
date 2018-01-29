@@ -117,7 +117,7 @@
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js"></script>
 <!-- 第三方插件 -->
-<script src="${staticPath}/js/plugins/pace/pace.min.js"></script>
+<script src="${staticPath}/js/plugins/pace/pace.js"></script>
 <script src="${staticPath}/js/plugins/sockjs/sockjs.min.js"></script>
 <script src="${staticPath}/js/plugins/qqface/jquery.qqFace.js"></script>
 <link href="${staticPath}/js/plugins/qqface/css/qqFace.css" rel="stylesheet">
