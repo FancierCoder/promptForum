@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.CommentMapper">
+<mapper namespace="xyz.forum.mapper.CommentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.Comment">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.Comment">
         <id column="cid" property="cid"/>
         <result column="ctid" property="ctid"/>
         <result column="cuid" property="cuid"/>
@@ -22,7 +22,7 @@
         cid, ctid, cuid, ctime, content, rootcid, parentuid, czan, isread, parentcid, isshow
     </sql>
 
-    <resultMap id="unreadComm" type="com.swordForum.model.VO.UnreadComm">
+    <resultMap id="unreadComm" type="xyz.forum.model.VO.UnreadComm">
         <id property="cid" column="cid"/>
         <result property="cuid" column="cuid"/>
         <result property="unickname" column="unickname"/>
@@ -35,7 +35,7 @@
 
 
     <!--查询根评论下非直接评论-->
-    <select id="selectNdirect" resultType="com.swordForum.model.Comment" parameterType="java.util.Map">
+    <select id="selectNdirect" resultType="xyz.forum.model.Comment" parameterType="java.util.Map">
         select * from comment where ctid=#{ctid} and rootcid=#{rootcid} and parentuid != 0 AND isshow = 1;
     </select>
     <select id="unreadCount" parameterType="long" resultType="java.lang.Integer">

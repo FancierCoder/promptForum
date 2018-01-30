@@ -14,8 +14,8 @@
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
-    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
 
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
     <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
@@ -24,12 +24,14 @@
 
 <body class="gray-bg">
 <div class="row  border-bottom white-bg dashboard-header">
-    <div class="col-sm-12"><p>ECharts开源来自百度商业前端数据可视化团队，基于html5
+    <!--<div class="col-sm-12"><p>ECharts开源来自百度商业前端数据可视化团队，基于html5
         Canvas，是一个纯Javascript图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。创新的拖拽重计算、数据视图、值域漫游等特性大大增强了用户体验，赋予了用户对数据进行挖掘、整合的能力。 <a
                 href="http://echarts.baidu.com/doc/about.html" target="_blank">了解更多</a></p>
         <p>ECharts官网：<a href="http://echarts.baidu.com/" target="_blank">http://echarts.baidu.com/</a></p>
+    </div>-->
+    <div class="col-md-6">
+        <h2>论坛概况</h2>
     </div>
-
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -148,16 +150,11 @@
 </div>
 <!-- 全局js -->
 <script src="${staticPath}/js/jquery-1.12.4.js"></script>
-<script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
-
-
+<script src="${staticPath}/js/bootstrap.js"></script>
 <!-- ECharts -->
-<script src="${staticPath}/js/plugins/echarts/echarts-all.js"></script>
-
+<script src="${staticPath}/js/plugins/echarts/echarts.js"></script>
 <!-- 自定义js -->
 <script src="${staticPath}/js/content.js?v=1.0.0"></script>
-
-
 <script type="text/javascript">
 
     var a = echarts.init(document.getElementById("topic-line-chart"));

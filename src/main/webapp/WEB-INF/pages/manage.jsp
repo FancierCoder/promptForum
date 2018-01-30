@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title> 仗剑论坛后台- 主页</title>
+    <title> ${forumName}后台 - 主页</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">

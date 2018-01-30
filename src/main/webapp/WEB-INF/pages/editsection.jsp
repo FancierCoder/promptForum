@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="${staticPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
     <link href="${staticPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="${staticPath}/css/animate.css" rel="stylesheet">
     <link href="${staticPath}/css/style.css?v=4.1.0" rel="stylesheet">
@@ -68,7 +68,7 @@
 <script src="${staticPath}/js/jquery.min.js?v=2.1.4"></script>
 <script src="${staticPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <!--layer插件-->
-<script src="${staticPath}/js/plugins/layer/layer.min.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
 <!-- layerDate plugin javascript -->
 <script src="${staticPath}/js/plugins/layer/laydate/laydate.js"></script>
 

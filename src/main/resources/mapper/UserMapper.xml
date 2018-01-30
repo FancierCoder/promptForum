@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.UserMapper">
+<mapper namespace="xyz.forum.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.User">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.User">
         <id column="uid" property="uid"/>
         <result column="uemail" property="uemail"/>
         <result column="upassword" property="upassword"/>
@@ -25,7 +25,7 @@
     <select id="selectNicknameByUid" resultType="java.lang.String">
         SELECT unickname FROM user WHERE uid = #{uid}
     </select>
-    <select id="selectEmailAndNickAndHeadByUid" resultType="com.swordForum.model.User">
+    <select id="selectEmailAndNickAndHeadByUid" resultType="xyz.forum.model.User">
         SELECT uemail, unickname, headimg FROM USER WHERE uid = #{uid}
     </select>
 

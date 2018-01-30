@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.SectionMapper">
+<mapper namespace="xyz.forum.mapper.SectionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.Section">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.Section">
         <id column="sid" property="sid"/>
         <result column="sname" property="sname"/>
         <result column="smasterid" property="smasterid"/>

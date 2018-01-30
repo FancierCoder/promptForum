@@ -6,7 +6,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <context:component-scan base-package="com.swordForum">
+    <context:component-scan base-package="xyz.forum">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!--引入JDBC配置文件-->
@@ -52,7 +52,7 @@
         <!-- 配置Mybatis配置文件 -->
         <!--<property name="configLocation" value="classpath:config/mapper-config.xml" />-->
         <!-- 配置别名包路径 -->
-        <property name="typeAliasesPackage" value="com.swordForum.model"/>
+        <property name="typeAliasesPackage" value="xyz.forum.model"/>
         <!-- 配置Mapper扫描路径（IDEA系列编辑器需要特别注意，因为IDEA的设置问题，src中的xml文件是不会被编译的，如果放在src中可能会报错，解决办法详见 常用问题-Invalid bound statement (not found) 错误如何解决?） -->
         <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
 
@@ -80,7 +80,7 @@
     </bean>
     <!-- 配置Mapper扫描路径 -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.swordForum.mapper"/>
+        <property name="basePackage" value="xyz.forum.mapper"/>
     </bean>
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"
@@ -96,7 +96,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="txPointcut" expression="execution(* com.swordForum.service.*.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* xyz.forum.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 

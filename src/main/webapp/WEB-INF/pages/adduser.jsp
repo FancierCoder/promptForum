@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@ include file="../../common/base.jsp" %>
 
 <html>
 <head>
@@ -10,16 +7,16 @@
     <title> 增加用户</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
-    <link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctx}/css/font-awesome.css" rel="stylesheet">
-    <link href="${ctx}/css/animate.css" rel="stylesheet">
-    <link href="${ctx}/css/style.css" rel="stylesheet">
-    <script type="text/javascript" src="${ctx}/js/jquery.min.js"></script>
-    <script type="text/javascript" src="${ctx}/js/bootstrap.min.js"></script>
+    <link href="${staticPath}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="${staticPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${staticPath}/js/bootstrap.js"></script>
     <!--layer插件-->
-    <script src="${ctx}/js/plugins/layer/layer.min.js"></script>
+    <script src="${staticPath}/js/plugins/layer/layer.js"></script>
     <!-- layerDate plugin javascript -->
-    <script src="${ctx}/js/plugins/layer/laydate/laydate.js"></script>
+    <script src="${staticPath}/js/plugins/layer/laydate/laydate.js"></script>
 
 </head>
 <body class="gray-bg animated bounceInLeft">

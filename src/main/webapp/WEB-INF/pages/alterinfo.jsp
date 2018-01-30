@@ -12,7 +12,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -96,8 +100,19 @@
 
     </div>
 </div>
-
-
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
+<!-- layerDate plugin javascript -->
+<script src="${staticPath}/js/plugins/layer/laydate/laydate.js"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<!--layer插件-->
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
+<!-- Peity -->
+<script src="${staticPath}/js/demo/peity-demo.js"></script>
 <script type="text/javascript">
     //日期范围限制
     var start = {

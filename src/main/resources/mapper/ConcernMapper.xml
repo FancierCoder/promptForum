@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.ConcernMapper">
+<mapper namespace="xyz.forum.mapper.ConcernMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.Concern">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.Concern">
         <id column="conid" property="conid"/>
         <result column="confromuid" property="confromuid"/>
         <result column="contouid" property="contouid"/>
@@ -36,7 +36,7 @@
         </if>
     </select>
 
-    <select id="concernTopic" parameterType="long" resultType="com.swordForum.model.Topic">
+    <select id="concernTopic" parameterType="long" resultType="xyz.forum.model.Topic">
         SELECT *
         FROM
             topic
@@ -73,7 +73,7 @@
 
     </select>
 
-    <resultMap id="convo" type="com.swordForum.model.VO.ConVo">
+    <resultMap id="convo" type="xyz.forum.model.VO.ConVo">
         <id property="conid" column="conid"/>
         <result property="uid" column="uid"/>
         <result property="headimg" column="headimg"/>

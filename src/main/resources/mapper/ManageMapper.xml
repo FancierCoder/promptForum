@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.ManageMapper">
+<mapper namespace="xyz.forum.mapper.ManageMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.Manage">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.Manage">
         <id column="mid" property="mid"/>
         <result column="mname" property="mname"/>
         <result column="mpassword" property="mpassword"/>
@@ -66,7 +66,7 @@
         WHERE DATE_FORMAT(uregtime, '%Y') = #{YEAR}
         GROUP BY xstr
     </select>
-    <resultMap id="chartvo" type="com.swordForum.model.VO.ChartVo">
+    <resultMap id="chartvo" type="xyz.forum.model.VO.ChartVo">
         <result property="xstr" column="xstr"></result>
         <result property="ynum" column="ynum"></result>
     </resultMap>
@@ -86,7 +86,7 @@
 
     </select>
 
-    <resultMap id="mantopic" type="com.swordForum.model.VO.ManTopic">
+    <resultMap id="mantopic" type="xyz.forum.model.VO.ManTopic">
         <id property="tid" column="tid"/>
         <result property="tsid" column="tsid"/>
         <result property="tuid" column="tuid"/>

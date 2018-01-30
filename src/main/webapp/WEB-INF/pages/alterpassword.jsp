@@ -9,7 +9,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -61,6 +65,12 @@
     </div>
 </div>
 </body>
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
 <script type="text/javascript">
     function getyzm(obj) {
         $('#yzm').removeAttr('readonly');
@@ -73,7 +83,7 @@
         var text = $(obj).text();
         setInterval(function () {
             $(obj).text(text + "(" + time + ")");
-            if (time == 0) {
+            if (time === 0) {
                 $(obj).removeAttr("disabled");
                 $(obj).text(text);
                 return;
@@ -99,11 +109,11 @@
             type: "post",
             data: {beginp: password1, endp: password2, yzm: yzm},
             success: function (data) {
-                if (data == 'errpassword') {
+                if (data === 'errpassword') {
                     layer.tips("密码输入不正确", $('#password1'));
-                } else if (data == 'erryzm') {
+                } else if (data === 'erryzm') {
                     layer.tips("验证码错误", $('#yzm'));
-                } else if (data == 'success') {
+                } else if (data === 'success') {
                     layer.msg("修改成功，下次登录请使用新密码");
                 }
             }

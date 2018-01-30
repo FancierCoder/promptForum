@@ -9,7 +9,11 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <%@ include file="../../common/commons.jsp" %>
+    <link rel="shortcut icon" href="${staticPath}/img/favicon.ico">
+    <link href="${staticPath}/css/bootstrap.css" rel="stylesheet">
+    <link href="${staticPath}/css/font-awesome.css" rel="stylesheet">
+    <link href="${staticPath}/css/animate.css" rel="stylesheet">
+    <link href="${staticPath}/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -61,10 +65,16 @@
     </div>
 </div>
 </body>
+<!-- 全局js -->
+<script src="${staticPath}/js/jquery-3.2.1.js"></script>
+<script src="${staticPath}/js/bootstrap.js"></script>
+<script src="${staticPath}/js/plugins/layer/layer.js"></script>
+<!-- 自定义js -->
+<script src="${staticPath}/js/content.js"></script>
 <script type="text/javascript">
     function getyzm(obj) {
         var email = $('#email').val().trim();
-        if (email != null && email != '') {
+        if (email != null && email !== '') {
             $('#yzm').removeAttr('readonly');
             $(obj).attr({'disabled': 'disabled'});
             $.ajax({
@@ -72,7 +82,7 @@
                 url: '${staticPath}/user/sendyzm2',
                 data: {email: email},
                 success: function (data) {
-                    if (data == 'erremail')
+                    if (data === 'erremail')
                         layer.msg("账号不存在！请确认！");
                 }
             });
@@ -90,7 +100,7 @@
         var yzm = $('#yzm').val().trim();
         var rpassword = /^[\w]{6,12}$/;
         var remail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-        if (email == null || email == '') {
+        if (email == null || email === '') {
             layer.tips("不能为空", $('#email'));
             return false;
         } else if (!rpassword.test(newpassword)) {
@@ -105,11 +115,11 @@
                 type: "post",
                 data: {email: email, newpassword: newpassword, yzm: yzm},
                 success: function (data) {
-                    if (data == 'erryzm') {
+                    if (data === 'erryzm') {
                         layer.tips("验证码错误", $('#yzm'));
-                    } else if (data == 'unknowerr') {
+                    } else if (data === 'unknowerr') {
                         layer.msg("未知错误！");
-                    } else if (data == 'success') {
+                    } else if (data === 'success') {
                         layer.msg("修改成功，请使用新密码登录");
                         setTimeout(function () {
                             location.href = '${staticPath}/login.html';

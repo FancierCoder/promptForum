@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.swordForum.mapper.TopicMapper">
+<mapper namespace="xyz.forum.mapper.TopicMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.swordForum.model.Topic">
+    <resultMap id="BaseResultMap" type="xyz.forum.model.Topic">
         <id column="tid" property="tid"/>
         <result column="tsid" property="tsid"/>
         <result column="tuid" property="tuid"/>

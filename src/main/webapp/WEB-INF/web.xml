@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <display-name>仗剑论坛</display-name>
+    <display-name>Prompt论坛</display-name>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.html</url-pattern>
@@ -51,7 +51,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
-        <listener-class>com.swordForum.listener.OnlineListener</listener-class>
+        <listener-class>xyz.forum.listener.OnlineListener</listener-class>
     </listener>
 
     <!--过滤器-->
@@ -79,7 +79,7 @@
 
     <filter>
         <filter-name>commonAuthority</filter-name>
-        <filter-class>com.swordForum.filters.AuthorityFilter</filter-class>
+        <filter-class>xyz.forum.filters.AuthorityFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
@@ -101,7 +101,7 @@
 
     <filter>
         <filter-name>adminAuthority</filter-name>
-        <filter-class>com.swordForum.filters.AdminAuthorityFilter</filter-class>
+        <filter-class>xyz.forum.filters.AdminAuthorityFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
