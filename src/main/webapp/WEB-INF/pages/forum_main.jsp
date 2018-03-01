@@ -30,7 +30,7 @@
                             <div class="pull-left m-r-md">
                                 <i class="fa fa-globe text-navy mid-icon"></i>
                             </div>
-                            <h2>欢迎来到仗剑论坛</h2>
+                            <h2>欢迎来到Prompt论坛</h2>
                             <span>你可以自由选择你感兴趣的话题。</span>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                 $("span[id$='reply_num']").each(function (index, element) {
                     $(element).html(data.b[index]);
                 });
-                console.log("欢迎来到仗剑论坛^-^");
+                console.log("欢迎来到Prompt论坛^-^");
             },
             err: function (XMLHttpRequest, textStatus, errThrown) {
                 alert("ajax请求失败");

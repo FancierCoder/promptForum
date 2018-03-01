@@ -410,7 +410,7 @@ public class UserController {
         String yzm = RandomUtil.getyzm(4);
         String content = "<h2>您的验证码为：</h2><font color='red'>" + yzm + "</font><br/>(不区分大小写)--修改密码<br/>" +
                 "请勿告诉他人！(如果不是您操作不要理会！)";
-        mailUtil.sendSimpleMail(uemail, "仗剑论坛-SwordForum", content.trim());
+        mailUtil.sendSimpleMail(uemail, "Prompt论坛-PromptForum", content.trim());
         //存放到application,当验证完清除
         request.getSession(false).getServletContext().setAttribute(uemail, yzm);
     }
@@ -473,7 +473,7 @@ public class UserController {
         } else {
             MailUtil mailUtil = new MailUtil();
             String yzm = RandomUtil.getyzm(6);
-            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum",
+            mailUtil.sendSimpleMail(email, "Prompt论坛-PromptForum",
                     "<h2>您的验证码为：</h2><font color='red'>" + yzm + "</font><br/>(不区分大小写)---重置您的密码<br/>" +
                             "请勿告诉他人！(如果不是您操作不要理会！)");
             request.getSession(false).getServletContext().setAttribute(email, yzm);
@@ -632,7 +632,7 @@ public class UserController {
                             Sixin sixin = new Sixin();
                             sixin.setSifromuid(-1L);
                             sixin.setSitouid(newUser.getUid());
-                            sixin.setContent("<p style='color:grern'>欢迎使用仗剑论坛，有你的世界更精彩!" +
+                            sixin.setContent("<p style='color:grern'>欢迎使用Prompt论坛，有你的世界更精彩!" +
                                     "<br/>  <small> 站长：李铎</small>" +
                                     "</p>");
                             sixin.setIsread(0);
@@ -676,7 +676,7 @@ public class UserController {
         } else {
             MailUtil mailUtil = new MailUtil();
             String yzm = RandomUtil.getyzm(6);
-            mailUtil.sendSimpleMail(email, "仗剑论坛-SwordForum",
+            mailUtil.sendSimpleMail(email, "Prompt论坛-PromptForum",
                     "<h2>您的验证码为：</h2><font color='blue'>" + yzm + "</font><br/>(不区分大小写)---注册账号<br/>" +
                             "请勿告诉他人！(如果不是您操作不要理会！)");
             request.getSession(false).getServletContext().setAttribute(email, yzm);

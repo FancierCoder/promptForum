@@ -39,12 +39,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-globe"></i>
-                                        <strong class="font-bold">仗剑论坛</strong>
+                                        <strong class="font-bold">Prompt论坛</strong>
                                     </span>
                                 </span>
                         </a>
                     </div>
-                    <div class="logo-element">仗剑
+                    <div class="logo-element">Prompt
                     </div>
                 </li>
                 <li>

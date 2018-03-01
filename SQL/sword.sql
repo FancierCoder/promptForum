@@ -546,7 +546,7 @@ INSERT INTO `section` VALUES ('4', 'Python', '1',
 INSERT INTO `section` VALUES ('5', '情感部落', '1', '在这里你可以宣泄一切情感遭遇，可以深情表白，还可以晒情侣幸福合照。情感', '感情的碰撞', '28', '1', '情感');
 INSERT INTO `section` VALUES ('6', '真情天下', '1', '深夜，安静的角落，听听心里的声音', '天下有真情', '23', '0', '情感');
 INSERT INTO `section` VALUES ('7', '婆媳关系', '1', '复杂的婆媳关系', '婆媳关系', '13', '0', '情感');
-INSERT INTO `section` VALUES ('8', '仗剑杂谈', '1', '本论坛的杂谈', '本论坛的杂谈', '17', '1', '杂谈');
+INSERT INTO `section` VALUES ('8', 'Prompt杂谈', '1', '本论坛的杂谈', '本论坛的杂谈', '17', '1', '杂谈');
 INSERT INTO `section` VALUES ('9', '医疗曝光', '1', '曝光医疗的大事和小事', '医疗的曝光', '16', '0', '杂谈');
 INSERT INTO `section` VALUES ('10', '大话教育', '1', '教育对于一个人的成长很重要', '说说学校与家庭的教育', '16', '1', '杂谈');
 INSERT INTO `section` VALUES ('11', '娱乐八卦', '1', '看看身边乃至娱乐圈的八卦', '我们一起来八卦', '11', '0', '娱乐');
@@ -591,25 +591,25 @@ CREATE TABLE `sixin` (
 -- Records of sixin
 -- ----------------------------
 INSERT INTO `sixin` VALUES
-  ('1', '-1', '2', '<p style=\'color:grern\'>欢迎使用仗剑论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
+  ('1', '-1', '2', '<p style=\'color:grern\'>欢迎使用Prompt论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
    '2017-05-16 09:30:05', '1');
 INSERT INTO `sixin` VALUES
-  ('2', '-1', '3', '<p style=\'color:grern\'>欢迎使用仗剑论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
+  ('2', '-1', '3', '<p style=\'color:grern\'>欢迎使用Prompt论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
    '2017-05-16 09:34:38', '1');
 INSERT INTO `sixin` VALUES ('3', '1', '2', 'sfsdfsdf', '2017-05-16 14:47:06', '1');
 INSERT INTO `sixin` VALUES ('4', '1', '2', 'dasdasf', '2017-05-16 14:47:11', '1');
 INSERT INTO `sixin` VALUES ('5', '1', '2', '855', '2017-05-16 15:19:13', '1');
 INSERT INTO `sixin` VALUES
-  ('6', '-1', '4', '<p style=\'color:grern\'>欢迎使用仗剑论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
+  ('6', '-1', '4', '<p style=\'color:grern\'>欢迎使用Prompt论坛，有你的世界更精彩!<br/>  <small> 站长：李胜助</small></p>',
    '2017-06-06 03:10:54', '1');
 INSERT INTO `sixin` VALUES ('7', '2', '1', '2333', '2017-12-15 13:10:37', '1');
 INSERT INTO `sixin` VALUES ('8', '1', '2', '666', '2017-12-15 13:25:20', '1');
 INSERT INTO `sixin` VALUES ('9', '1', '2', '你是谁？', '2017-12-16 07:49:21', '1');
 INSERT INTO `sixin` VALUES
-  ('10', '-1', '5', '<p style=\'color:grern\'>欢迎使用仗剑论坛，有你的世界更精彩!<br/>  <small> 站长：李铎</small></p>',
+  ('10', '-1', '5', '<p style=\'color:grern\'>欢迎使用Prompt论坛，有你的世界更精彩!<br/>  <small> 站长：李铎</small></p>',
    '2017-12-17 14:27:16', '1');
 INSERT INTO `sixin` VALUES
-  ('11', '-1', '6', '<p style=\'color:grern\'>欢迎使用仗剑论坛，有你的世界更精彩!<br/>  <small> 站长：李铎</small></p>',
+  ('11', '-1', '6', '<p style=\'color:grern\'>欢迎使用Prompt论坛，有你的世界更精彩!<br/>  <small> 站长：李铎</small></p>',
    '2017-12-17 16:01:19', '0');
 INSERT INTO `sixin` VALUES ('12', '5', '1', '233333', '2017-12-25 07:27:36', '1');
 INSERT INTO `sixin` VALUES ('13', '5', '1', '[em_4]', '2017-12-25 07:34:57', '1');
@@ -731,7 +731,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES
   ('1', '1353590529@qq.com', 'DIjVZpTC+zvMQW4SLBBy6w==', '铎哥', '0', '1994-10-16', '3', '120170531201216.png',
-        '仗剑论坛创始人！', '2017-03-06 17:04:24', '0', '390');
+        'Prompt论坛创始人！', '2017-03-06 17:04:24', '0', '390');
 INSERT INTO `user` VALUES
   ('2', '111111@qq.com', 'DIjVZpTC+zvMQW4SLBBy6w==', '测试2', '1', '2008-12-16', '2', 'defaulthead.jpg', '此人很懒，没什么个人说明',
         '2017-05-16 09:30:05', '99', '108');

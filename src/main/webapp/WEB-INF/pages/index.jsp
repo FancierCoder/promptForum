@@ -40,12 +40,12 @@
                             <span class="clear">
                                 <span class="block m-t-xs" style="font-size:20px;">
                                     <i class="fa fa-globe"></i>
-                                    <strong class="font-bold">仗剑论坛</strong>
+                                    <strong class="font-bold">Prompt论坛</strong>
                                 </span>
                             </span>
                         </a>
                     </div>
-                    <div class="logo-element">仗剑</div>
+                    <div class="logo-element">Prompt</div>
                 </li>
                 <li>
                     <a class="" href="${staticPath}/Index" onclick="">
@@ -325,8 +325,8 @@
         layer.open({
             type: 2,
             title: '用户登录',
-            shadeClose: false,
-            shade: false,
+            shadeClose: true,
+            shade: 0.3,
             maxmin: true, //开启最大化最小化按钮
             area: ['600px', '600px'],
             content: '${staticPath}/login.html'
@@ -337,15 +337,13 @@
         var register = layer.open({
             type: 2,
             title: '用户注册',
-            shadeClose: false,
-            shade: false,
+            shadeClose: true,
+            shade: 0.3,
             maxmin: true, //开启最大化最小化按钮
-            area: ['600px', '600px'],
+            area: ['600px', '750px'],
             content: '${staticPath}/register.html'
         });
-        setTimeout(function () {
-            layer.full(register);
-        }, 200);
+
     });
 
     $("#changePass").click(function () {
