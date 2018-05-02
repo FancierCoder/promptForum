@@ -4,7 +4,7 @@
     <groupId>xyz.forum</groupId>
     <artifactId>PromptForum</artifactId>
     <packaging>war</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>PromptForum Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.9</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
@@ -232,7 +232,7 @@
     </dependencies>
     <build>
         <finalName>promptForum</finalName>
-        <!--<plugins>-->
+        <plugins>
         <!--<plugin>-->
         <!--<groupId>org.mybatis.generator</groupId>-->
         <!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
@@ -259,16 +259,17 @@
         <!--</dependencies>-->
         <!--</plugin>-->
 
-        <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-compiler-plugin</artifactId>-->
-        <!--<version>3.5</version>-->
-        <!--<configuration>-->
-        <!--<source>1.8</source>-->
-        <!--<target>1.8</target>-->
-        <!--</configuration>-->
-        <!--</plugin>-->
-        <!--</plugins>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
 
     </build>
 </project>
